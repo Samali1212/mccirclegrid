@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Circle Generator – Pixel Circle Plotter</title>
+    <meta name="description" content="Generate accurate Minecraft block circles with our free pixel circle plotter. Custom radius & diameter, odd/even center modes, PNG & coordinate exports. Mobile touch optimized.">
+
+    <!-- ============================================================
+    CANONICAL URL – Updated to mccirclegrid.com
+    ============================================================ -->
+    <link rel="canonical" href="https://mccirclegrid.com/minecraft-circle-generator/">
+
+    <!-- Optional Google Font with local fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- ============================================================
+    STRUCTURED DATA JSON-LD – Updated domain to mccirclegrid.com
+    ============================================================ -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [{
+                "@type": "WebApplication",
+                "@id": "https://mccirclegrid.com/minecraft-circle-generator/#app",
+                "name": "Minecraft Circle Generator",
+                "alternateName": "Pixel Circle Plotter",
+                "url": "https://mccirclegrid.com/minecraft-circle-generator/",
+                "applicationCategory": "DesignApplication",
+                "operatingSystem": "All",
+                "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
+                "description": "A standalone, precise Minecraft circle generator and pixel circle plotter with world coordinates support, odd and even diameter handling, and PNG blueprint download."
+            }, {
+                "@type": "FAQPage",
+                "mainEntity": [{
+                    "@type": "Question",
+                    "name": "What is the Minecraft Circle Generator?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "The Minecraft Circle Generator is a free pixel circle plotter that converts continuous mathematical curves into a discrete square block grid blueprint with exact coordinates for Minecraft builders."
+                    }
+                }, {
+                    "@type": "Question",
+                    "name": "How do I use the minecraft pixel circle generator mobile tool?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Our minecraft pixel circle generator mobile tool is fully touch-optimized. You can use one-finger drag to pan across large blueprints and two-finger pinch to zoom in or out on any smartphone or tablet screen while building in-game."
+                    }
+                }, {
+                    "@type": "Question",
+                    "name": "How does an even diameter minecraft circle generator work?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "An even diameter minecraft circle generator aligns the mathematical center between four central blocks (a 2x2 group) rather than a single 1x1 block. This creates balanced, even-sided blueprints ideal for double-door entrances and symmetrical castle towers."
+                    }
+                }, {
+                    "@type": "Question",
+                    "name": "How do I use the minecraft circle generator with coordinates?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Using the minecraft circle generator with coordinates is easy: enter your world's X and Z coordinates in the World Center fields. The blueprint automatically translates relative grid cells into exact Minecraft world coordinates that you can view on hover or export as a text file."
+                    }
+                }, {
+                    "@type": "Question",
+                    "name": "How do I get a minecraft circle blueprint png download?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Click the 'Export PNG' button in the action bar. The tool will render a full, high-resolution blueprint image with grid lines, axes, and center markers—independent of your current screen zoom level—and save it directly to your device."
+                    }
+                }, {
+                    "@type": "Question",
+                    "name": "How can I generate a minecraft 21x21 circle chart or blueprint?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Select Diameter mode and enter 21 (or click the 'D21' preset button). The plotter will instantly draw a 21x21 circle chart with a 1x1 center block. You can view the blueprint, copy the text pattern, or export the coordinate list."
+                    }
+                }]
+            }]
+        }
+    </script>
+
+    <style>
+        /* ==========================================================================
+           1. DESIGN SYSTEM & CSS VARIABLES (DEFAULT: DARK MODE)
+           ========================================================================== */
+        :root {
+            --bg-base: #0b0f19;
+            --bg-surface: #111827;
+            --bg-card: #1f2937;
+            --bg-card-hover: #374151;
+
+            --border-color: #374151;
+            --border-focus: #10b981;
+
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --text-dim: #6b7280;
+
+            --accent-primary: #10b981;
+            --accent-hover: #059669;
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --accent-secondary: #06b6d4;
+
+            --block-fill: #10b981;
+            --block-border: #047857;
+            --grid-line: rgba(255, 255, 255, 0.08);
+            --axis-line: rgba(6, 182, 212, 0.6);
+            --center-marker: #ef4444;
+
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', Consolas, Monaco, monospace;
+
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* MANUAL LIGHT MODE CLASS OVERRIDES (DEFAULT STAYS DARK MODE) */
+        body.light-theme {
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-card: #f1f5f9;
+            --bg-card-hover: #e2e8f0;
+
+            --border-color: #cbd5e1;
+            --border-focus: #059669;
+
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-dim: #64748b;
+
+            --block-fill: #10b981;
+            --block-border: #047857;
+            --grid-line: rgba(0, 0, 0, 0.12);
+            --axis-line: rgba(2, 132, 199, 0.7);
+            --center-marker: #ef4444;
+        }
+
+        body.light-theme .header {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-bottom-color: var(--border-color);
+        }
+
+        body.light-theme .logo-title {
+            background: linear-gradient(to right, #0f172a, #475569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        body.light-theme .canvas-wrapper {
+            background-color: #f8fafc;
+        }
+
+        body.light-theme .toggle-group {
+            background-color: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-theme .coordinate-tooltip {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: #047857;
+        }
+
+        body.light-theme .article-card h2,
+        body.light-theme .article-card h3 {
+            color: #0f172a;
+        }
+
+        body.light-theme .article-card p,
+        body.light-theme .article-card li {
+            color: #334155;
+        }
+
+        body.light-theme .note-box {
+            background-color: rgba(6, 182, 212, 0.08);
+            color: #0891b2;
+        }
+
+        body.light-theme .faq-item {
+            background-color: #ffffff;
+            border-color: #cbd5e1;
+        }
+
+        body.light-theme .faq-question {
+            color: #0f172a;
+        }
+
+        body.light-theme .faq-answer {
+            color: #334155;
+        }
+
+        /* RESET & BASE */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent-primary);
+            text-decoration: underline;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+        }
+
+        /* Screen reader utility for accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ==========================================================================
+           2. LAYOUT & NAVIGATION
+           ========================================================================== */
+        .header {
+            background-color: rgba(17, 24, 39, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: var(--radius-sm);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #000;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .logo-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-right-group {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.925rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .theme-toggle-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.4rem 0.75rem;
+            border-radius: var(--radius-md);
+            font-size: 0.825rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--bg-card-hover);
+            border-color: var(--accent-primary);
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* ==========================================================================
+           3. HERO & APP GRID
+           ========================================================================== */
+        .hero {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .hero h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 800px;
+        }
+
+        .app-layout {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        /* ==========================================================================
+           4. CONTROL PANEL (LEFT)
+           ========================================================================== */
+        .panel {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .panel-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .segmented-control {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background-color: var(--bg-card);
+            padding: 3px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .segmented-control button {
+            background: transparent;
+            border: none;
+            padding: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .segmented-control button.active {
+            background-color: var(--accent-primary);
+            color: #000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .number-input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-step {
+            width: 42px;
+            height: 42px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-size: 1.25rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .btn-step:hover {
+            background-color: var(--bg-card-hover);
+            border-color: var(--text-dim);
+        }
+
+        .input-number {
+            flex: 1;
+            height: 42px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+
+        .input-number:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px var(--accent-glow);
+        }
+
+        .range-slider {
+            width: 100%;
+            accent-color: var(--accent-primary);
+            cursor: pointer;
+            height: 6px;
+            background: var(--bg-card);
+            border-radius: 3px;
+        }
+
+        .presets-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.35rem;
+        }
+
+        .preset-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.35rem 0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.15s;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--accent-primary);
+            color: var(--text-main);
+            background-color: var(--bg-card-hover);
+        }
+
+        .preset-btn.active {
+            background-color: var(--accent-primary);
+            color: #000;
+            border-color: var(--accent-primary);
+            font-weight: 800;
+        }
+
+        .select-input {
+            width: 100%;
+            height: 40px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            padding: 0 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .select-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 0.85rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-primary);
+            cursor: pointer;
+        }
+
+        .inline-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        /* Error Notification */
+        .error-banner {
+            background-color: rgba(239, 68, 68, 0.15);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            padding: 0.65rem;
+            border-radius: var(--radius-md);
+            font-size: 0.825rem;
+            display: none;
+        }
+
+        /* ==========================================================================
+           5. BLUEPRINT VIEWPORT & CANVAS (RIGHT)
+           ========================================================================== */
+        .blueprint-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .viewport-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-md);
+        }
+
+        .viewport-header {
+            padding: 0.75rem 1.25rem;
+            background-color: rgba(31, 41, 55, 0.5);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .badge-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .badge {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--accent-secondary);
+        }
+
+        .canvas-toolbar {
+            display: flex;
+            gap: 0.35rem;
+        }
+
+        .tool-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.35rem 0.65rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .tool-btn:hover {
+            background-color: var(--bg-card-hover);
+            border-color: var(--accent-primary);
+        }
+
+        .canvas-wrapper {
+            position: relative;
+            width: 100%;
+            height: 520px;
+            background-color: #070a12;
+            cursor: grab;
+            overflow: hidden;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .canvas-wrapper:active {
+            cursor: grabbing;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .coordinate-tooltip {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background-color: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.75rem;
+            border-radius: var(--radius-md);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ==========================================================================
+           6. STATS & ACTION BAR
+           ========================================================================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .stat-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            color: var(--text-main);
+            margin-top: 0.1rem;
+        }
+
+        .stat-sub {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 0.1rem;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            flex: 1;
+            min-width: 140px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.65rem 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background-color: var(--bg-card-hover);
+            border-color: var(--accent-primary);
+            color: #fff;
+        }
+
+        .btn-action-primary {
+            background-color: var(--accent-primary);
+            color: #000;
+            border-color: var(--accent-primary);
+        }
+
+        .btn-action-primary:hover {
+            background-color: var(--accent-hover);
+            color: #000;
+        }
+
+        /* ==========================================================================
+           7. CONTENT & SEO SECTIONS
+           ========================================================================== */
+        .content-section {
+            margin-top: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2.5rem;
+        }
+
+        .article-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+
+        .article-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .article-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin: 1.25rem 0 0.5rem 0;
+            color: var(--accent-secondary);
+        }
+
+        .article-card p,
+        .article-card li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .article-card ul,
+        .article-card ol {
+            padding-left: 1.5rem;
+        }
+
+        .note-box {
+            background-color: rgba(6, 182, 212, 0.1);
+            border-left: 4px solid var(--accent-secondary);
+            padding: 1rem;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #cff4fc;
+        }
+
+        /* FAQ ACCORDION DROPDOWN STYLING */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .faq-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            transition: border-color 0.2s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent-primary);
+        }
+
+        details summary {
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details summary::after {
+            content: "▼";
+            font-size: 0.75rem;
+            color: var(--accent-secondary);
+            transition: transform 0.2s ease;
+            margin-left: 0.5rem;
+        }
+
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        .faq-question {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .faq-answer {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* ==========================================================================
+           8. FOOTER
+           ========================================================================== */
+        .footer {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 180px;
+        }
+
+        .footer-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0 auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* ==========================================================================
+           9. RESPONSIVE DESIGN
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .app-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .canvas-wrapper {
+                height: 440px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .canvas-wrapper {
+                height: 360px;
+            }
+
+            .preset-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .action-bar {
+                flex-direction: column;
+            }
+
+            .btn-action {
+                width: 100%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* ==========================================================================
+           10. PRINT STYLESHEET
+           ========================================================================== */
+        @media print {
+            body {
+                background: #fff !important;
+                color: #000 !important;
+            }
+
+            .header,
+            .panel,
+            .canvas-toolbar,
+            .action-bar,
+            .content-section,
+            .footer,
+            .coordinate-tooltip {
+                display: none !important;
+            }
+
+            .main-container {
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .app-layout {
+                display: block;
+            }
+
+            .viewport-card {
+                border: 2px solid #000;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .canvas-wrapper {
+                height: 800px;
+                background: #fff !important;
+            }
+
+            .print-header-info {
+                display: block !important;
+                padding: 1rem;
+                border-bottom: 2px solid #000;
+                font-family: var(--font-mono);
+            }
+        }
+
+        .print-header-info {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-group">
+                <div class="logo-icon">■</div>
+                <span class="logo-title">Minecraft Circle Generator</span>
+            </div>
+            <div class="nav-right-group">
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#generator">Generator</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#building-tips">Building Guide</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </nav>
+                <button type="button" id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle light or dark theme">
+                    <span>🌙 Dark</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-container" id="generator">
+
+        <!-- Hero Title -->
+        <section class="hero">
+            <h1>Minecraft Circle Generator</h1>
+            <p>Create accurate block-by-block Minecraft circle blueprints with custom world coordinates, odd & even diameter support, and mobile pinch-zoom. Generate a 21x21 circle chart or download a PNG blueprint instantly.</p>
+        </section>
+
+        <!-- Application Interface -->
+        <div class="app-layout">
+
+            <!-- LEFT CONTROL PANEL -->
+            <aside class="panel">
+                <div class="panel-title">
+                    <span>Circle Controls</span>
+                </div>
+
+                <!-- Error Banner -->
+                <div id="errorBanner" class="error-banner"></div>
+
+                <!-- Input Type Toggle -->
+                <div class="form-group">
+                    <label class="label">Dimension Mode</label>
+                    <div class="segmented-control">
+                        <button type="button" id="modeRadiusBtn" class="active" onclick="setDimensionType('radius')">Radius</button>
+                        <button type="button" id="modeDiameterBtn" onclick="setDimensionType('diameter')">Diameter</button>
+                    </div>
+                </div>
+
+                <!-- Size Input Group -->
+                <div class="form-group">
+                    <label class="label" for="sizeInput">
+                        <span id="sizeInputLabel">Radius Size (Blocks)</span>
+                        <span id="parityBadge" style="font-size:0.75rem; color:var(--accent-secondary); font-family:var(--font-mono);">Odd Diameter</span>
+                    </label>
+                    <div class="number-input-group">
+                        <button type="button" class="btn-step" onclick="stepSize(-1)">−</button>
+                        <input type="number" id="sizeInput" class="input-number" min="1" max="200" value="10" oninput="handleSizeChange(this.value)">
+                        <button type="button" class="btn-step" onclick="stepSize(1)">+</button>
+                    </div>
+                    <input type="range" id="sizeSlider" class="range-slider" min="1" max="200" value="10" oninput="handleSizeChange(this.value)">
+                </div>
+
+                <!-- Quick Presets -->
+                <div class="form-group presets-wrapper">
+                    <label class="label"><span id="presetTitle">Radius Presets</span></label>
+                    <div class="preset-grid" id="presetContainer">
+                        <!-- Dynamic Presets Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Construction Pattern Mode -->
+                <div class="form-group">
+                    <label class="label" for="patternSelect">Blueprint Pattern</label>
+                    <select id="patternSelect" class="select-input" onchange="handlePatternChange(this.value)">
+                        <option value="outline">Outline (Perimeter Wall)</option>
+                        <option value="filled">Filled (Solid Floor / Platform)</option>
+                        <option value="ring">Ring (Thick Wall)</option>
+                    </select>
+                </div>
+
+                <!-- Thickness Input (For Ring Mode) -->
+                <div class="form-group" id="thicknessGroup" style="display: none;">
+                    <label class="label" for="thicknessInput">Radial Wall Thickness (Blocks)</label>
+                    <input type="number" id="thicknessInput" class="input-number" min="1" max="50" value="3" style="text-align: left; padding-left: 0.8rem;" oninput="handleThicknessChange(this.value)">
+                </div>
+
+                <!-- Display Toggles -->
+                <div class="form-group">
+                    <label class="label">Display Options</label>
+                    <div class="toggle-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="chkShowGrid" checked onchange="renderBlueprint()">
+                            <span>Show Block Grid Lines</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="chkShowCenter" checked onchange="renderBlueprint()">
+                            <span>Highlight Center Marker</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="chkShowAxes" checked onchange="renderBlueprint()">
+                            <span>Show Axis Guides (X/Z)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- World Offset Coordinates -->
+                <div class="form-group">
+                    <label class="label">World Center Coordinates (Optional)</label>
+                    <div class="inline-inputs">
+                        <input type="number" id="worldX" class="input-number" placeholder="X = 0" value="0" oninput="handleWorldCoordChange()" style="font-size:0.9rem;">
+                        <input type="number" id="worldZ" class="input-number" placeholder="Z = 0" value="0" oninput="handleWorldCoordChange()" style="font-size:0.9rem;">
+                    </div>
+                    <span style="font-size:0.725rem; color:var(--text-dim); margin-top:0.1rem;">Even diameters have no single center block; World X/Z represents the mathematical center between the four central blocks.</span>
+                </div>
+
+                <!-- Block Type Cosmetic Selection -->
+                <div class="form-group">
+                    <label class="label" for="blockTypeSelect">Material Style (Visual)</label>
+                    <select id="blockTypeSelect" class="select-input" onchange="handleBlockTypeChange(this.value)">
+                        <option value="emerald">Emerald Block (Default)</option>
+                        <option value="stone">Stone / Cobblestone</option>
+                        <option value="brick">Stone Bricks</option>
+                        <option value="deepslate">Deepslate</option>
+                        <option value="wood">Oak Wood / Planks</option>
+                        <option value="gold">Gold / Amber</option>
+                    </select>
+                </div>
+
+            </aside>
+
+            <!-- RIGHT BLUEPRINT VIEWPORT & STATS -->
+            <section class="blueprint-container">
+
+                <!-- Canvas Card -->
+                <div class="viewport-card">
+
+                    <!-- Header inside print view -->
+                    <div class="print-header-info">
+                        <h2>Minecraft Circle Blueprint</h2>
+                        <div id="printMetadata"></div>
+                    </div>
+
+                    <div class="viewport-header">
+                        <div class="badge-group">
+                            <span class="badge" id="badgeDimensions">21 x 21 Blocks</span>
+                            <span class="badge" id="badgeModeStyle" style="color:var(--accent-primary);">Outline Mode</span>
+                        </div>
+                        <div class="canvas-toolbar">
+                            <button type="button" class="tool-btn" onclick="zoomCanvas(1.2)" title="Zoom In">+</button>
+                            <button type="button" class="tool-btn" onclick="zoomCanvas(0.8)" title="Zoom Out">−</button>
+                            <button type="button" class="tool-btn" onclick="resetCanvasView()" title="Fit to Screen">Fit</button>
+                        </div>
+                    </div>
+
+                    <!-- Canvas Interactive Window -->
+                    <div class="canvas-wrapper" id="canvasWrapper">
+                        <canvas id="blueprintCanvas" aria-label="Interactive Minecraft circle blueprint grid"></canvas>
+                        <div id="canvasAccessibilityFallback" class="sr-only" aria-live="polite"></div>
+                        <div id="coordTooltip" class="coordinate-tooltip">Hover over grid</div>
+                    </div>
+                </div>
+
+                <!-- Live Statistics Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">Total Blocks</span>
+                        <span class="stat-value" id="statTotalBlocks">0</span>
+                        <span class="stat-sub" id="statStackCount">0 Stacks</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Radius</span>
+                        <span class="stat-value" id="statRadius">10</span>
+                        <span class="stat-sub">Blocks from center</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Diameter</span>
+                        <span class="stat-value" id="statDiameter">21</span>
+                        <span class="stat-sub">Total width/height</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Center Point</span>
+                        <span class="stat-value" id="statCenterType">1x1</span>
+                        <span class="stat-sub" id="statCenterCoord">Relative (0,0)</span>
+                    </div>
+                </div>
+
+                <!-- Export Action Buttons -->
+                <div class="action-bar">
+                    <button type="button" class="btn-action btn-action-primary" id="btnCopyPattern" onclick="copyPatternASCII()">
+                        <span>📋 Copy Text Pattern</span>
+                    </button>
+                    <button type="button" class="btn-action" id="btnCopyCoords" onclick="copyCoordinatesList()">
+                        <span>📍 Copy Coordinates</span>
+                    </button>
+                    <button type="button" class="btn-action" onclick="downloadCoordinatesFile()">
+                        <span>💾 Save .TXT</span>
+                    </button>
+                    <button type="button" class="btn-action" onclick="downloadPNG()">
+                        <span>🖼️ Export PNG</span>
+                    </button>
+                    <button type="button" class="btn-action" onclick="triggerPrint()">
+                        <span>🖨️ Print</span>
+                    </button>
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- ============================================================
+        SEO CONTENT & EDUCATIONAL GUIDES (1800+ WORDS)
+        ============================================================ -->
+        <section class="content-section">
+
+            <!-- 1. How It Works -->
+            <article class="article-card" id="how-it-works">
+                <h2>How the Minecraft Circle Generator Works</h2>
+                <p>Minecraft is built entirely out of discrete, 1×1×1-meter cubic blocks. Because perfect mathematical curves cannot exist on an integer square grid, building round structures in Minecraft requires a process called <strong>grid rasterization</strong>. This plotter calculates exact integer coordinates on the horizontal <strong>X/Z plane</strong>, translating a smooth curve into an optimized block placement guide.</p>
+                <p>Whether you are using a <strong>minecraft pixel circle generator mobile</strong> device or a desktop workstation, the underlying math remains the same: each cell in the grid is tested against the theoretical circular boundary using a Euclidean distance threshold. The result is a deterministic, symmetrical pattern that you can follow block by block. By following the highlighted grid cells in the blueprint above, you can build symmetrical Minecraft circle patterns without miscounting blocks or creating lopsided walls.</p>
+                <p>This tool goes beyond simple visual output—it also acts as a <strong>minecraft circle generator with coordinates</strong>, meaning every block in the blueprint is mapped to a real in-game X/Z position. You can hover over any cell to see its relative and world coordinates, making it easy to transfer the blueprint directly into your survival or creative world.</p>
+                <div class="note-box">
+                    <strong>Axis Notice:</strong> In Minecraft, <strong>X</strong> represents East/West, <strong>Z</strong> represents North/South, and <strong>Y</strong> represents vertical elevation height. This blueprint maps your horizontal layer on the X/Z plane.
+                </div>
+            </article>
+
+            <!-- 2. Odd vs Even Diameters -->
+            <article class="article-card">
+                <h2>Odd vs. Even Diameter Minecraft Circle Generator Mode</h2>
+                <p>Understanding the difference between odd and even circle diameters is essential when planning Minecraft builds with coordinates. The <strong>even diameter minecraft circle generator</strong> mode handles diameters like 6, 8, 10, 20, or 32, while the odd mode handles 5, 7, 9, 21, 31, and so on. Each has distinct structural implications for your build.</p>
+                <ul>
+                    <li><strong>Odd Diameters (e.g., 5, 7, 9, 21, 31):</strong> Feature a single central block (1×1 center). These are ideal if you plan to put a central pillar, beacon beam, spiral staircase, or single doorway in the exact middle. When you use the <strong>minecraft circle generator with coordinates</strong> in odd mode, the center block is always at your specified world X/Z.</li>
+                    <li><strong>Even Diameters (e.g., 6, 8, 10, 20, 32):</strong> Feature a four-block central square (2×2 center). The mathematical center point falls directly on the intersection line between four blocks. These are perfect for double doors, symmetrical hallways, and wide castle towers. The <strong>even diameter minecraft circle generator</strong> aligns the center between the four central blocks, giving you a balanced, even-sided blueprint.</li>
+                </ul>
+                <p>Many builders prefer even diameters for large-scale circular arenas or domes because the 2×2 center provides more interior space and allows for easier placement of symmetrical interior features. On the other hand, odd diameters are often chosen for decorative fountains or monument-style structures where a single central block anchors the entire design.</p>
+            </article>
+
+            <!-- 3. Rasterization Algorithm -->
+            <article class="article-card">
+                <h2>Rasterization Algorithm & Mathematical Precision</h2>
+                <p>This generator employs a high-precision discrete grid rasterization algorithm based on Euclidean distance thresholding. To ensure exact topological integrity across all modes, the engine follows a consistent three-step process:</p>
+                <ol>
+                    <li><strong>Euclidean Inclusion:</strong> Every discrete grid cell is tested against the theoretical circular boundary using the distance formula \(d = \sqrt{x^2 + z^2}\). If the distance is less than or equal to the radius, the cell is marked for inclusion.</li>
+                    <li><strong>Discrete Grid Rasterization:</strong> The generator evaluates Minecraft's square block grid using a consistent Euclidean-distance rule to create deterministic, symmetrical block patterns. This ensures that the same input always produces the same output, regardless of how many times you generate it.</li>
+                    <li><strong>Topological Boundary Outline:</strong> Outline mode calculates the exact 1-block-thick contiguous perimeter of the rasterized shape, ensuring there are no diagonal gaps through which mobs or liquids can pass. This is critical for building functional walls and defensive structures.</li>
+                </ol>
+                <p>For builders who need a <strong>minecraft 21x21 circle chart</strong>, the algorithm produces a perfectly symmetrical pattern with a 1×1 center block. This specific size is popular because it fits well within standard chunk boundaries and offers a balanced scale for medium-sized builds.</p>
+                <p>Behind the scenes, the geometry engine also handles ring-mode generation by subtracting a smaller inner circle from the main circle, creating thick-walled circular structures that are ideal for hollow towers or layered defensive walls.</p>
+            </article>
+
+            <!-- 4. Building Applications: Towers, Domes & Arenas -->
+            <article class="article-card" id="building-tips">
+                <h2>Minecraft Building Applications: Towers, Domes & Arenas</h2>
+                <h3>Building Circular Towers & Castle Keeps</h3>
+                <p>Use <strong>Outline Mode</strong> to plot out foundation walls. Once your base layer is laid down in your world, simply extend the walls straight up along the vertical Y-axis. This technique is widely used for castle keeps, watchtowers, and lighthouse structures. The <strong>minecraft pixel circle generator mobile</strong> interface lets you pan and zoom on your phone or tablet, so you can reference the blueprint while building at your desk or on the go.</p>
+
+                <h3>Designing Smooth Domes & Spheres</h3>
+                <p>A 3D dome or sphere in Minecraft is constructed by stacking horizontal circular layers on top of each other. To build a dome:</p>
+                <ol>
+                    <li>Determine your base dome radius (e.g., Radius 20).</li>
+                    <li>Calculate layer radii using the sphere formula \(r_y = \sqrt{R^2 - y^2}\), where \(y\) is the height of each layer above the center.</li>
+                    <li>Generate and build each horizontal circle layer sequentially from bottom to top, using the <strong>minecraft circle generator with coordinates</strong> to ensure each layer is perfectly centered.</li>
+                </ol>
+                <p>This approach is used to build iconic structures like the Sydney Opera House–style roofs, massive glass domes for botanical gardens, and intricate fantasy-style spires that taper to a point.</p>
+
+                <h3>Building PvP Arenas & Circular Stadiums</h3>
+                <p>For PvP arenas or spectator stadiums, use <strong>Ring Mode</strong> to create thick circular walls that are both visually impressive and structurally sound. A ring with a thickness of 3–5 blocks provides ample space for seating tiers, observation decks, or hidden redstone wiring. The <strong>minecraft circle blueprint png download</strong> feature lets you export a high-resolution image of your arena layout, which you can share with your server members or print out as a physical reference.</p>
+
+                <h3>Integrating World Coordinates for Large-Scale Projects</h3>
+                <p>When building massive circular structures that span multiple chunks, using the <strong>minecraft circle generator with coordinates</strong> becomes essential. By entering your world's center X and Z coordinates, every block in the blueprint is automatically translated into actual in-game positions. This eliminates the need for manual counting and reduces the risk of misalignment. The hover tooltip displays both relative and world coordinates, making it easy to place blocks with precision.</p>
+            </article>
+
+            <!-- 5. Step-by-Step: Building a 21x21 Circle Chart -->
+            <article class="article-card">
+                <h2>Step-by-Step Guide: Building a Minecraft 21×21 Circle Chart</h2>
+                <p>The <strong>minecraft 21x21 circle chart</strong> is one of the most popular blueprints for mid-sized builds. Here is a complete step-by-step guide to building it in your world:</p>
+                <ol>
+                    <li><strong>Select Diameter Mode:</strong> Click the "Diameter" toggle in the control panel.</li>
+                    <li><strong>Enter 21:</strong> Type "21" into the size input field, or click the "D21" preset button in the preset grid. The blueprint will instantly update to show a 21×21 circle with a 1×1 center block.</li>
+                    <li><strong>Set Your World Center:</strong> Enter your desired X and Z coordinates in the "World Center Coordinates" fields. For example, if you want the center of your circle at X=100, Z=200, enter those values.</li>
+                    <li><strong>Choose Your Pattern:</strong> Select "Outline" for a perimeter wall, "Filled" for a solid floor, or "Ring" for a thick-walled structure. For a 21×21 circle chart, "Outline" is the default and most commonly used.</li>
+                    <li><strong>View the Blueprint:</strong> The canvas will display the block grid with your circle pattern. Use one-finger drag to pan and two-finger pinch to zoom on mobile devices—the <strong>minecraft pixel circle generator mobile</strong> experience is fully touch-optimized.</li>
+                    <li><strong>Export or Copy:</strong> Click "Copy Text Pattern" to get an ASCII representation, "Copy Coordinates" to copy the full coordinate list, or "Export PNG" to download a high-resolution blueprint image. The <strong>minecraft circle blueprint png download</strong> feature ensures you have a permanent visual reference.</li>
+                    <li><strong>Build In-Game:</strong> Use the blueprint as your guide. Start at the center block (or the four center blocks for even diameters) and work your way outward, placing blocks according to the highlighted cells.</li>
+                </ol>
+                <p>This 21×21 chart is perfect for a wide range of applications, including decorative fountains, circular marketplaces, and the base layer of a domed tower. Because it uses an odd diameter, the single center block makes it easy to anchor a central pillar or beacon beam.</p>
+            </article>
+
+            <!-- 6. Mobile Building & Touch Optimization -->
+            <article class="article-card">
+                <h2>Building on the Go: Mobile Optimization & Touch Controls</h2>
+                <p>Minecraft builders often need to reference blueprints while away from their desktop. That is why this tool is built as a <strong>minecraft pixel circle generator mobile</strong> application from the ground up. The canvas supports one-finger drag for panning and two-finger pinch for zooming, giving you full control over the viewport on any smartphone or tablet. Whether you are building on a phone, iPad, or Android tablet, the interface adapts to your screen size and touch gestures seamlessly.</p>
+                <p>The mobile experience is further enhanced by the tooltip that displays coordinates on hover—simply tap and hold on a cell to see its relative and world coordinates. This makes it possible to build accurately even when you are away from your main computer. The <strong>minecraft circle blueprint png download</strong> feature also works on mobile, allowing you to save a high-resolution image directly to your device's gallery for offline reference.</p>
+                <p>For builders who prefer a visual reference while playing, the text pattern copy and coordinate export functions are fully supported on mobile browsers, so you can paste the data into a notes app or share it with friends via messaging apps. The <strong>minecraft 21x21 circle chart</strong> is just as easy to generate and view on a mobile device as it is on a desktop.</p>
+            </article>
+
+            <!-- 7. FAQ Section -->
+            <section class="article-card" id="faq">
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <details>
+                            <summary class="faq-question">What is the Minecraft Circle Generator?</summary>
+                            <div class="faq-answer">
+                                <p>The Minecraft Circle Generator is a free pixel circle plotter that converts continuous mathematical curves into a discrete square block grid blueprint. It shows builders exactly where to place blocks in-game for towers, domes, arenas, and circular structures. The tool supports both odd and even diameters, offers multiple pattern modes (outline, filled, ring), and includes world coordinate mapping for precise in-game placement.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item">
+                        <details>
+                            <summary class="faq-question">How do I use the minecraft pixel circle generator mobile tool?</summary>
+                            <div class="faq-answer">
+                                <p>Our <strong>minecraft pixel circle generator mobile</strong> tool is fully touch-optimized. You can use one-finger drag to pan across large blueprints and two-finger pinch to zoom in or out on any smartphone or tablet screen while building in-game. All controls, including the size input, presets, pattern selector, and export buttons, are accessible via touch. The coordinate tooltip updates on tap-and-hold, giving you real-time feedback as you move your finger across the blueprint.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item">
+                        <details>
+                            <summary class="faq-question">How does an even diameter minecraft circle generator work?</summary>
+                            <div class="faq-answer">
+                                <p>An <strong>even diameter minecraft circle generator</strong> aligns the mathematical center between four central blocks (a 2×2 group) rather than a single 1×1 block. This creates balanced, even-sided blueprints ideal for double-door entrances and symmetrical castle towers. When you enter an even diameter like 10 or 20, the generator calculates the circle using a center point that falls on the grid intersection, resulting in a pattern where the four innermost blocks form a perfect square.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item">
+                        <details>
+                            <summary class="faq-question">How do I use the minecraft circle generator with coordinates?</summary>
+                            <div class="faq-answer">
+                                <p>Using the <strong>minecraft circle generator with coordinates</strong> is easy: enter your world's X and Z coordinates in the World Center fields. The blueprint automatically translates relative grid cells into exact Minecraft world coordinates that you can view on hover or export as a text file. This feature is invaluable for large-scale projects that span multiple chunks, as it eliminates manual counting and ensures every block is placed exactly where it should be.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item">
+                        <details>
+                            <summary class="faq-question">How do I get a minecraft circle blueprint png download?</summary>
+                            <div class="faq-answer">
+                                <p>Click the "Export PNG" button in the action bar. The tool will render a full, high-resolution blueprint image with grid lines, axes, and center markers—independent of your current screen zoom level—and save it directly to your device. The <strong>minecraft circle blueprint png download</strong> includes all block placements, making it easy to print or share with friends. The exported image uses the same color scheme as the canvas, including the material style you have selected.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item">
+                        <details>
+                            <summary class="faq-question">How can I generate a minecraft 21x21 circle chart or blueprint?</summary>
+                            <div class="faq-answer">
+                                <p>Select Diameter mode and enter 21 (or click the "D21" preset button). The plotter will instantly draw a <strong>minecraft 21x21 circle chart</strong> with a 1×1 center block. You can view the blueprint, copy the text pattern, or export the coordinate list. This specific size is popular because it offers a good balance between scale and detail, making it suitable for fountains, circular marketplaces, and the base of medium-sized towers.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item">
+                        <details>
+                            <summary class="faq-question">What is the difference between Outline, Filled, and Ring modes?</summary>
+                            <div class="faq-answer">
+                                <p><strong>Outline Mode</strong> creates a 1-block-thick perimeter wall, which is ideal for building the walls of a tower or the outer boundary of a circular arena. <strong>Filled Mode</strong> generates a solid circular platform, perfect for floors, arenas, or the base of a dome. <strong>Ring Mode</strong> produces a thick-walled circular structure with a hollow interior, allowing you to build double-walled towers, subterranean chambers, or layered defensive walls. You can adjust the ring thickness using the "Radial Wall Thickness" control.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item">
+                        <details>
+                            <summary class="faq-question">Can I use this tool for even larger circles, like radius 50 or more?</summary>
+                            <div class="faq-answer">
+                                <p>Yes, the tool supports sizes up to 200 in diameter (or radius 200, which produces a 401×401 circle). For very large circles, use the zoom and pan controls to navigate the blueprint. The <strong>minecraft pixel circle generator mobile</strong> interface handles large blueprints efficiently, and the PNG export feature renders the full grid at a resolution that preserves all block details. For extremely large projects, we recommend exporting the coordinate list to use with in-game building aids or datapacks.</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="faq-item">
+                        <details>
+                            <summary class="faq-question">How accurate are the block coordinates for in-game building?</summary>
+                            <div class="faq-answer">
+                                <p>The block coordinates generated by this tool are mathematically precise and correspond directly to Minecraft's integer grid. When you use the <strong>minecraft circle generator with coordinates</strong>, the world X and Z values you enter are applied as offsets to the relative grid positions. This means that if you set your center at X=100, Z=200, a block at relative position (5, 3) will be placed at world coordinates (105, 203). This level of accuracy is maintained across all diameters and pattern modes.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <span class="footer-title">Minecraft Circle Generator</span>
+                <p style="color:var(--text-muted); font-size:0.85rem; max-width:280px;">A standalone, high-precision geometry utility for Minecraft architects and builders.</p>
+            </div>
+            <div class="footer-col">
+                <span class="footer-title">Quick Tools</span>
+                <ul class="footer-links">
+                    <li><a href="#generator">Circle Generator</a></li>
+                    <li><a href="#generator" onclick="setDimensionType('radius')">Radius Mode</a></li>
+                    <li><a href="#generator" onclick="setDimensionType('diameter')">Diameter Mode</a></li>
+                    <li><a href="#generator" onclick="setPattern('ring')">Ring Generator</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <span class="footer-title">Documentation</span>
+                <ul class="footer-links">
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#building-tips">Dome Construction</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© Minecraft Circle Generator / Pixel Circle Plotter. Built for Minecraft players worldwide.</span>
+            <span>All calculations performed client-side in browser.</span>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+       JAVASCRIPT ARCHITECTURE
+       1. GEOMETRY ENGINE (PURE MATH & RASTERIZATION)
+       2. RENDERING ENGINE (CANVAS, GRID, ZOOM, PAN)
+       3. UI & INTERACTION CONTROLLER
+       ========================================================================== -->
+    <script>
+        /**
+         * 1. GEOMETRY ENGINE
+         * Pure mathematical functions for discrete grid circle generation.
+         */
+        const GeometryEngine = {
+            /**
+             * Generates a 2D discrete grid for a circle given diameter, mode, and thickness.
+             * Consistently handles both Odd and Even diameters.
+             */
+            generateGrid(diameter, mode = 'outline', thickness = 1) {
+                const D = Math.max(1, Math.floor(diameter));
+                const isOdd = (D % 2 !== 0);
+
+                let minIdx, maxIdx, totalGridSize;
+                if (isOdd) {
+                    const radius = (D - 1) / 2;
+                    minIdx = -radius;
+                    maxIdx = radius;
+                } else {
+                    const radius = D / 2;
+                    minIdx = -radius;
+                    maxIdx = radius - 1;
+                }
+                totalGridSize = maxIdx - minIdx + 1;
+
+                // Deterministic inclusion check for discrete grid circle
+                function isInsideCircle(x, z, diam) {
+                    if (diam <= 0) return false;
+                    if (diam % 2 !== 0) {
+                        // Odd diameter: center is (0,0)
+                        return (4 * (x * x + z * z)) <= (diam * diam);
+                    } else {
+                        // Even diameter: center is (-0.5, -0.5)
+                        const X = 2 * x + 1;
+                        const Z = 2 * z + 1;
+                        return (X * X + Z * Z) <= (diam * diam);
+                    }
+                }
+
+                // Generate primary filled mask
+                const filledMask = [];
+                for (let r = 0; r < totalGridSize; r++) {
+                    filledMask[r] = new Uint8Array(totalGridSize);
+                    const z = minIdx + r;
+                    for (let c = 0; c < totalGridSize; c++) {
+                        const x = minIdx + c;
+                        if (isInsideCircle(x, z, D)) {
+                            filledMask[r][c] = 1;
+                        }
+                    }
+                }
+
+                // Inner circle mask for ring mode
+                let innerMask = null;
+                if (mode === 'ring') {
+                    const innerD = Math.max(0, D - 2 * thickness);
+                    if (innerD > 0) {
+                        innerMask = [];
+                        for (let r = 0; r < totalGridSize; r++) {
+                            innerMask[r] = new Uint8Array(totalGridSize);
+                            const z = minIdx + r;
+                            for (let c = 0; c < totalGridSize; c++) {
+                                const x = minIdx + c;
+                                if (isInsideCircle(x, z, innerD)) {
+                                    innerMask[r][c] = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Initialize output grid
+                const grid = [];
+                for (let r = 0; r < totalGridSize; r++) {
+                    grid[r] = new Uint8Array(totalGridSize);
+                }
+
+                let blockCount = 0;
+                const highlightBlocks = [];
+
+                for (let r = 0; r < totalGridSize; r++) {
+                    for (let c = 0; c < totalGridSize; c++) {
+                        const isFilled = filledMask[r][c] === 1;
+
+                        if (!isFilled) continue;
+
+                        let placeBlock = false;
+
+                        if (mode === 'filled') {
+                            placeBlock = true;
+                        } else if (mode === 'outline') {
+                            // True discrete perimeter outline: filled block with at least one 4-neighbor outside
+                            const top = (r > 0) ? filledMask[r - 1][c] : 0;
+                            const bottom = (r < totalGridSize - 1) ? filledMask[r + 1][c] : 0;
+                            const left = (c > 0) ? filledMask[r][c - 1] : 0;
+                            const right = (c < totalGridSize - 1) ? filledMask[r][c + 1] : 0;
+
+                            if (top === 0 || bottom === 0 || left === 0 || right === 0) {
+                                placeBlock = true;
+                            }
+                        } else if (mode === 'ring') {
+                            if (innerMask) {
+                                placeBlock = (innerMask[r][c] === 0);
+                            } else {
+                                placeBlock = true;
+                            }
+                        }
+
+                        if (placeBlock) {
+                            grid[r][c] = 1;
+                            blockCount++;
+                            highlightBlocks.push({
+                                relativeX: minIdx + c,
+                                relativeZ: minIdx + r,
+                                gridR: r,
+                                gridC: c
+                            });
+                        }
+                    }
+                }
+
+                return {
+                    grid,
+                    diameter: D,
+                    radius: isOdd ? (D - 1) / 2 : D / 2,
+                    isOdd,
+                    minIdx,
+                    maxIdx,
+                    totalGridSize,
+                    blockCount,
+                    highlightBlocks
+                };
+            }
+        };
+
+        /**
+         * 2. RENDERING ENGINE
+         * HTML5 Canvas visualizer with zoom, pan, grid, and block rendering.
+         */
+        const RenderEngine = {
+            canvas: null,
+            ctx: null,
+            wrapper: null,
+            gridData: null,
+
+            // View transform state
+            zoom: 1,
+            panX: 0,
+            panY: 0,
+            isDragging: false,
+            dragStartX: 0,
+            dragStartY: 0,
+
+            // Hover state (for efficiency)
+            _lastHoverCol: -1,
+            _lastHoverRow: -1,
+
+            // Long-press touch state
+            _longPressTimer: null,
+            _touchStartX: 0,
+            _touchStartY: 0,
+            _isLongPress: false,
+
+            // Cosmetic theme colors
+            materialThemes: {
+                emerald: { fill: '#10b981', border: '#047857', glow: 'rgba(16, 185, 129, 0.3)' },
+                stone: { fill: '#9ca3af', border: '#4b5563', glow: 'rgba(156, 163, 175, 0.2)' },
+                brick: { fill: '#d97706', border: '#92400e', glow: 'rgba(217, 119, 6, 0.2)' },
+                deepslate: { fill: '#475569', border: '#1e293b', glow: 'rgba(71, 85, 105, 0.2)' },
+                wood: { fill: '#b45309', border: '#78350f', glow: 'rgba(180, 83, 9, 0.2)' },
+                gold: { fill: '#f59e0b', border: '#b45309', glow: 'rgba(245, 158, 11, 0.3)' }
+            },
+            currentTheme: 'emerald',
+
+            init(canvasId, wrapperId) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d');
+                this.wrapper = document.getElementById(wrapperId);
+
+                this.attachEvents();
+                this.resizeCanvas();
+            },
+
+            attachEvents() {
+                window.addEventListener('resize', () => {
+                    this.resizeCanvas();
+                    this.draw();
+                });
+
+                // Mouse Pan Events
+                this.wrapper.addEventListener('mousedown', (e) => {
+                    this.isDragging = true;
+                    this.dragStartX = e.clientX - this.panX;
+                    this.dragStartY = e.clientY - this.panY;
+                });
+
+                // Throttled mousemove for efficiency — only update tooltip when cell changes
+                let hoverFrameId = null;
+                window.addEventListener('mousemove', (e) => {
+                    if (this.isDragging) {
+                        this.panX = e.clientX - this.dragStartX;
+                        this.panY = e.clientY - this.dragStartY;
+                        this.draw();
+                    }
+                    // Use requestAnimationFrame to avoid heavy recomputation on every move
+                    if (hoverFrameId) cancelAnimationFrame(hoverFrameId);
+                    hoverFrameId = requestAnimationFrame(() => {
+                        this.handleHover(e);
+                        hoverFrameId = null;
+                    });
+                });
+
+                window.addEventListener('mouseup', () => {
+                    this.isDragging = false;
+                });
+
+                // Touch Pan & Pinch-Zoom Events (Fix: passive: false for e.preventDefault support)
+                let initialPinchDist = 0;
+
+                // --- LONG-PRESS DETECTION ---
+                const LONG_PRESS_DELAY = 500; // ms
+                const MOVE_THRESHOLD = 10; // px
+
+                this.wrapper.addEventListener('touchstart', (e) => {
+                    if (e.touches.length === 1) {
+                        // Start long-press timer
+                        const touch = e.touches[0];
+                        this._touchStartX = touch.clientX;
+                        this._touchStartY = touch.clientY;
+                        this._isLongPress = false;
+
+                        if (this._longPressTimer) clearTimeout(this._longPressTimer);
+                        this._longPressTimer = setTimeout(() => {
+                            this._longPressTimer = null;
+                            this._isLongPress = true;
+                            // Compute cell from touch start position and show tooltip
+                            const rect = this.wrapper.getBoundingClientRect();
+                            const touchX = this._touchStartX - rect.left;
+                            const touchY = this._touchStartY - rect.top;
+                            const col = Math.floor((touchX - this.panX) / this.zoom);
+                            const row = Math.floor((touchY - this.panY) / this.zoom);
+                            this._updateTooltip(row, col);
+                        }, LONG_PRESS_DELAY);
+
+                        // Existing pan logic: store pan start
+                        this.isDragging = true;
+                        this.dragStartX = touch.clientX - this.panX;
+                        this.dragStartY = touch.clientY - this.panY;
+                    } else if (e.touches.length === 2) {
+                        // Cancel long-press if two fingers appear
+                        if (this._longPressTimer) {
+                            clearTimeout(this._longPressTimer);
+                            this._longPressTimer = null;
+                        }
+                        this.isDragging = false;
+                        initialPinchDist = Math.hypot(
+                            e.touches[0].clientX - e.touches[1].clientX,
+                            e.touches[0].clientY - e.touches[1].clientY
+                        );
+                    }
+                }, { passive: false });
+
+                this.wrapper.addEventListener('touchmove', (e) => {
+                    if (e.touches.length === 1 && this.isDragging) {
+                        // Check if moved significantly – if so, cancel long-press
+                        const touch = e.touches[0];
+                        const dx = touch.clientX - this._touchStartX;
+                        const dy = touch.clientY - this._touchStartY;
+                        if (Math.hypot(dx, dy) > MOVE_THRESHOLD && this._longPressTimer) {
+                            clearTimeout(this._longPressTimer);
+                            this._longPressTimer = null;
+                        }
+
+                        // Pan
+                        this.panX = touch.clientX - this.dragStartX;
+                        this.panY = touch.clientY - this.dragStartY;
+                        this.draw();
+                        e.preventDefault();
+                    } else if (e.touches.length === 2) {
+                        const dist = Math.hypot(
+                            e.touches[0].clientX - e.touches[1].clientX,
+                            e.touches[0].clientY - e.touches[1].clientY
+                        );
+                        if (initialPinchDist > 0) {
+                            const factor = dist / initialPinchDist;
+                            const rect = this.wrapper.getBoundingClientRect();
+                            const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+                            const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+                            this.zoomAtPoint(factor, midX, midY);
+                            initialPinchDist = dist;
+                        }
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+
+                this.wrapper.addEventListener('touchend', (e) => {
+                    // If long press fired, tooltip is already updated. Otherwise clear timer.
+                    if (this._longPressTimer) {
+                        clearTimeout(this._longPressTimer);
+                        this._longPressTimer = null;
+                    }
+                    this.isDragging = false;
+                    initialPinchDist = 0;
+                });
+
+                this.wrapper.addEventListener('touchcancel', (e) => {
+                    if (this._longPressTimer) {
+                        clearTimeout(this._longPressTimer);
+                        this._longPressTimer = null;
+                    }
+                    this.isDragging = false;
+                    initialPinchDist = 0;
+                });
+
+                // Zoom Wheel Event
+                this.wrapper.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    const zoomFactor = e.deltaY < 0 ? 1.15 : 0.85;
+                    this.zoomAtPoint(zoomFactor, e.clientX, e.clientY);
+                }, { passive: false });
+            },
+
+            resizeCanvas() {
+                if (!this.wrapper || !this.canvas || !this.ctx) return;
+                const rect = this.wrapper.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                this.canvas.width = Math.floor(rect.width * dpr);
+                this.canvas.height = Math.floor(rect.height * dpr);
+                this.canvas.style.width = `${rect.width}px`;
+                this.canvas.style.height = `${rect.height}px`;
+                this.ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform matrix
+                this.ctx.scale(dpr, dpr);
+            },
+
+            setGridData(data) {
+                this.gridData = data;
+                this._lastHoverCol = -1;
+                this._lastHoverRow = -1;
+                this.resetView();
+            },
+
+            resetView() {
+                if (!this.gridData || !this.wrapper) return;
+                const rect = this.wrapper.getBoundingClientRect();
+                const N = this.gridData.totalGridSize;
+
+                const padding = 40;
+                const availableSize = Math.min(rect.width - padding, rect.height - padding);
+                const baseCellSize = Math.max(4, availableSize / N);
+
+                this.zoom = baseCellSize;
+                this.panX = (rect.width - N * this.zoom) / 2;
+                this.panY = (rect.height - N * this.zoom) / 2;
+
+                this.draw();
+            },
+
+            zoomAtPoint(factor, clientX, clientY) {
+                const rect = this.wrapper.getBoundingClientRect();
+                const mouseX = clientX - rect.left;
+                const mouseY = clientY - rect.top;
+
+                const newZoom = Math.min(100, Math.max(2, this.zoom * factor));
+
+                this.panX = mouseX - (mouseX - this.panX) * (newZoom / this.zoom);
+                this.panY = mouseY - (mouseY - this.panY) * (newZoom / this.zoom);
+                this.zoom = newZoom;
+
+                this.draw();
+            },
+
+            draw() {
+                if (!this.gridData || !this.ctx) return;
+
+                const rect = this.wrapper.getBoundingClientRect();
+                const width = rect.width;
+                const height = rect.height;
+
+                // Theme-aware Canvas Background & Grid Line Colors
+                const isLight = document.body.classList.contains('light-theme');
+
+                this.ctx.fillStyle = isLight ? '#f8fafc' : '#070a12';
+                this.ctx.fillRect(0, 0, width, height);
+
+                const cellSize = this.zoom;
+                const data = this.gridData;
+                const N = data.totalGridSize;
+
+                const showGrid = document.getElementById('chkShowGrid').checked;
+                const showCenter = document.getElementById('chkShowCenter').checked;
+                const showAxes = document.getElementById('chkShowAxes').checked;
+
+                const theme = this.materialThemes[this.currentTheme] || this.materialThemes.emerald;
+
+                // 1. Draw Highlighted Blocks
+                for (let r = 0; r < N; r++) {
+                    const cellY = this.panY + r * cellSize;
+                    if (cellY + cellSize < 0 || cellY > height) continue;
+
+                    for (let c = 0; c < N; c++) {
+                        const cellX = this.panX + c * cellSize;
+                        if (cellX + cellSize < 0 || cellX > width) continue;
+
+                        if (data.grid[r][c] === 1) {
+                            this.ctx.fillStyle = theme.fill;
+                            this.ctx.fillRect(cellX, cellY, cellSize, cellSize);
+
+                            if (cellSize > 6) {
+                                this.ctx.strokeStyle = theme.border;
+                                this.ctx.lineWidth = Math.max(1, cellSize * 0.08);
+                                this.ctx.strokeRect(cellX + 0.5, cellY + 0.5, cellSize - 1, cellSize - 1);
+                            }
+                        }
+                    }
+                }
+
+                // 2. Draw Grid Lines
+                if (showGrid && cellSize >= 4) {
+                    this.ctx.strokeStyle = isLight ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.08)';
+                    this.ctx.lineWidth = 1;
+                    this.ctx.beginPath();
+
+                    for (let i = 0; i <= N; i++) {
+                        const x = this.panX + i * cellSize;
+                        if (x >= 0 && x <= width) {
+                            this.ctx.moveTo(Math.floor(x) + 0.5, Math.max(0, this.panY));
+                            this.ctx.lineTo(Math.floor(x) + 0.5, Math.min(height, this.panY + N * cellSize));
+                        }
+
+                        const y = this.panY + i * cellSize;
+                        if (y >= 0 && y <= height) {
+                            this.ctx.moveTo(Math.max(0, this.panX), Math.floor(y) + 0.5);
+                            this.ctx.lineTo(Math.min(width, this.panX + N * cellSize), Math.floor(y) + 0.5);
+                        }
+                    }
+                    this.ctx.stroke();
+                }
+
+                // 3. Draw Axis Lines
+                if (showAxes) {
+                    this.ctx.strokeStyle = isLight ? 'rgba(2, 132, 199, 0.8)' : 'rgba(6, 182, 212, 0.7)';
+                    this.ctx.lineWidth = 2;
+                    this.ctx.beginPath();
+
+                    if (data.isOdd) {
+                        const axisC = Math.floor(N / 2);
+                        const axisR = Math.floor(N / 2);
+
+                        const x = this.panX + (axisC + 0.5) * cellSize;
+                        const y = this.panY + (axisR + 0.5) * cellSize;
+
+                        this.ctx.moveTo(x, this.panY);
+                        this.ctx.lineTo(x, this.panY + N * cellSize);
+
+                        this.ctx.moveTo(this.panX, y);
+                        this.ctx.lineTo(this.panX + N * cellSize, y);
+                    } else {
+                        const centerIdx = N / 2;
+                        const x = this.panX + centerIdx * cellSize;
+                        const y = this.panY + centerIdx * cellSize;
+
+                        this.ctx.moveTo(x, this.panY);
+                        this.ctx.lineTo(x, this.panY + N * cellSize);
+
+                        this.ctx.moveTo(this.panX, y);
+                        this.ctx.lineTo(this.panX + N * cellSize, y);
+                    }
+                    this.ctx.stroke();
+                }
+
+                // 4. Draw Center Marker
+                if (showCenter) {
+                    this.ctx.fillStyle = '#ef4444';
+                    this.ctx.strokeStyle = '#ffffff';
+                    this.ctx.lineWidth = 1.5;
+                    this.ctx.beginPath();
+
+                    if (data.isOdd) {
+                        // Center is the middle 1x1 block
+                        const centerIdx = Math.floor(N / 2);
+                        const cx = this.panX + (centerIdx + 0.5) * cellSize;
+                        const cy = this.panY + (centerIdx + 0.5) * cellSize;
+                        this.ctx.arc(cx, cy, Math.max(3, cellSize * 0.25), 0, Math.PI * 2);
+                    } else {
+                        // Center is the intersection between 4 central blocks
+                        const centerIdx = N / 2;
+                        const cx = this.panX + centerIdx * cellSize;
+                        const cy = this.panY + centerIdx * cellSize;
+                        this.ctx.arc(cx, cy, Math.max(4, cellSize * 0.25), 0, Math.PI * 2);
+                    }
+                    this.ctx.fill();
+                    this.ctx.stroke();
+                }
+            },
+
+            // ============================================================
+            // TOOLTIP HELPERS (shared between mouse and touch)
+            // ============================================================
+
+            _updateTooltip(row, col) {
+                const tooltip = document.getElementById('coordTooltip');
+                if (row >= 0 && row < this.gridData.totalGridSize && col >= 0 && col < this.gridData.totalGridSize) {
+                    const relX = this.gridData.minIdx + col;
+                    const relZ = this.gridData.minIdx + row;
+                    const worldXOffset = parseInt(document.getElementById('worldX').value) || 0;
+                    const worldZOffset = parseInt(document.getElementById('worldZ').value) || 0;
+                    const wX = worldXOffset + relX;
+                    const wZ = worldZOffset + relZ;
+                    const isPlaced = this.gridData.grid[row][col] === 1;
+                    tooltip.innerHTML =
+                        `Rel: (${relX}, ${relZ}) | World: (${wX}, ${wZ}) ${isPlaced ? '<b style="color:#10b981;">[BLOCK]</b>' : ''}`;
+                } else {
+                    tooltip.innerText = 'Hover over grid';
+                }
+            },
+
+            handleHover(e) {
+                if (!this.gridData) return;
+                const rect = this.wrapper.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                const col = Math.floor((mouseX - this.panX) / this.zoom);
+                const row = Math.floor((mouseY - this.panY) / this.zoom);
+
+                // Only update tooltip if the hovered cell actually changed
+                if (col === this._lastHoverCol && row === this._lastHoverRow) return;
+                this._lastHoverCol = col;
+                this._lastHoverRow = row;
+
+                this._updateTooltip(row, col);
+            }
+        };
+
+        /**
+         * 3. UI CONTROLLER
+         * Binds inputs, updates statistics, handles presets, export, theme toggle, and synchronization.
+         */
+        let currentDimensionType = 'radius'; // 'radius' | 'diameter'
+        let currentPatternMode = 'outline';
+
+        // ----- THEME PERSISTENCE -----
+        // On load, restore saved theme
+        (function restoreTheme() {
+            const saved = localStorage.getItem('mcCircleTheme');
+            if (saved === 'light') {
+                document.body.classList.add('light-theme');
+                const btn = document.getElementById('themeToggleBtn');
+                if (btn) btn.innerHTML = '☀️ Light';
+            } else if (saved === 'dark') {
+                document.body.classList.remove('light-theme');
+                const btn = document.getElementById('themeToggleBtn');
+                if (btn) btn.innerHTML = '🌙 Dark';
+            }
+            // If no saved theme, do nothing (default dark)
+        })();
+
+        function initApp() {
+            RenderEngine.init('blueprintCanvas', 'canvasWrapper');
+            updatePresetsUI();
+            updateBlueprint();
+        }
+
+        // Fix 1: Manual Theme Toggle (with localStorage)
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-theme');
+            const btn = document.getElementById('themeToggleBtn');
+            if (btn) {
+                btn.innerHTML = isLight ? '☀️ Light' : '🌙 Dark';
+            }
+            // Save theme preference
+            localStorage.setItem('mcCircleTheme', isLight ? 'light' : 'dark');
+            RenderEngine.draw();
+        }
+
+        // Fix 2: Convert Input Value when Switching Dimension Modes
+        function setDimensionType(type) {
+            if (currentDimensionType === type) return;
+
+            const input = document.getElementById('sizeInput');
+            let currentVal = parseInt(input.value) || 10;
+
+            if (type === 'diameter') {
+                // Switching from Radius to Diameter: convert Radius R to Diameter (2R + 1)
+                currentVal = currentVal * 2 + 1;
+                // --- SINGLE BUG FIX: cap to Diameter mode maximum (200) ---
+                const MAX_DIAMETER = 200;
+                if (currentVal > MAX_DIAMETER) {
+                    currentVal = MAX_DIAMETER;
+                }
+                // ---------------------------------------------------------
+            } else {
+                // Switching from Diameter to Radius: convert Diameter D to Radius ((D - 1) / 2)
+                currentVal = Math.max(1, Math.floor((currentVal - 1) / 2));
+            }
+
+            currentDimensionType = type;
+
+            document.getElementById('modeRadiusBtn').classList.toggle('active', type === 'radius');
+            document.getElementById('modeDiameterBtn').classList.toggle('active', type === 'diameter');
+
+            const label = document.getElementById('sizeInputLabel');
+            label.innerText = type === 'radius' ? 'Radius Size (Blocks)' : 'Diameter Size (Blocks)';
+
+            input.value = currentVal;
+            document.getElementById('sizeSlider').value = currentVal;
+
+            updatePresetsUI();
+            updateBlueprint();
+        }
+
+        function setPattern(mode) {
+            document.getElementById('patternSelect').value = mode;
+            handlePatternChange(mode);
+        }
+
+        function handlePatternChange(mode) {
+            currentPatternMode = mode;
+            document.getElementById('thicknessGroup').style.display = (mode === 'ring') ? 'flex' : 'none';
+            updateBlueprint();
+        }
+
+        function handleThicknessChange(val) {
+            // Gracefully handle empty or NaN input
+            const num = parseInt(val);
+            if (isNaN(num) || val.trim() === '') {
+                // Reset to a safe default (1) without glitching the UI
+                document.getElementById('thicknessInput').value = 1;
+                updateBlueprint();
+                return;
+            }
+            // Clamp to valid range
+            const clamped = Math.max(1, Math.min(50, num));
+            if (clamped !== num) {
+                document.getElementById('thicknessInput').value = clamped;
+            }
+            updateBlueprint();
+        }
+
+        function handleBlockTypeChange(val) {
+            RenderEngine.currentTheme = val;
+            RenderEngine.draw();
+        }
+
+        function handleWorldCoordChange() {
+            RenderEngine.draw();
+            updateStatsUI();
+        }
+
+        function stepSize(delta) {
+            const input = document.getElementById('sizeInput');
+            let val = parseInt(input.value) || 1;
+            val = Math.max(1, Math.min(200, val + delta));
+            input.value = val;
+            document.getElementById('sizeSlider').value = val;
+            updateBlueprint();
+        }
+
+        // ================================================================
+        // CORRECTED: integer validation, mode‑specific size limit wording
+        // ================================================================
+        function handleSizeChange(val) {
+            const errorBanner = document.getElementById('errorBanner');
+
+            // 1. Check empty
+            if (val.trim() === '') {
+                errorBanner.innerText = 'Please enter a valid whole number.';
+                errorBanner.style.display = 'block';
+                return;
+            }
+
+            // 2. Convert to number
+            const num = Number(val);
+
+            // 3. Check finite and integer
+            if (!Number.isFinite(num) || !Number.isInteger(num)) {
+                errorBanner.innerText = 'Please enter a whole number (no decimals).';
+                errorBanner.style.display = 'block';
+                return;
+            }
+
+            // 4. Check range
+            if (num < 1) {
+                errorBanner.innerText = 'Please enter a valid whole number greater than 0.';
+                errorBanner.style.display = 'block';
+                return;
+            } else if (num > 200) {
+                if (currentDimensionType === 'radius') {
+                    errorBanner.innerText = 'Maximum radius is 200 (produces a 401×401 circle).';
+                } else {
+                    errorBanner.innerText = 'Maximum diameter is 200.';
+                }
+                errorBanner.style.display = 'block';
+                // Cap the value (do not silently truncate, but we cap to max)
+                document.getElementById('sizeInput').value = 200;
+                document.getElementById('sizeSlider').value = 200;
+                // Update blueprint with capped value
+                updatePresetsUI();
+                updateBlueprint();
+                return;
+            }
+
+            // Valid integer in range
+            errorBanner.style.display = 'none';
+            document.getElementById('sizeInput').value = num;
+            document.getElementById('sizeSlider').value = num;
+            updatePresetsUI();
+            updateBlueprint();
+        }
+
+        // Fix 4: Preset Button Active State Management
+        function updatePresetsUI() {
+            const container = document.getElementById('presetContainer');
+            const title = document.getElementById('presetTitle');
+            const currentVal = parseInt(document.getElementById('sizeInput').value) || 0;
+            container.innerHTML = '';
+
+            let presets = [];
+            if (currentDimensionType === 'radius') {
+                title.innerText = 'Quick Radius Presets';
+                presets = [5, 10, 15, 20, 25, 50];
+            } else {
+                title.innerText = 'Quick Diameter Presets';
+                presets = [5, 9, 15, 21, 31, 51, 101];
+            }
+
+            presets.forEach(val => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'preset-btn' + (val === currentVal ? ' active' : '');
+                btn.innerText = (currentDimensionType === 'radius' ? 'R' : 'D') + val;
+                btn.onclick = () => {
+                    handleSizeChange(val);
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function renderBlueprint() {
+            RenderEngine.draw();
+        }
+
+        function updateBlueprint() {
+            const sizeVal = parseInt(document.getElementById('sizeInput').value) || 10;
+
+            let diameter;
+            if (currentDimensionType === 'radius') {
+                diameter = sizeVal * 2 + 1;
+            } else {
+                diameter = sizeVal;
+            }
+
+            // Fix 5: Ring Thickness Capping (Prevent Ring Mode Corruption)
+            const calculatedRadius = Math.floor(diameter / 2);
+            let thickness = parseInt(document.getElementById('thicknessInput').value) || 1;
+            const maxThickness = Math.max(1, calculatedRadius);
+
+            if (thickness > maxThickness) {
+                thickness = maxThickness;
+                document.getElementById('thicknessInput').value = thickness;
+            }
+
+            const gridData = GeometryEngine.generateGrid(diameter, currentPatternMode, thickness);
+
+            RenderEngine.setGridData(gridData);
+            updateStatsUI(gridData);
+        }
+
+        function updateStatsUI(gridData) {
+            const data = gridData || RenderEngine.gridData;
+            if (!data) return;
+
+            document.getElementById('badgeDimensions').innerText = `${data.totalGridSize} × ${data.totalGridSize} Blocks`;
+            document.getElementById('badgeModeStyle').innerText = `${currentPatternMode.toUpperCase()} Mode`;
+
+            document.getElementById('parityBadge').innerText = data.isOdd ? 'Odd Diameter (1x1 Center)' :
+                'Even Diameter (2x2 Center)';
+
+            document.getElementById('statTotalBlocks').innerText = data.blockCount;
+
+            const stacks = Math.floor(data.blockCount / 64);
+            const rem = data.blockCount % 64;
+            document.getElementById('statStackCount').innerText = `${stacks} Stacks + ${rem} Blocks`;
+
+            document.getElementById('statRadius').innerText = data.radius;
+            document.getElementById('statDiameter').innerText = data.diameter;
+
+            document.getElementById('statCenterType').innerText = data.isOdd ? '1 × 1 Block' : '2 × 2 Center';
+
+            const wX = parseInt(document.getElementById('worldX').value) || 0;
+            const wZ = parseInt(document.getElementById('worldZ').value) || 0;
+            document.getElementById('statCenterCoord').innerText = `World (${wX}, ${wZ})`;
+
+            // Accessibility fallback summary
+            const fallbackEl = document.getElementById('canvasAccessibilityFallback');
+            if (fallbackEl) {
+                fallbackEl.innerText =
+                    `Minecraft circle blueprint generated: Diameter ${data.diameter} blocks, Radius ${data.radius} blocks, Pattern ${currentPatternMode}, Total blocks required: ${data.blockCount}. World center at X: ${wX}, Z: ${wZ}.`;
+            }
+        }
+
+        function zoomCanvas(factor) {
+            RenderEngine.zoomAtPoint(factor, RenderEngine.wrapper.clientWidth / 2, RenderEngine.wrapper.clientHeight / 2);
+        }
+
+        function resetCanvasView() {
+            RenderEngine.resetView();
+        }
+
+        /* ==========================================================================
+           EXPORT & COPY HANDLERS
+           ========================================================================== */
+
+        // ----- CLIPBOARD FALLBACK HELPER -----
+        function copyToClipboard(text, successCallback, errorCallback) {
+            // Try modern async clipboard API first
+            if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+                navigator.clipboard.writeText(text)
+                    .then(successCallback)
+                    .catch(() => {
+                        // If fails, fallback to legacy method
+                        fallbackCopy(text, successCallback, errorCallback);
+                    });
+            } else {
+                // No clipboard API – fallback
+                fallbackCopy(text, successCallback, errorCallback);
+            }
+        }
+
+        function fallbackCopy(text, successCallback, errorCallback) {
+            // Create a temporary textarea
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    if (successCallback) successCallback();
+                } else {
+                    if (errorCallback) errorCallback();
+                }
+            } catch (e) {
+                if (errorCallback) errorCallback();
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        function copyPatternASCII() {
+            const data = RenderEngine.gridData;
+            if (!data) return;
+
+            let ascii = '';
+            for (let r = 0; r < data.totalGridSize; r++) {
+                let rowStr = '';
+                for (let c = 0; c < data.totalGridSize; c++) {
+                    rowStr += data.grid[r][c] === 1 ? '#' : '.';
+                }
+                ascii += rowStr + '\n';
+            }
+
+            const btn = document.getElementById('btnCopyPattern');
+            const orig = btn.innerHTML;
+
+            copyToClipboard(ascii,
+                () => {
+                    btn.innerHTML = '<span>✓ Copied Pattern!</span>';
+                    setTimeout(() => { btn.innerHTML = orig; }, 1500);
+                },
+                () => {
+                    alert('Copy failed. Please copy manually.');
+                }
+            );
+        }
+
+        function copyCoordinatesList() {
+            const data = RenderEngine.gridData;
+            if (!data) return;
+
+            const wX = parseInt(document.getElementById('worldX').value) || 0;
+            const wZ = parseInt(document.getElementById('worldZ').value) || 0;
+
+            let text = `Minecraft Circle Coordinates (${data.diameter} Diameter, ${data.blockCount} Blocks)\n`;
+            text += `Center X: ${wX}, Center Z: ${wZ}\n-----------------------------------\n`;
+
+            data.highlightBlocks.forEach(b => {
+                text += `X: ${wX + b.relativeX}, Z: ${wZ + b.relativeZ}\n`;
+            });
+
+            const btn = document.getElementById('btnCopyCoords');
+            const orig = btn.innerHTML;
+
+            copyToClipboard(text,
+                () => {
+                    btn.innerHTML = '<span>✓ Copied Coordinates!</span>';
+                    setTimeout(() => { btn.innerHTML = orig; }, 1500);
+                },
+                () => {
+                    alert('Copy failed. Please copy manually.');
+                }
+            );
+        }
+
+        function downloadCoordinatesFile() {
+            const data = RenderEngine.gridData;
+            if (!data) return;
+
+            const wX = parseInt(document.getElementById('worldX').value) || 0;
+            const wZ = parseInt(document.getElementById('worldZ').value) || 0;
+
+            let text = `Minecraft Circle Blueprint Coordinates\n`;
+            text += `Radius: ${data.radius} | Diameter: ${data.diameter} | Total Blocks: ${data.blockCount}\n`;
+            text += `World Center: (${wX}, ${wZ})\n\n`;
+
+            data.highlightBlocks.forEach(b => {
+                text += `X: ${wX + b.relativeX}, Z: ${wZ + b.relativeZ}\n`;
+            });
+
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `minecraft-circle-D${data.diameter}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadPNG() {
+            const data = RenderEngine.gridData;
+            if (!data) return;
+
+            const N = data.totalGridSize;
+            const exportCellSize = Math.max(12, Math.min(32, Math.floor(1000 / N)));
+            const exportCanvas = document.createElement('canvas');
+            // FIX: Increased margin from 20 to 60 to prevent clipping on large diameters
+            const margin = 60;
+            const canvasWidth = N * exportCellSize + margin * 2;
+            const canvasHeight = N * exportCellSize + margin * 2;
+
+            exportCanvas.width = canvasWidth;
+            exportCanvas.height = canvasHeight;
+            const ctx = exportCanvas.getContext('2d');
+
+            const isLight = document.body.classList.contains('light-theme');
+
+            // Background
+            ctx.fillStyle = isLight ? '#f8fafc' : '#070a12';
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+            const theme = RenderEngine.materialThemes[RenderEngine.currentTheme] || RenderEngine.materialThemes.emerald;
+            const showGrid = document.getElementById('chkShowGrid').checked;
+            const showCenter = document.getElementById('chkShowCenter').checked;
+            const showAxes = document.getElementById('chkShowAxes').checked;
+
+            // Draw blocks
+            for (let r = 0; r < N; r++) {
+                for (let c = 0; c < N; c++) {
+                    if (data.grid[r][c] === 1) {
+                        const cellX = margin + c * exportCellSize;
+                        const cellY = margin + r * exportCellSize;
+                        ctx.fillStyle = theme.fill;
+                        ctx.fillRect(cellX, cellY, exportCellSize, exportCellSize);
+                        if (exportCellSize > 6) {
+                            ctx.strokeStyle = theme.border;
+                            ctx.lineWidth = Math.max(1, exportCellSize * 0.08);
+                            ctx.strokeRect(cellX + 0.5, cellY + 0.5, exportCellSize - 1, exportCellSize - 1);
+                        }
+                    }
+                }
+            }
+
+            // Draw grid
+            if (showGrid) {
+                ctx.strokeStyle = isLight ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.08)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                for (let i = 0; i <= N; i++) {
+                    const x = margin + i * exportCellSize;
+                    ctx.moveTo(Math.floor(x) + 0.5, margin);
+                    ctx.lineTo(Math.floor(x) + 0.5, margin + N * exportCellSize);
+
+                    const y = margin + i * exportCellSize;
+                    ctx.moveTo(margin, Math.floor(y) + 0.5);
+                    ctx.lineTo(margin + N * exportCellSize, Math.floor(y) + 0.5);
+                }
+                ctx.stroke();
+            }
+
+            // Draw axes
+            if (showAxes) {
+                ctx.strokeStyle = isLight ? 'rgba(2, 132, 199, 0.8)' : 'rgba(6, 182, 212, 0.7)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                if (data.isOdd) {
+                    const centerIdx = Math.floor(N / 2);
+                    const x = margin + (centerIdx + 0.5) * exportCellSize;
+                    const y = margin + (centerIdx + 0.5) * exportCellSize;
+                    ctx.moveTo(x, margin);
+                    ctx.lineTo(x, margin + N * exportCellSize);
+                    ctx.moveTo(margin, y);
+                    ctx.lineTo(margin + N * exportCellSize, y);
+                } else {
+                    const centerIdx = N / 2;
+                    const x = margin + centerIdx * exportCellSize;
+                    const y = margin + centerIdx * exportCellSize;
+                    ctx.moveTo(x, margin);
+                    ctx.lineTo(x, margin + N * exportCellSize);
+                    ctx.moveTo(margin, y);
+                    ctx.lineTo(margin + N * exportCellSize, y);
+                }
+                ctx.stroke();
+            }
+
+            // Draw center
+            if (showCenter) {
+                ctx.fillStyle = '#ef4444';
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                if (data.isOdd) {
+                    const centerIdx = Math.floor(N / 2);
+                    const cx = margin + (centerIdx + 0.5) * exportCellSize;
+                    const cy = margin + (centerIdx + 0.5) * exportCellSize;
+                    ctx.arc(cx, cy, Math.max(3, exportCellSize * 0.25), 0, Math.PI * 2);
+                } else {
+                    const centerIdx = N / 2;
+                    const cx = margin + centerIdx * exportCellSize;
+                    const cy = margin + centerIdx * exportCellSize;
+                    ctx.arc(cx, cy, Math.max(4, exportCellSize * 0.25), 0, Math.PI * 2);
+                }
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            const url = exportCanvas.toDataURL('image/png');
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `minecraft-circle-D${data.diameter}.png`;
+            a.click();
+        }
+
+        function triggerPrint() {
+            const data = RenderEngine.gridData;
+            const wX = parseInt(document.getElementById('worldX').value) || 0;
+            const wZ = parseInt(document.getElementById('worldZ').value) || 0;
+
+            document.getElementById('printMetadata').innerHTML = `
+                <p>Diameter: <strong>${data.diameter} Blocks</strong> | Radius: <strong>${data.radius} Blocks</strong></p>
+                <p>Total Blocks Required: <strong>${data.blockCount}</strong></p>
+                <p>World Center: <strong>X: ${wX}, Z: ${wZ}</strong></p>
+            `;
+
+            window.print();
+        }
+
+        // Initialize application on DOM load
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
