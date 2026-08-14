@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://mccirclegrid.com/</loc>
+  </url>
+
+  <!-- Main Tool -->
+  <url>
+    <loc>https://mccirclegrid.com/minecraft-circle-generator/</loc>
+  </url>
+
+  <!-- Blog Landing Page -->
+  <url>
+    <loc>https://mccirclegrid.com/blog/</loc>
+  </url>
+
+  <!-- Blog Articles -->
+  <url>
+    <loc>https://mccirclegrid.com/blog/minecraft-circle-generator/</loc>
+  </url>
+
+  <url>
+    <loc>https://mccirclegrid.com/blog/minecraft-circle-charts/</loc>
+  </url>
+
+  <url>
+    <loc>https://mccirclegrid.com/blog/minecraft-21x21-circle-chart/</loc>
+  </url>
+
+  <url>
+    <loc>https://mccirclegrid.com/blog/even-diameter-minecraft-circles/</loc>
+  </url>
+
+  <url>
+    <loc>https://mccirclegrid.com/blog/minecraft-circle-coordinates/</loc>
+  </url>
+
+  <url>
+    <loc>https://mccirclegrid.com/blog/minecraft-circle-blueprint-guide/</loc>
+  </url>
+
+</urlset>
