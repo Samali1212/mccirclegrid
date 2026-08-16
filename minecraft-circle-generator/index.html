@@ -294,6 +294,7 @@
             background: linear-gradient(to right, #fff, var(--text-muted));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            white-space: nowrap;
         }
 
         .nav-right-group {
@@ -360,6 +361,8 @@
             font-weight: 800;
             letter-spacing: -0.03em;
             margin-bottom: 0.5rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .hero p {
@@ -461,6 +464,7 @@
             place-items: center;
             transition: all 0.2s;
             user-select: none;
+            flex-shrink: 0;
         }
 
         .btn-step:hover {
@@ -480,6 +484,7 @@
             font-weight: 700;
             text-align: center;
             transition: border-color 0.2s;
+            min-width: 0;
         }
 
         .input-number:focus {
@@ -578,6 +583,7 @@
             height: 18px;
             accent-color: var(--accent-primary);
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .inline-inputs {
@@ -632,6 +638,7 @@
             display: flex;
             gap: 0.5rem;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .badge {
@@ -648,6 +655,7 @@
         .canvas-toolbar {
             display: flex;
             gap: 0.35rem;
+            flex-wrap: wrap;
         }
 
         .tool-btn {
@@ -660,6 +668,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.15s;
+            flex-shrink: 0;
         }
 
         .tool-btn:hover {
@@ -702,6 +711,10 @@
             pointer-events: none;
             backdrop-filter: blur(4px);
             box-shadow: var(--shadow-sm);
+            max-width: calc(100% - 24px);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         /* ==========================================================================
@@ -736,6 +749,8 @@
             font-family: var(--font-mono);
             color: var(--text-main);
             margin-top: 0.1rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .stat-sub {
@@ -812,6 +827,9 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
         }
 
         .article-card h3 {
@@ -819,6 +837,9 @@
             font-weight: 600;
             margin: 1.25rem 0 0.5rem 0;
             color: var(--accent-secondary);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
         }
 
         .article-card p,
@@ -826,11 +847,16 @@
             color: var(--text-muted);
             font-size: 0.95rem;
             margin-bottom: 0.85rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
         }
 
         .article-card ul,
         .article-card ol {
             padding-left: 1.5rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .note-box {
@@ -841,6 +867,8 @@
             margin: 1rem 0;
             font-size: 0.9rem;
             color: #cff4fc;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         /* FAQ ACCORDION DROPDOWN STYLING */
@@ -881,6 +909,7 @@
             color: var(--accent-secondary);
             transition: transform 0.2s ease;
             margin-left: 0.5rem;
+            flex-shrink: 0;
         }
 
         details[open] summary::after {
@@ -892,6 +921,8 @@
             font-size: 1rem;
             color: var(--text-main);
             margin: 0;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .faq-answer {
@@ -901,6 +932,8 @@
             margin-top: 0.75rem;
             padding-top: 0.75rem;
             border-top: 1px solid var(--border-color);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         /* ==========================================================================
@@ -977,6 +1010,16 @@
             }
         }
 
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
         @media (max-width: 640px) {
             .hero h1 {
                 font-size: 1.75rem;
@@ -996,15 +1039,123 @@
 
             .btn-action {
                 width: 100%;
+                min-width: unset;
             }
 
             .nav-links {
                 display: none;
             }
+
+            .article-card {
+                padding: 1.5rem;
+            }
         }
 
         /* ==========================================================================
-           10. PRINT STYLESHEET
+           10. VERY SMALL SCREEN SAFETY (320px – 480px)
+           ========================================================================== */
+        @media (max-width: 480px) {
+            .logo-title {
+                font-size: 1rem;
+            }
+            .logo-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+
+            .panel {
+                padding: 1.25rem 1rem;
+            }
+
+            .canvas-wrapper {
+                height: 320px;
+            }
+
+            .viewport-header {
+                padding: 0.5rem 0.75rem;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.4rem;
+            }
+            .badge-group {
+                justify-content: center;
+            }
+            .canvas-toolbar {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .inline-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .article-card {
+                padding: 1.25rem 0.75rem;
+            }
+            .article-card h2 {
+                font-size: 1.25rem;
+            }
+            .article-card h3 {
+                font-size: 1rem;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                padding: 1.5rem 1rem;
+            }
+            .footer-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .footer-col {
+                min-width: unset;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .preset-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.25rem;
+            }
+            .preset-btn {
+                font-size: 0.65rem;
+                padding: 0.25rem 0;
+            }
+
+            .logo-title {
+                font-size: 0.85rem;
+            }
+            .logo-icon {
+                width: 24px;
+                height: 24px;
+                font-size: 0.75rem;
+            }
+            .logo-group {
+                gap: 0.5rem;
+            }
+
+            .canvas-wrapper {
+                height: 280px;
+            }
+
+            .coordinate-tooltip {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.5rem;
+                bottom: 6px;
+                left: 6px;
+                max-width: calc(100% - 12px);
+            }
+        }
+
+        /* ==========================================================================
+           11. PRINT STYLESHEET
            ========================================================================== */
         @media print {
             body {
@@ -2112,7 +2263,7 @@
         function handleThicknessChange(val) {
             // Gracefully handle empty or NaN input
             const num = parseInt(val);
-            if (isNaN(num) || val.trim() === '') {
+            if (isNaN(num) || String(val).trim() === '') {
                 // Reset to a safe default (1) without glitching the UI
                 document.getElementById('thicknessInput').value = 1;
                 updateBlueprint();
@@ -2146,20 +2297,21 @@
         }
 
         // ================================================================
-        // CORRECTED: integer validation, mode‑specific size limit wording
+        // EXACT FIXED PART: Safe string conversion for preset and inputs
         // ================================================================
         function handleSizeChange(val) {
             const errorBanner = document.getElementById('errorBanner');
+            const strVal = String(val);
 
             // 1. Check empty
-            if (val.trim() === '') {
+            if (strVal.trim() === '') {
                 errorBanner.innerText = 'Please enter a valid whole number.';
                 errorBanner.style.display = 'block';
                 return;
             }
 
             // 2. Convert to number
-            const num = Number(val);
+            const num = Number(strVal);
 
             // 3. Check finite and integer
             if (!Number.isFinite(num) || !Number.isInteger(num)) {
