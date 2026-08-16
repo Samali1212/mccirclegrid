@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0HENKGXQMJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-0HENKGXQMJ');
-</script>
-    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HENKGXQMJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-0HENKGXQMJ');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCCircleGrid | Minecraft Circle Generator for Round Builds</title>
@@ -35,22 +38,19 @@
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
-            "@graph": [
-                {
-                    "@type": "WebSite",
-                    "@id": "https://mccirclegrid.com/#website",
-                    "url": "https://mccirclegrid.com/",
-                    "name": "MCCircleGrid",
-                    "description": "MCCircleGrid helps Minecraft builders create precise circle patterns, coordinates, and blueprints for round builds, towers, domes, and more.",
-                    "inLanguage": "en-US"
-                },
-                {
-                    "@type": "Organization",
-                    "@id": "https://mccirclegrid.com/#organization",
-                    "name": "MCCircleGrid",
-                    "url": "https://mccirclegrid.com/"
-                }
-            ]
+            "@graph": [{
+                "@type": "WebSite",
+                "@id": "https://mccirclegrid.com/#website",
+                "url": "https://mccirclegrid.com/",
+                "name": "MCCircleGrid",
+                "description": "MCCircleGrid helps Minecraft builders create precise circle patterns, coordinates, and blueprints for round builds, towers, domes, and more.",
+                "inLanguage": "en-US"
+            }, {
+                "@type": "Organization",
+                "@id": "https://mccirclegrid.com/#organization",
+                "name": "MCCircleGrid",
+                "url": "https://mccirclegrid.com/"
+            }]
         }
     </script>
 
@@ -305,6 +305,8 @@
             line-height: 1.15;
             margin-bottom: 1rem;
             color: var(--text-primary);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .hero-content p {
@@ -479,6 +481,8 @@
             letter-spacing: -0.02em;
             margin-bottom: 2rem;
             color: var(--text-primary);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .section-title.center {
@@ -605,6 +609,8 @@
             font-size: 1.75rem;
             margin-bottom: 0.5rem;
             color: var(--text-primary);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .blog-preview p {
@@ -685,6 +691,8 @@
             color: var(--text-primary);
             margin-top: 1.5rem;
             margin-bottom: 1rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .article-section h2:first-of-type {
@@ -697,12 +705,16 @@
             color: var(--text-primary);
             margin-top: 1.25rem;
             margin-bottom: 0.75rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .article-section p {
             color: var(--text-muted);
             margin-bottom: 1rem;
             line-height: 1.7;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .article-section ul,
@@ -710,6 +722,8 @@
             color: var(--text-muted);
             margin-left: 1.5rem;
             margin-bottom: 1rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .article-section li {
@@ -773,6 +787,8 @@
             font-weight: 700;
             margin-bottom: 0.75rem;
             color: var(--text-primary);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         .final-cta p {
@@ -894,6 +910,56 @@
 
         .skip-link:focus {
             top: 0;
+        }
+
+        /* ========== Mobile Responsiveness Fixes ========== */
+        @media (max-width: 640px) {
+            .article-section {
+                padding: 2rem 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .article-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .article-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.75rem;
+            }
+
+            .hero-actions .btn-primary,
+            .hero-actions .btn-secondary {
+                text-align: center;
+                width: 100%;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .logo-icon {
+                width: 24px;
+                height: 24px;
+                line-height: 24px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .use-cases-grid {
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            }
         }
     </style>
 </head>
@@ -1067,7 +1133,7 @@
 
                 <h2>Why Are Circles Difficult to Build in Minecraft?</h2>
                 <p>In most games with smooth graphics, drawing a circle is as simple as dragging a mouse or using a brush tool. In Minecraft, everything is blocky. A perfect mathematical circle would require infinitely small points, but Minecraft restricts you to a discrete grid. The challenge is to choose which blocks to place so that the outline approximates a circle as closely as possible.</p>
-                <p>Without a guide, many builders end up with lopsided shapes, irregular gaps, or patterns that look more like polygons than circles. The difficulty increases as the circle gets larger, because small mistakes in the early rows can compound and ruin the symmetry. A tool like MCCircleGrid’s <strong>minecraft circle generator</strong> eliminates this guesswork by providing a proven, repeatable pattern every time.</p>
+                <p>Without a guide, many builders end up with lopsided shapes, irregular gaps, or patterns that look more like polygons than circles. The difficulty increases as the circle gets larger, because small mistakes in the early rows can compound and ruin the symmetry. A tool like MCCircleGrid's <strong>minecraft circle generator</strong> eliminates this guesswork by providing a proven, repeatable pattern every time.</p>
 
                 <h2>How Minecraft Circle Patterns Work</h2>
                 <p>Every circle pattern is defined by two key measurements: <strong>radius</strong> and <strong>diameter</strong>. The radius is the distance from the center to the edge, while the diameter is the total width of the circle. In Minecraft terms, these are measured in blocks.</p>
