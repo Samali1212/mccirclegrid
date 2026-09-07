@@ -1,1 +1,97 @@
 
+<!-- circle-chart/index.html -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minecraft Circle Diameter Reference Chart | MCCircleGrid</title>
+    <meta name="description" content="Complete Minecraft circle diameter reference table with perimeter blocks, stacks, solid area, and octant sequences. Perfect for planning castle turrets, towers, and circular buildings." />
+    <link rel="canonical" href="https://mccirclegrid.com/circle-chart/" />
+    <meta property="og:title" content="Minecraft Circle Diameter Reference Chart | MCCircleGrid" />
+    <meta property="og:description" content="Complete Minecraft circle diameter reference table with perimeter blocks, stacks, solid area, and octant sequences." />
+    <meta property="og:url" content="https://mccirclegrid.com/circle-chart/" />
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <div class="ambient-glow"></div>
+    <div class="container">
+        <header>
+            <a href="/" class="brand-group" aria-label="MCCircleGrid Home">
+                <div class="brand-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
+                <div class="brand-text"><h1>MCCircleGrid</h1><p>Precision Minecraft Voxel Blueprints</p></div>
+            </a>
+            <nav class="site-nav">
+                <a href="/">Generator</a>
+                <a href="/circle-chart/">Circle Chart</a>
+                <a href="/sphere-guide/">Sphere Guide</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+            </nav>
+            <button class="theme-toggle-btn" id="themeToggleBtn"><span id="themeIcon">☀️</span> Light Mode</button>
+        </header>
+
+        <main class="page-section">
+            <h1>Minecraft Circle Diameter Reference Chart</h1>
+            <p>Use this table to plan circular structures. All values are calculated using MCCircleGrid's deterministic voxel rasterization engine.</p>
+            
+            <div class="table-container">
+                <table class="guide-table">
+                    <thead>
+                        <tr>
+                            <th>Diameter (Blocks)</th>
+                            <th>Center Type</th>
+                            <th>Perimeter Outline</th>
+                            <th>Perimeter Stacks</th>
+                            <th>Solid Area</th>
+                            <th>Solid Stacks</th>
+                            <th>Octant Sequence (Apex → 45°)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>3×3</strong></td><td>1×1 (Odd)</td><td>8</td><td>0 Stk + 8</td><td>9</td><td>0 Stk + 9</td><td>3</td></tr>
+                        <tr><td><strong>5×5</strong></td><td>1×1 (Odd)</td><td>16</td><td>0 Stk + 16</td><td>21</td><td>0 Stk + 21</td><td>3 → 1</td></tr>
+                        <tr><td><strong>7×7</strong></td><td>1×1 (Odd)</td><td>20</td><td>0 Stk + 20</td><td>37</td><td>0 Stk + 37</td><td>3 → 1 → 1</td></tr>
+                        <tr><td><strong>9×9</strong></td><td>1×1 (Odd)</td><td>28</td><td>0 Stk + 28</td><td>69</td><td>1 Stk + 5</td><td>5 → 1 → 1</td></tr>
+                        <tr><td><strong>11×11</strong></td><td>1×1 (Odd)</td><td>32</td><td>0 Stk + 32</td><td>97</td><td>1 Stk + 33</td><td>5 → 2 → 1</td></tr>
+                        <tr><td><strong>13×13</strong></td><td>1×1 (Odd)</td><td>40</td><td>0 Stk + 40</td><td>137</td><td>2 Stk + 9</td><td>5 → 2 → 1 → 1</td></tr>
+                        <tr><td><strong>15×15</strong></td><td>1×1 (Odd)</td><td>44</td><td>0 Stk + 44</td><td>177</td><td>2 Stk + 49</td><td>5 → 2 → 1 → 1</td></tr>
+                        <tr><td><strong>16×16</strong></td><td>2×2 (Even)</td><td>48</td><td>0 Stk + 48</td><td>208</td><td>3 Stk + 16</td><td>6 → 2 → 1 → 1</td></tr>
+                        <tr><td><strong>17×17</strong></td><td>1×1 (Odd)</td><td>52</td><td>0 Stk + 52</td><td>225</td><td>3 Stk + 33</td><td>5 → 3 → 1 → 1</td></tr>
+                        <tr><td><strong>19×19</strong></td><td>1×1 (Odd)</td><td>56</td><td>0 Stk + 56</td><td>285</td><td>4 Stk + 29</td><td>5 → 3 → 2 → 1</td></tr>
+                        <tr><td><strong>21×21</strong></td><td>1×1 (Odd)</td><td>64</td><td>1 Stk + 0</td><td>349</td><td>5 Stk + 29</td><td>5 → 3 → 2 → 1</td></tr>
+                        <tr><td><strong>23×23</strong></td><td>1×1 (Odd)</td><td>72</td><td>1 Stk + 8</td><td>417</td><td>6 Stk + 33</td><td>7 → 3 → 2 → 1</td></tr>
+                        <tr><td><strong>25×25</strong></td><td>1×1 (Odd)</td><td>76</td><td>1 Stk + 12</td><td>493</td><td>7 Stk + 45</td><td>7 → 2 → 2 → 1 → 1</td></tr>
+                        <tr><td><strong>27×27</strong></td><td>1×1 (Odd)</td><td>84</td><td>1 Stk + 20</td><td>577</td><td>9 Stk + 1</td><td>7 → 3 → 2 → 1 → 1</td></tr>
+                        <tr><td><strong>29×29</strong></td><td>1×1 (Odd)</td><td>88</td><td>1 Stk + 24</td><td>661</td><td>10 Stk + 21</td><td>7 → 3 → 2 → 1 → 1</td></tr>
+                        <tr><td><strong>31×31</strong></td><td>1×1 (Odd)</td><td>96</td><td>1 Stk + 32</td><td>757</td><td>11 Stk + 53</td><td>7 → 3 → 2 → 2 → 1</td></tr>
+                        <tr><td><strong>33×33</strong></td><td>1×1 (Odd)</td><td>100</td><td>1 Stk + 36</td><td>853</td><td>13 Stk + 21</td><td>7 → 4 → 2 → 2 → 1</td></tr>
+                        <tr><td><strong>35×35</strong></td><td>1×1 (Odd)</td><td>108</td><td>1 Stk + 44</td><td>961</td><td>15 Stk + 1</td><td>7 → 4 → 3 → 2 → 1</td></tr>
+                        <tr><td><strong>41×41</strong></td><td>1×1 (Odd)</td><td>128</td><td>2 Stk + 0</td><td>1,321</td><td>20 Stk + 41</td><td>9 → 4 → 3 → 2 → 1 → 1</td></tr>
+                        <tr><td><strong>45×45</strong></td><td>1×1 (Odd)</td><td>140</td><td>2 Stk + 12</td><td>1,593</td><td>24 Stk + 57</td><td>9 → 5 → 3 → 2 → 2 → 1</td></tr>
+                        <tr><td><strong>51×51</strong></td><td>1×1 (Odd)</td><td>160</td><td>2 Stk + 32</td><td>2,045</td><td>31 Stk + 61</td><td>9 → 5 → 4 → 3 → 2 → 1 → 1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>How to Read This Table</h2>
+            <p>The <strong>Octant Sequence</strong> shows the consecutive linear runs of blocks from the cardinal apex to the 45-degree diagonal. Start at the top cardinal point, lay the first run, then step diagonally and place the next run, continuing until you reach the diagonal corner. Mirror this sequence across all four quadrants to complete the circle.</p>
+        </main>
+
+        <footer>
+            <nav class="footer-nav">
+                <a href="/">Home</a>
+                <a href="/circle-chart/">Circle Chart</a>
+                <a href="/sphere-guide/">Sphere Guide</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+                <a href="/privacy-policy/">Privacy Policy</a>
+                <a href="/terms-of-service/">Terms of Service</a>
+            </nav>
+            <p>&copy; 2026 MCCircleGrid. All rights reserved.</p>
+            <p style="margin-top:.45rem;font-size:.76rem;color:var(--text-muted);">Disclaimer: MCCircleGrid is an independent architectural planning utility. Not an official Minecraft product. Not approved by or associated with Mojang Studios or Microsoft Corporation.</p>
+        </footer>
+    </div>
+    <script src="/assets/js/shared.js"></script>
+</body>
+</html>
