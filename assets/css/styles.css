@@ -898,6 +898,12 @@
         .viewport-wrapper {
             min-height: 400px;
         }
+        }
+
+/* NEW: Prevent sphere HUD ... */
+.sphere-layer-hud {
+    bottom: 5rem;
+}
     }
     /* Print */
     #printMetadata {
