@@ -1,1403 +1,1667 @@
+
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HENKGXQMJ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0HENKGXQMJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-0HENKGXQMJ');
-    </script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCCircleGrid | Minecraft Circle Generator for Round Builds</title>
-    <meta name="description" content="MCCircleGrid helps Minecraft builders create precise circle patterns, coordinates, and blueprints for round builds, towers, domes, and more.">
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3521237453940493"
-     crossorigin="anonymous"></script>
+  gtag('config', 'G-0HENKGXQMJ');
+</script>
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://mccirclegrid.com/">
-
-    <!-- Open Graph (no image, logo removed) -->
-    <meta property="og:title" content="MCCircleGrid | Minecraft Circle Generator for Round Builds">
-    <meta property="og:description" content="MCCircleGrid helps Minecraft builders create precise circle patterns, coordinates, and blueprints for round builds, towers, domes, and more.">
-    <meta property="og:url" content="https://mccirclegrid.com/">
-    <meta property="og:type" content="website">
-
-    <!-- Google Fonts -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>MCCircleGrid | Precision Minecraft Circle Generator & 3D Sphere Builder</title>
+    <meta name="description" content="Generate pixel-perfect Minecraft circles, ellipses, regular polygons, and 3D sphere slices. Includes block count stack calculator, survival progress tracking, and quadrant build sequences." />
+    <link rel="canonical" href="https://mccirclegrid.com/" />
+    <meta name="author" content="MCCircleGrid Architectural Engineering" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MCCircleGrid | Precision Minecraft Circle Generator & 3D Sphere Builder" />
+    <meta property="og:description" content="The definitive voxel blueprint generator for Minecraft builders. Calculate circle diameters, 3D sphere layers, odd vs even centers, and block material stacks." />
+    <meta property="og:url" content="https://mccirclegrid.com/" />
+    <meta property="og:site_name" content="MCCircleGrid" />
+    <meta property="og:image" content="https://mccirclegrid.com/og-preview.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MCCircleGrid | Precision Minecraft Circle Generator" />
+    <meta name="twitter:description" content="Generate mathematically verified circles, spheres, and polygons for Minecraft builds with block counts and construction sequences." />
+    <meta name="twitter:image" content="https://mccirclegrid.com/og-preview.png" />
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "MCCircleGrid",
+                "operatingSystem": "All",
+                "applicationCategory": "UtilitiesApplication",
+                "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" },
+                "url": "https://mccirclegrid.com/",
+                "description": "Deterministic Euclidean voxel blueprint generator for Minecraft circles, ellipses, regular polygons, and sliced 3D sphere layers."
+            },
+            {
+                "@type": "HowTo",
+                "name": "How to Build a Perfect Circle in Minecraft",
+                "description": "Step-by-step architectural guide to construct symmetrical circles in Minecraft using voxel rasterization blueprints.",
+                "step": [
+                    { "@type": "HowToStep", "name": "Anchor the Center Coordinate", "text": "Place a marker block at your desired central coordinate." },
+                    { "@type": "HowToStep", "name": "Construct the Cardinal Cross", "text": "Measure outward along North, South, East, and West axes." },
+                    { "@type": "HowToStep", "name": "Follow the Quadrant Sequence", "text": "Starting from the cardinal apex, follow the consecutive block step sequence." },
+                    { "@type": "HowToStep", "name": "Mirror Across Remaining Quadrants", "text": "Replicate the verified quadrant sequence across the remaining quadrants." }
+                ]
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [
+                    { "@type": "Question", "name": "How does MCCircleGrid generate perfect circles?", "acceptedAnswer": { "@type": "Answer", "text": "It rasterizes Euclidean circles onto a voxel grid using cell-center distance evaluations and 4-way orthogonal edge detection." } },
+                    { "@type": "Question", "name": "What is the difference between odd and even diameter circles?", "acceptedAnswer": { "@type": "Answer", "text": "Odd circles center on a single block; even circles center on a 2×2 block quad." } },
+                    { "@type": "Question", "name": "How do I calculate material stacks?", "acceptedAnswer": { "@type": "Answer", "text": "The stack calculator uses floor(Total / 64) and Total mod 64." } },
+                    { "@type": "Question", "name": "How do I build a sphere layer-by-layer?", "acceptedAnswer": { "@type": "Answer", "text": "Use sphere mode and the formula r(Y) = sqrt(R² - Y²) for each layer." } },
+                    { "@type": "Question", "name": "What is the best circle size for towers?", "acceptedAnswer": { "@type": "Answer", "text": "Popular sizes are 9, 13, 17, and 25 blocks." } },
+                    { "@type": "Question", "name": "How do I prevent leakage in round tanks?", "acceptedAnswer": { "@type": "Answer", "text": "Ensure your outline uses orthogonal connections to avoid diagonal seams." } },
+                    { "@type": "Question", "name": "How do I read the Quadrant Sequence?", "acceptedAnswer": { "@type": "Answer", "text": "The sequence shows consecutive runs from cardinal apex to diagonal." } },
+                    { "@type": "Question", "name": "How do I make a circle using WorldEdit?", "acceptedAnswer": { "@type": "Answer", "text": "Use //cyl or //hcyl commands." } },
+                    { "@type": "Question", "name": "Can I make circles with vanilla commands?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, with /fill or armor stand rotations." } },
+                    { "@type": "Question", "name": "Why do small circles look square?", "acceptedAnswer": { "@type": "Answer", "text": "Under 7 blocks, resolution is too low. From 11 and above, curvature is convincing." } },
+                    { "@type": "Question", "name": "Should I use odd or even diameter for double doors?", "acceptedAnswer": { "@type": "Answer", "text": "Even diameter for double doors and 2-wide paths." } },
+                    { "@type": "Question", "name": "Does MCCircleGrid work on Bedrock and Java?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, voxel geometry is identical across editions." } },
+                    { "@type": "Question", "name": "How do I build a semi-circle?", "acceptedAnswer": { "@type": "Answer", "text": "Generate a circle and build only the top half." } },
+                    { "@type": "Question", "name": "How does progress tracking work?", "acceptedAnswer": { "@type": "Answer", "text": "Click blocks to mark them; progress is saved in localStorage." } },
+                    { "@type": "Question", "name": "Can I export blueprints as images?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, click Save PNG to download." } },
+                    { "@type": "Question", "name": "Is MCCircleGrid free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, 100% free and client-side." } }
+                ]
+            }
+        ]
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-
-    <!-- JSON-LD Structured Data (logo removed) -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@graph": [{
-                "@type": "WebSite",
-                "@id": "https://mccirclegrid.com/#website",
-                "url": "https://mccirclegrid.com/",
-                "name": "MCCircleGrid",
-                "description": "MCCircleGrid helps Minecraft builders create precise circle patterns, coordinates, and blueprints for round builds, towers, domes, and more.",
-                "inLanguage": "en-US"
-            }, {
-                "@type": "Organization",
-                "@id": "https://mccirclegrid.com/#organization",
-                "name": "MCCircleGrid",
-                "url": "https://mccirclegrid.com/"
-            }]
-        }
-    </script>
-
-    <!-- Theme flash prevention: store the theme preference early, but do not apply to html -->
-    <script>
-        (function() {
-            try {
-                window.__mcTheme = localStorage.getItem('mcCircleTheme') || 'dark';
-            } catch (e) {
-                window.__mcTheme = 'dark';
-            }
-        })();
-    </script>
-
-    <style>
-        /* ========== CSS Variables for Theme ========== */
-        :root {
-            --bg-body: #0b0f19;
-            --bg-header: rgba(11, 15, 25, 0.85);
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --bg-card-hover: rgba(255, 255, 255, 0.06);
-            --bg-strip: rgba(255, 255, 255, 0.02);
-            --bg-blog-preview: rgba(255, 255, 255, 0.02);
-            --bg-final-cta: rgba(16, 185, 129, 0.05);
-            --border-color: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(16, 185, 129, 0.3);
-            --text-primary: #ffffff;
-            --text-secondary: #e5e7eb;
-            --text-muted: #9ca3af;
-            --text-dim: #6b7280;
-            --accent: #10b981;
-            --accent-hover: #34d399;
-            --cta-bg: #10b981;
-            --cta-text: #0b0f19;
-            --footer-bg: rgba(0, 0, 0, 0.3);
-            --footer-border: rgba(255, 255, 255, 0.05);
-            --link-color: #10b981;
-            --link-hover: #34d399;
-            --step-number-bg: rgba(16, 185, 129, 0.15);
-        }
-
-        /* Light theme overrides */
-        body.light-theme {
-            --bg-body: #f8fafc;
-            --bg-header: rgba(255, 255, 255, 0.9);
-            --bg-card: #ffffff;
-            --bg-card-hover: #f1f5f9;
-            --bg-strip: #ffffff;
-            --bg-blog-preview: #ffffff;
-            --bg-final-cta: rgba(16, 185, 129, 0.08);
-            --border-color: #e2e8f0;
-            --border-hover: #10b981;
-            --text-primary: #0f172a;
-            --text-secondary: #1e293b;
-            --text-muted: #475569;
-            --text-dim: #94a3b8;
-            --accent: #10b981;
-            --accent-hover: #059669;
-            --cta-bg: #10b981;
-            --cta-text: #ffffff;
-            --footer-bg: #ffffff;
-            --footer-border: #e2e8f0;
-            --link-color: #10b981;
-            --link-hover: #059669;
-            --step-number-bg: rgba(16, 185, 129, 0.15);
-        }
-
-        /* ========== Reset & Base ========== */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-secondary);
-            line-height: 1.6;
-            overflow-x: hidden;
-            transition: background-color 0.2s, color 0.2s;
-        }
-
-        a {
-            color: var(--link-color);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        a:hover {
-            color: var(--link-hover);
-        }
-
-        /* ========== Container ========== */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* ========== Header ========== */
-        .header {
-            background-color: var(--bg-header);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: background-color 0.2s, border-color 0.2s;
-        }
-
-        .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 0;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-icon {
-            display: inline-block;
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(135deg, #10b981, #06b6d4);
-            border-radius: 6px;
-            text-align: center;
-            line-height: 28px;
-            font-size: 0.9rem;
-            color: #000;
-            font-weight: 800;
-        }
-
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            flex-wrap: wrap;
-        }
-
-        .nav a {
-            color: var(--text-muted);
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .nav a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav .cta-link {
-            background-color: var(--cta-bg);
-            color: var(--cta-text);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.875rem;
-            transition: background-color 0.2s;
-        }
-
-        .nav .cta-link:hover {
-            background-color: var(--accent-hover);
-            color: var(--cta-text);
-        }
-
-        /* Theme toggle button */
-        .theme-toggle-btn {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            padding: 0.3rem 0.7rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 600;
-        }
-
-        .theme-toggle-btn:hover {
-            border-color: var(--accent);
-            color: var(--text-primary);
-        }
-
-        /* Mobile hamburger */
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.25rem;
-        }
-
-        @media (max-width: 768px) {
-            .nav-toggle {
-                display: block;
-            }
-
-            .nav {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                gap: 0.75rem;
-                padding: 1rem 0;
-                border-top: 1px solid var(--border-color);
-            }
-
-            .nav.open {
-                display: flex;
-            }
-
-            .nav a {
-                width: 100%;
-                text-align: center;
-                padding: 0.25rem 0;
-            }
-
-            .nav .cta-link {
-                width: auto;
-                text-align: center;
-                padding: 0.5rem 1rem;
-            }
-        }
-
-        /* ========== Hero ========== */
-        .hero {
-            padding: 4rem 0 3rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .hero-content h1 {
-            font-size: 2.75rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        .hero-content p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 540px;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            background-color: var(--cta-bg);
-            color: var(--cta-text);
-            padding: 0.75rem 1.75rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: background-color 0.2s;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-            color: var(--cta-text);
-        }
-
-        .btn-secondary {
-            display: inline-block;
-            background-color: transparent;
-            color: var(--text-secondary);
-            padding: 0.75rem 1.75rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: 1px solid var(--border-color);
-            transition: border-color 0.2s, color 0.2s;
-            text-align: center;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        /* CSS-only circle grid pattern */
-        .grid-circle {
-            display: grid;
-            grid-template-columns: repeat(11, 24px);
-            grid-template-rows: repeat(11, 24px);
-            gap: 2px;
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 8px;
-            box-shadow: 0 0 40px rgba(16, 185, 129, 0.08);
-            border: 1px solid var(--border-color);
-        }
-
-        .grid-circle .cell {
-            width: 24px;
-            height: 24px;
-            background-color: rgba(255, 255, 255, 0.06);
-            border-radius: 2px;
-            transition: background-color 0.2s;
-        }
-
-        .grid-circle .cell.filled {
-            background-color: var(--accent);
-            box-shadow: 0 0 6px rgba(16, 185, 129, 0.3);
-        }
-
-        body.light-theme .grid-circle .cell {
-            background-color: rgba(0, 0, 0, 0.06);
-        }
-        body.light-theme .grid-circle .cell.filled {
-            background-color: var(--accent);
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                grid-template-columns: 1fr;
-                text-align: center;
-                padding: 3rem 0 2rem;
-            }
-
-            .hero-content p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-actions {
-                justify-content: center;
-            }
-
-            .grid-circle {
-                grid-template-columns: repeat(9, 20px);
-                grid-template-rows: repeat(9, 20px);
-                gap: 2px;
-                padding: 6px;
-            }
-
-            .grid-circle .cell {
-                width: 20px;
-                height: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .grid-circle {
-                grid-template-columns: repeat(7, 16px);
-                grid-template-rows: repeat(7, 16px);
-                gap: 1px;
-                padding: 4px;
-            }
-
-            .grid-circle .cell {
-                width: 16px;
-                height: 16px;
-            }
-        }
-
-        /* ========== Value Strip ========== */
-        .value-strip {
-            background-color: var(--bg-strip);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 2rem 0;
-        }
-
-        .value-strip .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem 3rem;
-        }
-
-        .value-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .value-item .icon {
-            font-size: 1.25rem;
-        }
-
-        /* ========== Sections ========== */
-        section {
-            padding: 4rem 0;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 2rem;
-            color: var(--text-primary);
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        .section-title.center {
-            text-align: center;
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            max-width: 640px;
-            margin: 0 auto 2.5rem;
-            text-align: center;
-            font-size: 1.05rem;
-        }
-
-        /* ========== Features Grid ========== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .feature-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-
-        .feature-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-2px);
-        }
-
-        .feature-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* ========== How It Works ========== */
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .step .number {
-            display: inline-block;
-            width: 48px;
-            height: 48px;
-            line-height: 48px;
-            border-radius: 50%;
-            background-color: var(--step-number-bg);
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        .step h3 {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .step p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .steps-cta {
-            text-align: center;
-            margin-top: 2.5rem;
-        }
-
-        /* ========== Use Cases ========== */
-        .use-cases-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 0.75rem;
-        }
-
-        .use-case {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1rem 0.75rem;
-            text-align: center;
-            font-weight: 500;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* ========== Why Section ========== */
-        .why-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .why-content p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        /* ========== Blog Preview ========== */
-        .blog-preview {
-            text-align: center;
-            background-color: var(--bg-blog-preview);
-            border-radius: 12px;
-            padding: 3rem 1.5rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .blog-preview h2 {
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        .blog-preview p {
-            color: var(--text-muted);
-            max-width: 500px;
-            margin: 0 auto 1.5rem;
-        }
-
-        /* ========== FAQ ========== */
-        .faq-list {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            margin-bottom: 0.75rem;
-        }
-
-        .faq-item details {
-            padding: 1rem 1.25rem;
-        }
-
-        .faq-item summary {
-            cursor: pointer;
-            list-style: none;
-            font-weight: 600;
-            color: var(--text-primary);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-        }
-
-        .faq-item summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .faq-item summary::after {
-            content: "▼";
-            font-size: 0.75rem;
-            color: var(--accent);
-            transition: transform 0.2s;
-        }
-
-        .faq-item details[open] summary::after {
-            transform: rotate(180deg);
-        }
-
-        .faq-item .faq-answer {
-            color: var(--text-muted);
-            margin-top: 0.75rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .faq-item .faq-answer a {
-            color: var(--accent);
-            text-decoration: underline;
-        }
-
-        /* ========== NEW ARTICLE SECTION ========== */
-        .article-section {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .article-section h2 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        .article-section h2:first-of-type {
-            margin-top: 0;
-        }
-
-        .article-section h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-top: 1.25rem;
-            margin-bottom: 0.75rem;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        .article-section p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            line-height: 1.7;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        .article-section ul,
-        .article-section ol {
-            color: var(--text-muted);
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        .article-section li {
-            margin-bottom: 0.5rem;
-        }
-
-        .article-section a {
-            color: var(--accent);
-            text-decoration: underline;
-        }
-
-        .article-section .faq-item {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            margin-bottom: 0.75rem;
-        }
-
-        .article-section .faq-item details {
-            padding: 0.75rem 1rem;
-        }
-
-        .article-section .faq-item summary {
-            font-weight: 600;
-            color: var(--text-primary);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .article-section .faq-item summary::after {
-            content: "▼";
-            font-size: 0.75rem;
-            color: var(--accent);
-            transition: transform 0.2s;
-        }
-
-        .article-section .faq-item details[open] summary::after {
-            transform: rotate(180deg);
-        }
-
-        .article-section .faq-item .faq-answer {
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-            padding-top: 0.5rem;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.9rem;
-        }
-
-        /* ========== Final CTA ========== */
-        .final-cta {
-            text-align: center;
-            background-color: var(--bg-final-cta);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 3rem 1.5rem;
-        }
-
-        .final-cta h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        .final-cta p {
-            color: var(--text-muted);
-            max-width: 500px;
-            margin: 0 auto 1.5rem;
-        }
-
-        /* ========== Footer ========== */
-        .footer {
-            background-color: var(--footer-bg);
-            border-top: 1px solid var(--footer-border);
-            padding: 3rem 0 2rem;
-        }
-
-        .footer-inner {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 2rem;
-        }
-
-        .footer-brand {
-            max-width: 280px;
-        }
-
-        .footer-brand .logo {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-brand p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .footer-links-column h4 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .footer-links-column ul {
-            list-style: none;
-        }
-
-        .footer-links-column ul li {
-            margin-bottom: 0.4rem;
-        }
-
-        .footer-links-column ul li a {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .footer-links-column ul li a:hover {
-            color: var(--text-primary);
-        }
-
-        .footer-bottom {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--footer-border);
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 0.8rem;
-        }
-
-        /* ========== Responsive Helpers ========== */
-        @media (max-width: 640px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-
-            .final-cta h2 {
-                font-size: 1.5rem;
-            }
-
-            .footer-inner {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-
-        /* ========== Accessibility ========== */
-        :focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
-        .skip-link {
-            position: absolute;
-            top: -999px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent);
-            color: #0b0f19;
-            padding: 0.5rem 1rem;
-            border-radius: 0 0 6px 6px;
-            z-index: 999;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        /* ========== Mobile Responsiveness Fixes ========== */
-        @media (max-width: 640px) {
-            .article-section {
-                padding: 2rem 1.25rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .article-section {
-                padding: 1.5rem 1rem;
-            }
-
-            .article-section h2 {
-                font-size: 1.25rem;
-            }
-
-            .article-section h3 {
-                font-size: 1.1rem;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.75rem;
-            }
-
-            .hero-actions .btn-primary,
-            .hero-actions .btn-secondary {
-                text-align: center;
-                width: 100%;
-            }
-
-            .logo {
-                font-size: 1rem;
-            }
-
-            .logo-icon {
-                width: 24px;
-                height: 24px;
-                line-height: 24px;
-                font-size: 0.75rem;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .use-cases-grid {
-                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
-    <!-- Immediately apply the stored theme to the body element (before any paint) -->
+    <div class="ambient-glow"></div>
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+    <div class="container">
+        <header id="top">
+            <a href="/" class="brand-group" aria-label="MCCircleGrid Home">
+                <div class="brand-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </div>
+                <div class="brand-text">
+                    <h1>MCCircleGrid</h1>
+                    <p>Precision Minecraft Voxel Blueprints &amp; 3D Sphere Slices</p>
+                </div>
+            </a>
+            <nav class="site-nav" aria-label="Main Navigation">
+                <a href="/">Generator</a>
+                <a href="/circle-chart/">Circle Chart</a>
+                <a href="/sphere-guide/">Sphere Guide</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="audio-toggle-btn" id="audioToggleBtn" aria-label="Toggle Sound Effects">
+                    <span id="audioIcon" aria-hidden="true">🔇</span> Sound
+                </button>
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Switch Theme Mode">
+                    <span id="themeIcon" aria-hidden="true">☀️</span> Light Mode
+                </button>
+            </div>
+        </header>
+
+        <!-- Studio Grid -->
+        <main class="studio-grid">
+            <aside class="control-panel" aria-label="Geometry Controls">
+                <div>
+                    <div class="panel-section-title">Geometry Primitive</div>
+                    <div class="pill-selector" role="group" aria-label="Choose Primitive Shape">
+                        <button class="pill-btn active" data-shape="circle" title="Generate a circle">Circle</button>
+                        <button class="pill-btn" data-shape="ellipse" title="Generate an ellipse">Ellipse</button>
+                        <button class="pill-btn" data-shape="sphere" title="Generate a sphere slice">Sphere</button>
+                        <button class="pill-btn" data-shape="polygon" title="Generate a regular polygon">Polygon</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label for="widthSlider" id="widthLabel">Diameter (Blocks):</label>
+                        <span class="value-badge" id="widthBadge" aria-live="polite">25</span>
+                    </div>
+                    <div class="slider-input-group">
+                        <input type="range" id="widthSlider" min="3" max="256" value="25" aria-labelledby="widthLabel" />
+                        <input type="number" id="widthNumber" min="3" max="256" value="25" aria-labelledby="widthLabel" />
+                    </div>
+                </div>
+                <div class="form-group" id="heightGroup" style="display:none;">
+                    <div class="form-label-row">
+                        <label for="heightSlider">Height (Blocks):</label>
+                        <span class="value-badge" id="heightBadge" aria-live="polite">17</span>
+                    </div>
+                    <div class="slider-input-group">
+                        <input type="range" id="heightSlider" min="3" max="256" value="17" aria-label="Height in blocks" />
+                        <input type="number" id="heightNumber" min="3" max="256" value="17" aria-label="Height in blocks" />
+                    </div>
+                </div>
+                <div class="form-group" id="sidesGroup" style="display:none;">
+                    <div class="form-label-row">
+                        <label for="sidesSlider">Polygon Sides:</label>
+                        <span class="value-badge" id="sidesBadge" aria-live="polite">6</span>
+                    </div>
+                    <div class="slider-input-group">
+                        <input type="range" id="sidesSlider" min="3" max="16" value="6" aria-label="Polygon Sides" />
+                        <input type="number" id="sidesNumber" min="3" max="16" value="6" aria-label="Polygon Sides" />
+                    </div>
+                </div>
+                <div>
+                    <div class="panel-section-title">Fill Style</div>
+                    <div class="pill-selector" role="group" aria-label="Fill Mode">
+                        <button class="pill-btn active" data-fill="outline" title="Show only the outline">Outline</button>
+                        <button class="pill-btn" data-fill="filled" title="Fill the entire shape">Filled</button>
+                        <button class="pill-btn" data-fill="thick" title="Thick rim outline">Thick Rim</button>
+                    </div>
+                </div>
+                <div class="form-group" id="thicknessGroup" style="display:none;">
+                    <div class="form-label-row">
+                        <label for="thicknessSlider">Rim Width:</label>
+                        <span class="value-badge" id="thicknessBadge" aria-live="polite">2</span>
+                    </div>
+                    <div class="slider-input-group">
+                        <input type="range" id="thicknessSlider" min="1" max="8" value="2" aria-label="Rim width" />
+                        <input type="number" id="thicknessNumber" min="1" max="8" value="2" aria-label="Rim width" />
+                    </div>
+                </div>
+                <div class="sequence-container">
+                    <div class="panel-section-title"><span>Quadrant Sequence</span><span style="font-size:.7rem;color:var(--accent);">Apex → Diagonal</span></div>
+                    <div class="sequence-badges" id="seqContainer" aria-live="polite"><span class="seq-pill">Calculating...</span></div>
+                </div>
+                <div class="progress-hud">
+                    <div class="panel-section-title"><span>Survival Progress</span><span class="value-badge" id="progressPercent" style="color:var(--accent);">0%</span></div>
+                    <div class="progress-bar-bg" aria-hidden="true"><div class="progress-bar-fill" id="progressBar"></div></div>
+                    <div class="progress-actions">
+                        <span id="progressCount" style="color:var(--text-secondary);">0 / 0 Placed</span>
+                        <div class="progress-btn-group">
+                            <button class="tool-btn" id="btnUndo" aria-label="Undo placement" disabled>←</button>
+                            <button class="tool-btn" id="btnRedo" aria-label="Redo placement" disabled>→</button>
+                            <button class="tool-btn" id="btnCompleteLayer" title="Mark all layer blocks complete">✔ All</button>
+                            <button class="tool-btn" id="btnResetProgress" title="Reset all progress marks">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:.2rem;">
+                    <div class="switch-row"><label for="toggleGrid">Grid Overlay</label><label class="switch"><input type="checkbox" id="toggleGrid" checked /><span class="slider-switch"></span></label></div>
+                    <div class="switch-row"><label for="toggleCenter">Center Axis Marker</label><label class="switch"><input type="checkbox" id="toggleCenter" checked /><span class="slider-switch"></span></label></div>
+                    <div class="switch-row" id="ghostToggleRow" style="display:none;"><label for="toggleGhost">Ghost Layer (Y−1)</label><label class="switch"><input type="checkbox" id="toggleGhost" checked /><span class="slider-switch"></span></label></div>
+                    <div class="switch-row"><label for="toggleNumbers">Column Index Numbers</label><label class="switch"><input type="checkbox" id="toggleNumbers" /><span class="slider-switch"></span></label></div>
+                </div>
+                <div class="stats-card">
+                    <div class="stat-item"><span class="stat-label">Layer Blocks</span><span class="stat-value" id="statTotalBlocks">0</span></div>
+                    <div class="stat-item"><span class="stat-label">Stack Calculator</span><span class="stat-value" id="statStacks">0 Stk + 0</span></div>
+                    <div class="stat-item"><span class="stat-label">Center Axis</span><span class="stat-value" id="statSymmetry" style="font-size:.9rem;">1×1</span></div>
+                    <div class="stat-item"><span class="stat-label">Footprint</span><span class="stat-value" id="statBounds" style="font-size:.9rem;">25×25</span></div>
+                </div>
+            </aside>
+            <section class="canvas-stage" aria-label="Interactive Canvas">
+                <div class="stage-toolbar">
+                    <div class="tool-group">
+                        <button class="tool-btn" id="btnResetView">🎯 Center</button>
+                        <button class="tool-btn" id="btnZoomIn" aria-label="Zoom In">➕</button>
+                        <button class="tool-btn" id="btnZoomOut" aria-label="Zoom Out">➖</button>
+                        <button class="tool-btn" id="btnPrint">🖨️ Print</button>
+                    </div>
+                </div>
+                <div class="stage-toolbar" style="border-top:1px solid var(--bg-card-border);">
+                    <div class="tool-group">
+                        <button class="tool-btn" id="btnCopyAscii">📋 Copy Pattern</button>
+                        <button class="tool-btn" id="btnCopyCoords">📍 Copy Coords</button>
+                        <button class="tool-btn" id="btnCopyFill">⚡ Copy /fill</button>
+                        <button class="tool-btn" id="btnExportTxt">💾 Save .TXT</button>
+                        <button class="tool-btn" id="btnExportPng">🖼️ Save PNG</button>
+                        <button class="tool-btn" id="btnExportSvg">📐 Export SVG</button>
+                    </div>
+                </div>
+                <div class="viewport-wrapper" id="viewportWrapper">
+                    <canvas id="blueprintCanvas" aria-label="Minecraft Block Grid"></canvas>
+                    <div class="hud-inspector" id="hudCoords" aria-live="off">X: 0 | Y: 0 (Air)</div>
+                    <div class="hud-zoom-hint" aria-hidden="true">Scroll / Pinch to Zoom • Tap Block to Place</div>
+                    <div class="sphere-layer-hud" id="sphereHud" style="display:none;">
+                        <div style="display:flex;flex-direction:column;gap:.15rem;">
+                            <label for="layerSlider" style="font-size:.68rem;color:var(--text-muted);font-weight:700;letter-spacing:.5px;">SPHERE LAYER</label>
+                            <div style="display:flex;align-items:center;gap:.5rem;">
+                                <input type="range" id="layerSlider" min="0" max="24" value="12" style="width:120px;" />
+                                <span class="value-badge" id="layerBadge">Y:12</span>
+                            </div>
+                        </div>
+                        <button class="tool-btn" id="btnLayerDown" aria-label="Previous Layer">▼</button>
+                        <button class="tool-btn" id="btnLayerUp" aria-label="Next Layer">▲</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Guide (with circle chart and sphere sections moved to dedicated pages) -->
+        <article class="guide-article" id="guide">
+            <h2>The Comprehensive Guide to Circles, Spheres &amp; Voxel Curvature in Minecraft</h2>
+            <p>In the block-based universe of Minecraft, every entity is constrained to 1×1×1 voxels. True continuous curves do not exist natively, so builders use rasterization to create rounded forms. MCCircleGrid removes guesswork with deterministic blueprints.</p>
+
+            <div class="guide-callout">
+                <strong>Key Structural Principle:</strong> The fluidity of a circle depends on cardinal endpoints and 45-degree diagonals. A single miscounted block breaks symmetry.
+            </div>
+
+            <h2>1. The Mathematics of Voxel Grid Rasterization</h2>
+            <p>A continuous circle centered at (x₀, y₀) with radius R is defined by the Pythagorean equation: (x - x₀)² + (y - y₀)² ≤ R². When mapping to Minecraft, we evaluate at cell centers (x + 0.5, y + 0.5). MCCircleGrid uses 4-way orthogonal edge detection to produce watertight outlines.</p>
+
+            <h2>2. Complete Minecraft Circle Diameter Reference</h2>
+            <p>For the full reference table with perimeter blocks, stacks, and octant sequences, visit the <a href="/circle-chart/">Circle Chart page</a>.</p>
+
+            <h2>3. The Odd vs. Even Symmetry Architecture Rule</h2>
+            <p>Odd diameters center on a 1×1 block, even diameters on a 2×2 quad. This affects doors, stairs, and redstone mechanics.</p>
+
+            <h2>4. Step-by-Step Survival Construction Workflow</h2>
+            <ol>
+                <li>Anchor the center with a marker.</li>
+                <li>Construct cardinal cross beams.</li>
+                <li>Verify axis distances.</li>
+                <li>Traverse one quadrant using the sequence.</li>
+                <li>Mirror across remaining quadrants.</li>
+                <li>Ascend with scaffolding.</li>
+            </ol>
+
+            <h2>5. Fluid Containment &amp; Corner Physics</h2>
+            <p>Diagonal-only connections cause leaks. MCCircleGrid enforces 4-way orthogonal connectivity to prevent water and lava leakage.</p>
+
+            <h2>6. 3D Spheres, Domes &amp; Layer Slicing Mathematics</h2>
+            <p>For a sphere, each horizontal slice at vertical offset Y has radius r(Y) = sqrt(R² - Y²). Detailed instructions are on the <a href="/sphere-guide/">Sphere Guide page</a>.</p>
+
+            <h2>7. In-Game Commands for Creative Mode &amp; Server Administrators</h2>
+            <p>Use WorldEdit commands like //cyl, //hcyl, //sphere, and //hsphere. See the Sphere Guide for detailed command examples.</p>
+
+            <h2>8. Common Mistakes to Avoid</h2>
+            <ul>
+                <li>Starting from a corner.</li>
+                <li>Mixing outline and solid block totals.</li>
+                <li>Ignoring door symmetry.</li>
+                <li>Spiral staircase headroom issues.</li>
+            </ul>
+        </article>
+
+        <!-- FAQ (kept on main page) -->
+        <section class="page-section" id="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>How does MCCircleGrid generate perfect circles in Minecraft?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">It rasterizes Euclidean circles onto a voxel grid using cell-center distance evaluations and 4-way orthogonal edge detection to produce watertight outlines.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>What is the difference between odd and even diameter circles?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Odd circles center on a single 1×1 block and have odd-width cardinal tips. Even circles center on a 2×2 quad and have even-width tips.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>How do I calculate material requirements using stacks?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Use floor(Total / 64) for complete stacks and Total mod 64 for loose blocks.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>How do I build a dome or sphere layer-by-layer?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Use sphere mode. For each layer at offset Y, calculate radius r(Y) = sqrt(R² - Y²). Enable Ghost Layer for scaffolding reference.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>What is the best circle size for towers?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Popular sizes: 9×9 guard tower, 13×13 turret, 17×17 lighthouse, 25×25 grand tower.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>How do I prevent water or lava leakage?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Use orthogonal connections only. Diagonal-only seams leak fluids.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>How do I read the Quadrant Construction Sequence?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">The sequence shows consecutive linear runs from cardinal apex to 45-degree diagonal. Mirror across quadrants.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>How do I make a circle using WorldEdit?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Use //cyl &lt;block&gt; &lt;radius&gt; for solid, //hcyl for hollow walls.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>Can I make circles with vanilla commands?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Yes, with /fill or armor stands holding blocks.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>Why do small circles look square?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Under 7 blocks, resolution is too low. From 11 and above, curvature is convincing.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>Should I use odd or even for double doors?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Even diameter gives a 2-wide center axis, ideal for double doors.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>Does MCCircleGrid work on all editions?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Yes, voxel geometry is identical across Java, Bedrock, and Console.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>How do I build a semi-circle?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Generate a circle and construct only the top half above the center axis.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>How does survival progress tracking work?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Click blocks to mark them; progress is saved in localStorage with undo/redo support.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>Can I export blueprints as images?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Yes, click Save PNG to download a high-res blueprint with progress markers.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-header" type="button" aria-expanded="false">
+                    <span>Is MCCircleGrid free and safe?</span><span aria-hidden="true">+</span>
+                </button>
+                <div class="faq-content">Yes, 100% free, client-side, no tracking, no account required.</div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <nav class="footer-nav" aria-label="Footer Navigation">
+                <a href="/">Home</a>
+                <a href="/circle-chart/">Circle Chart</a>
+                <a href="/sphere-guide/">Sphere Guide</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+                <a href="/privacy-policy/">Privacy Policy</a>
+                <a href="/terms-of-service/">Terms of Service</a>
+            </nav>
+            <p>&copy; 2026 MCCircleGrid. All rights reserved.</p>
+            <p style="margin-top:.45rem;font-size:.76rem;color:var(--text-muted);">Disclaimer: MCCircleGrid is an independent architectural planning utility. Not an official Minecraft product. Not approved by or associated with Mojang Studios or Microsoft Corporation.</p>
+        </footer>
+    </div>
+
+    <!-- Shared JS -->
+    <script src="/assets/js/shared.js"></script>
+    <!-- Generator Script (from original, with minor adjustments) -->
     <script>
         (function() {
-            if (window.__mcTheme === 'light') {
-                document.body.classList.add('light-theme');
-            } else {
-                document.body.classList.remove('light-theme');
+            'use strict';
+            const MIN_ZOOM = 4,
+                MAX_ZOOM = 80,
+                STORAGE_PREFIX = 'mc_circle_gen_v4_';
+
+            function safeGetStorage(key, fallback) {
+                try { const v = localStorage.getItem(STORAGE_PREFIX + key); return v !== null ? v : fallback; } catch (e) { return fallback; }
             }
-        })();
-    </script>
 
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+            function safeSetStorage(key, val) {
+                try { localStorage.setItem(STORAGE_PREFIX + key, String(val)); } catch (e) {}
+            }
 
-    <!-- ===== HEADER ===== -->
-    <header class="header" role="banner">
-        <div class="container">
-            <div class="header-inner">
-                <div class="logo">
-                    <span class="logo-icon">■</span>
-                    MCCircleGrid
-                </div>
+            const toastEl = document.getElementById('toast');
+            let toastTimer = null;
 
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-                    ☰
-                </button>
+            function showToast(msg) {
+                if (!toastEl) return;
+                toastEl.textContent = msg;
+                toastEl.classList.add('show');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2500);
+            }
 
-                <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
-                    <a href="/">Home</a>
-                    <a href="#how-it-works">How It Works</a>
-                    <a href="#faq">FAQ</a>
-                    <a href="/blog/">Blog</a>
-                    <a href="/about/">About</a>
-                    <a href="/minecraft-circle-generator/" class="cta-link">Minecraft Circle Generator</a>
-                    <button type="button" id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle light or dark theme">
-                        <span>🌙</span>
-                    </button>
-                </nav>
-            </div>
-        </div>
-    </header>
+            class SoundEngine {
+                constructor() { 
+                    this.ctx = null;
+                    this.enabled = safeGetStorage('sound', 'false') === 'true'; 
+                }
+                init() { 
+                    if (!this.ctx) { 
+                        const AC = window.AudioContext || window.webkitAudioContext; 
+                        if (AC) this.ctx = new AC(); 
+                    } 
+                }
+                playTone(freq = 600, duration = 0.04, type = 'sine') {
+                    if (!this.enabled) return;
+                    try {
+                        this.init();
+                        if (!this.ctx) return;
+                        if (this.ctx.state === 'suspended') this.ctx.resume();
+                        const osc = this.ctx.createOscillator();
+                        const gain = this.ctx.createGain();
+                        osc.type = type;
+                        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                        osc.frequency.exponentialRampToValueAtTime(Math.max(10, freq * 0.5), this.ctx.currentTime + duration);
+                        gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+                        osc.connect(gain);
+                        gain.connect(this.ctx.destination);
+                        osc.start();
+                        osc.stop(this.ctx.currentTime + duration);
+                    } catch (e) {}
+                }
+                playClick() { this.playTone(850, 0.03); }
+                playCheck() { this.playTone(1050, 0.05); }
+                playUncheck() { this.playTone(450, 0.04); }
+            }
+            const sounds = new SoundEngine();
 
-    <!-- ===== MAIN ===== -->
-    <main id="main-content">
+            const initialWidth = parseInt(safeGetStorage('width', '25'), 10);
+            const defaultLayerY = Math.floor(initialWidth / 2);
+            const state = {
+                shape: safeGetStorage('shape', 'circle'),
+                fill: safeGetStorage('fill', 'outline'),
+                width: initialWidth,
+                height: parseInt(safeGetStorage('height', '17'), 10),
+                sides: parseInt(safeGetStorage('sides', '6'), 10),
+                thickness: parseInt(safeGetStorage('thickness', '2'), 10),
+                layerY: parseInt(safeGetStorage('layerY', String(defaultLayerY)), 10),
+                showGrid: safeGetStorage('showGrid', 'true') === 'true',
+                showCenter: safeGetStorage('showCenter', 'true') === 'true',
+                showGhost: safeGetStorage('showGhost', 'true') === 'true',
+                showNumbers: safeGetStorage('showNumbers', 'false') === 'true',
+                zoom: 20,
+                panX: 0,
+                panY: 0,
+                matrix: [],
+                ghostMatrix: [],
+                placedBlocks: new Set(),
+                totalBlocks: 0,
+                matrixBounds: { cols: 25, rows: 25 },
+                hoverBlock: null
+            };
+            const history = { undoStack: [], redoStack: [] };
 
-        <!-- ===== HERO ===== -->
-        <section class="hero container" aria-labelledby="hero-title">
-            <div class="hero-content">
-                <h1 id="hero-title">Minecraft Circle Generator for Round Builds</h1>
-                <p>MCCircleGrid helps Minecraft builders plan circles, towers, domes, round structures, and other block-based builds using precise grid patterns and coordinates.</p>
-                <div class="hero-actions">
-                    <a href="/minecraft-circle-generator/" class="btn-primary">Minecraft Circle Generator</a>
-                    <a href="#how-it-works" class="btn-secondary">How It Works</a>
-                </div>
-            </div>
-            <div class="hero-visual" aria-hidden="true">
-                <!-- CSS-only decorative circle grid -->
-                <div class="grid-circle" id="circleGrid">
-                    <!-- Cells will be filled by JS on load for visual effect -->
-                </div>
-            </div>
-        </section>
+            function getBlueprintKey() {
+                if (state.shape === 'sphere') return `${state.shape}_w${state.width}_f${state.fill}_t${state.thickness}_ly${state.layerY}`;
+                if (state.shape === 'ellipse') return `${state.shape}_w${state.width}_h${state.height}_f${state.fill}_t${state.thickness}`;
+                if (state.shape === 'polygon') return `${state.shape}_w${state.width}_s${state.sides}_f${state.fill}_t${state.thickness}`;
+                return `${state.shape}_w${state.width}_f${state.fill}_t${state.thickness}`;
+            }
 
-        <!-- ===== VALUE STRIP ===== -->
-        <section class="value-strip" aria-label="Key benefits">
-            <div class="container">
-                <div class="value-item"><span class="icon">▣</span> Precise Block Patterns</div>
-                <div class="value-item"><span class="icon">⊕</span> Coordinate‑Based Planning</div>
-                <div class="value-item"><span class="icon">◈</span> Multiple Circle Sizes</div>
-                <div class="value-item"><span class="icon">📱</span> Mobile Friendly</div>
-                <div class="value-item"><span class="icon">🖼️</span> PNG Blueprint Export</div>
-            </div>
-        </section>
+            function saveProgressToStorage() {
+                const key = getBlueprintKey();
+                const data = Array.from(state.placedBlocks);
+                safeSetStorage('prog_' + key, JSON.stringify(data));
+            }
 
-        <!-- ===== FEATURES ===== -->
-        <section id="features" class="container" aria-labelledby="features-title">
-            <h2 class="section-title center" id="features-title">Plan Minecraft Builds With Confidence</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>Generate Minecraft Circles</h3>
-                    <p>Create block‑based circle patterns for any Minecraft build, from simple rings to complex structures.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Work With Different Sizes</h3>
-                    <p>Choose from a wide range of diameters and radii to match your build's scale and design requirements.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Use Coordinates</h3>
-                    <p>Get precise relative and world coordinates for every block, making placement in your world effortless.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Download Blueprints</h3>
-                    <p>Export high‑resolution PNG blueprints or text files with coordinate lists to use offline or share with others.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Build Round Structures</h3>
-                    <p>Use your circle patterns as foundations for towers, domes, castles, arenas, houses, and more.</p>
-                </div>
-            </div>
-        </section>
+            function loadProgressFromStorage() {
+                const key = getBlueprintKey();
+                const raw = safeGetStorage('prog_' + key, null);
+                state.placedBlocks.clear();
+                if (raw) {
+                    try {
+                        const arr = JSON.parse(raw);
+                        if (Array.isArray(arr)) {
+                            arr.forEach(coord => {
+                                const parts = coord.split(',');
+                                if (parts.length === 2) {
+                                    const x = parseInt(parts[0], 10),
+                                        y = parseInt(parts[1], 10);
+                                    if (state.matrix[y] && state.matrix[y][x] === 1) state.placedBlocks.add(coord);
+                                }
+                            });
+                        }
+                    } catch (e) {}
+                }
+            }
 
-        <!-- ===== HOW IT WORKS ===== -->
-        <section id="how-it-works" class="container" aria-labelledby="how-title">
-            <h2 class="section-title center" id="how-title">How MCCircleGrid Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="number">1</div>
-                    <h3>Choose Your Circle Size</h3>
-                    <p>Select a radius or diameter that fits your build.</p>
-                </div>
-                <div class="step">
-                    <div class="number">2</div>
-                    <h3>Generate Your Block Pattern</h3>
-                    <p>The tool instantly creates a precise grid blueprint.</p>
-                </div>
-                <div class="step">
-                    <div class="number">3</div>
-                    <h3>Use the Pattern to Build in Minecraft</h3>
-                    <p>Follow the blueprint block by block in your world.</p>
-                </div>
-            </div>
-            <div class="steps-cta">
-                <a href="/minecraft-circle-generator/" class="btn-primary">Try the Minecraft Circle Generator</a>
-            </div>
-        </section>
+            const canvas = document.getElementById('blueprintCanvas');
+            const ctx = canvas.getContext('2d', { alpha: false });
+            const viewport = document.getElementById('viewportWrapper');
+            const widthSlider = document.getElementById('widthSlider');
+            const widthNumber = document.getElementById('widthNumber');
+            const widthBadge = document.getElementById('widthBadge');
+            const widthLabel = document.getElementById('widthLabel');
+            const heightGroup = document.getElementById('heightGroup');
+            const heightSlider = document.getElementById('heightSlider');
+            const heightNumber = document.getElementById('heightNumber');
+            const heightBadge = document.getElementById('heightBadge');
+            const sidesGroup = document.getElementById('sidesGroup');
+            const sidesSlider = document.getElementById('sidesSlider');
+            const sidesNumber = document.getElementById('sidesNumber');
+            const sidesBadge = document.getElementById('sidesBadge');
+            const thicknessGroup = document.getElementById('thicknessGroup');
+            const thicknessSlider = document.getElementById('thicknessSlider');
+            const thicknessNumber = document.getElementById('thicknessNumber');
+            const thicknessBadge = document.getElementById('thicknessBadge');
+            const sphereHud = document.getElementById('sphereHud');
+            const layerSlider = document.getElementById('layerSlider');
+            const layerBadge = document.getElementById('layerBadge');
+            const ghostToggleRow = document.getElementById('ghostToggleRow');
+            const seqContainer = document.getElementById('seqContainer');
+            const progressPercent = document.getElementById('progressPercent');
+            const progressBar = document.getElementById('progressBar');
+            const progressCount = document.getElementById('progressCount');
+            const btnCompleteLayer = document.getElementById('btnCompleteLayer');
+            const btnResetProgress = document.getElementById('btnResetProgress');
+            const btnUndo = document.getElementById('btnUndo');
+            const btnRedo = document.getElementById('btnRedo');
+            const statTotalBlocks = document.getElementById('statTotalBlocks');
+            const statStacks = document.getElementById('statStacks');
+            const statSymmetry = document.getElementById('statSymmetry');
+            const statBounds = document.getElementById('statBounds');
+            const hudCoords = document.getElementById('hudCoords');
+            const audioToggleBtn = document.getElementById('audioToggleBtn');
+            const audioIcon = document.getElementById('audioIcon');
+            audioIcon.textContent = sounds.enabled ? '🔊' : '🔇';
 
-        <!-- ===== USE CASES ===== -->
-        <section id="use-cases" class="container" aria-labelledby="use-cases-title">
-            <h2 class="section-title center" id="use-cases-title">Common Uses for Minecraft Circles</h2>
-            <div class="use-cases-grid">
-                <span class="use-case">Round Towers</span>
-                <span class="use-case">Circular Houses</span>
-                <span class="use-case">Castles</span>
-                <span class="use-case">Domes</span>
-                <span class="use-case">Arenas</span>
-                <span class="use-case">Walls</span>
-                <span class="use-case">Wells</span>
-                <span class="use-case">Circular Foundations</span>
-            </div>
-        </section>
+            function resizeCanvas() {
+                const rect = viewport.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = Math.round(rect.width * dpr);
+                canvas.height = Math.round(rect.height * dpr);
+                canvas.style.width = rect.width + 'px';
+                canvas.style.height = rect.height + 'px';
+                requestRender();
+            }
+            window.addEventListener('resize', resizeCanvas);
 
-        <!-- ===== WHY ===== -->
-        <section id="why" class="container" aria-labelledby="why-title">
-            <h2 class="section-title center" id="why-title">Why a Grid Circle Generator?</h2>
-            <div class="why-content">
-                <p>Minecraft uses square blocks arranged on a grid, so creating visually consistent circles manually can be difficult and time‑consuming. A circle generator provides a repeatable block‑placement pattern that ensures symmetry and accuracy every time.</p>
-                <p>Whether you're building a simple fountain or a grand cathedral dome, having a precise blueprint saves time, reduces errors, and lets you focus on creativity.</p>
-            </div>
-        </section>
+            function generateSolidMatrix(cols, rows, centerX, centerY, radiusX, radiusY, shape, sides) {
+                const solid = [];
+                const rx2 = Math.max(0.0001, radiusX * radiusX);
+                const ry2 = Math.max(0.0001, radiusY * radiusY);
+                for (let y = 0; y < rows; y++) {
+                    solid[y] = new Uint8Array(cols);
+                    for (let x = 0; x < cols; x++) {
+                        const dx = (x + 0.5) - centerX;
+                        const dy = (y + 0.5) - centerY;
+                        let inside = false;
+                        if (shape === 'circle' || shape === 'sphere') {
+                            inside = (dx * dx + dy * dy) <= (radiusX * radiusX);
+                        } else if (shape === 'ellipse') {
+                            inside = ((dx * dx) / rx2 + (dy * dy) / ry2) <= 1.0;
+                        } else if (shape === 'polygon') {
+                            const angle = Math.atan2(dy, dx) + Math.PI;
+                            const segment = (2 * Math.PI) / sides;
+                            const polyDist = (radiusX * Math.cos(Math.PI / sides)) / Math.cos((((angle % segment) + segment) % segment) - (Math.PI / sides));
+                            inside = Math.hypot(dx, dy) <= polyDist;
+                        }
+                        solid[y][x] = inside ? 1 : 0;
+                    }
+                }
+                return solid;
+            }
 
-        <!-- ===== BLOG PREVIEW ===== -->
-        <section id="blog-preview" class="container" aria-labelledby="blog-title">
-            <div class="blog-preview">
-                <h2 id="blog-title">Minecraft Building Guides</h2>
-                <p>Explore practical guides, circle charts, building tips, and tutorials for creating round structures in Minecraft.</p>
-                <a href="/blog/" class="btn-primary">Explore the Blog</a>
-            </div>
-        </section>
+            function extractOutline(solid, cols, rows, thickness) {
+                const outline = [];
+                if (thickness <= 1) {
+                    for (let y = 0; y < rows; y++) {
+                        outline[y] = new Uint8Array(cols);
+                        for (let x = 0; x < cols; x++) {
+                            if (solid[y][x] === 1) {
+                                const isEdge = (x === 0 || x === cols - 1 || y === 0 || y === rows - 1) ||
+                                    (solid[y - 1] && solid[y - 1][x] === 0) ||
+                                    (solid[y + 1] && solid[y + 1][x] === 0) ||
+                                    (solid[y][x - 1] === 0) || (solid[y][x + 1] === 0);
+                                outline[y][x] = isEdge ? 1 : 0;
+                            } else outline[y][x] = 0;
+                        }
+                    }
+                    return outline;
+                }
+                const offsets = [];
+                const t2 = thickness * thickness;
+                for (let ty = -thickness; ty <= thickness; ty++) {
+                    for (let tx = -thickness; tx <= thickness; tx++) {
+                        if (tx * tx + ty * ty <= t2) offsets.push([tx, ty]);
+                    }
+                }
+                const offsetLen = offsets.length;
+                for (let y = 0; y < rows; y++) {
+                    outline[y] = new Uint8Array(cols);
+                    for (let x = 0; x < cols; x++) {
+                        if (solid[y][x] === 1) {
+                            let isThickEdge = false;
+                            for (let i = 0; i < offsetLen; i++) {
+                                const nx = x + offsets[i][0],
+                                    ny = y + offsets[i][1];
+                                if (nx < 0 || nx >= cols || ny < 0 || ny >= rows || solid[ny][nx] === 0) {
+                                    isThickEdge = true;
+                                    break;
+                                }
+                            }
+                            outline[y][x] = isThickEdge ? 1 : 0;
+                        } else outline[y][x] = 0;
+                    }
+                }
+                return outline;
+            }
 
-        <!-- ===== NEW ARTICLE SECTION ===== -->
-        <section class="container" aria-labelledby="article-title">
-            <div class="article-section">
-                <h2 id="article-title" class="section-title" style="text-align:center;">Minecraft Circle Generator: Complete Guide to Minecraft Circles, Blueprints, Coordinates, and Circle Charts</h2>
+            function computeBlueprint() {
+                const shape = state.shape,
+                    fill = state.fill;
+                const w = Math.max(3, parseInt(state.width, 10) || 3);
+                const h = shape === 'ellipse' ? Math.max(3, parseInt(state.height, 10) || 3) : w;
+                const t = Math.max(1, parseInt(state.thickness, 10) || 1);
+                const sides = Math.max(3, Math.min(16, parseInt(state.sides, 10) || 6));
+                const cols = w,
+                    rows = h;
+                state.matrixBounds = { cols, rows };
+                const centerX = cols / 2,
+                    centerY = rows / 2;
+                let radiusX = cols / 2,
+                    radiusY = rows / 2;
+                if (shape === 'sphere') {
+                    const sphereR = w / 2;
+                    const distFromEquator = Math.abs((state.layerY + 0.5) - sphereR);
+                    if (distFromEquator >= sphereR) { 
+                        radiusX = 0;
+                        radiusY = 0; 
+                    } else {
+                        radiusX = Math.sqrt(Math.max(0, sphereR * sphereR - distFromEquator * distFromEquator));
+                        radiusY = radiusX;
+                    }
+                }
+                const solid = generateSolidMatrix(cols, rows, centerX, centerY, radiusX, radiusY, shape, sides);
+                let finalGrid = [],
+                    count = 0;
+                if (fill === 'filled') {
+                    finalGrid = solid;
+                    for (let y = 0; y < rows; y++)
+                        for (let x = 0; x < cols; x++)
+                            if (finalGrid[y][x] === 1) count++;
+                } else {
+                    finalGrid = extractOutline(solid, cols, rows, fill === 'thick' ? t : 1);
+                    for (let y = 0; y < rows; y++)
+                        for (let x = 0; x < cols; x++)
+                            if (finalGrid[y][x] === 1) count++;
+                }
+                state.matrix = finalGrid;
+                state.totalBlocks = count;
+                
+                if (shape === 'sphere' && state.layerY > 0) {
+                    const sphereR = w / 2;
+                    const prevDist = Math.abs(((state.layerY - 1) + 0.5) - sphereR);
+                    let prevRadius = 0;
+                    if (prevDist < sphereR) prevRadius = Math.sqrt(Math.max(0, sphereR * sphereR - prevDist * prevDist));
+                    if (prevRadius > 0.5) {
+                        const prevSolid = generateSolidMatrix(cols, rows, centerX, centerY, prevRadius, prevRadius, 'sphere', sides);
+                        state.ghostMatrix = extractOutline(prevSolid, cols, rows, 1);
+                    } else {
+                        state.ghostMatrix = [];
+                    }
+                } else {
+                    state.ghostMatrix = [];
+                }
 
-                <h2>What Is a Minecraft Circle Generator?</h2>
-                <p>A <strong>minecraft circle generator</strong> is a specialized tool that translates the idea of a perfect circle into a block‑by‑block grid pattern that you can build inside Minecraft. Because the game world is made entirely of 1×1×1 meter cubic blocks, you cannot place a smooth, continuous curved line. Instead, you need a carefully arranged set of blocks that, when viewed from a distance, forms the illusion of a round shape.</p>
-                <p>This is where the generator comes in. It calculates which blocks should be placed to create the most accurate and symmetrical circle for a given radius or diameter. Whether you are building a circular tower, a dome, or a decorative fountain, having a reliable pattern saves time and ensures that your structure looks balanced and professional.</p>
+                loadProgressFromStorage();
+                clearHistory();
+                updateStats(count, cols, rows);
+                calculateQuadrantSequence();
+                updateProgressHUD();
+                requestRender();
+            }
+            let computeScheduled = false;
 
-                <h2>Why Are Circles Difficult to Build in Minecraft?</h2>
-                <p>In most games with smooth graphics, drawing a circle is as simple as dragging a mouse or using a brush tool. In Minecraft, everything is blocky. A perfect mathematical circle would require infinitely small points, but Minecraft restricts you to a discrete grid. The challenge is to choose which blocks to place so that the outline approximates a circle as closely as possible.</p>
-                <p>Without a guide, many builders end up with lopsided shapes, irregular gaps, or patterns that look more like polygons than circles. The difficulty increases as the circle gets larger, because small mistakes in the early rows can compound and ruin the symmetry. A tool like MCCircleGrid's <strong>minecraft circle generator</strong> eliminates this guesswork by providing a proven, repeatable pattern every time.</p>
+            function scheduleComputeBlueprint() {
+                if (!computeScheduled) {
+                    computeScheduled = true;
+                    requestAnimationFrame(() => { 
+                        computeScheduled = false;
+                        computeBlueprint(); 
+                    });
+                }
+            }
 
-                <h2>How Minecraft Circle Patterns Work</h2>
-                <p>Every circle pattern is defined by two key measurements: <strong>radius</strong> and <strong>diameter</strong>. The radius is the distance from the center to the edge, while the diameter is the total width of the circle. In Minecraft terms, these are measured in blocks.</p>
-                <p>When you enter a radius or diameter into the generator, the tool calculates the position of each block on the X/Z grid. For example, if you ask for a circle with a radius of 5, the generator places blocks at all integer coordinates that fall within the circular boundary. The result is a grid where every block that should be part of the circle is highlighted, and the empty spaces show where not to place blocks.</p>
-                <p>The generator also handles two types of centers:</p>
-                <ul>
-                    <li><strong>Odd diameters</strong> (e.g., 5, 7, 9, 21, 31) have a single center block. This is ideal for builds that need a central pillar or beacon.</li>
-                    <li><strong>Even diameters</strong> (e.g., 6, 8, 10, 20, 32) have a 2×2 center area, which is perfect for double doors or symmetrical hallways.</li>
-                </ul>
-                <p>Understanding these distinctions helps you choose the right circle size for your specific build and makes it easier to align the circle with other structures in your world.</p>
+            function calculateQuadrantSequence() {
+                const { cols, rows } = state.matrixBounds;
+                const grid = state.matrix;
+                if (!grid || state.totalBlocks === 0) { 
+                    seqContainer.innerHTML = '<span class="seq-info-pill">No blocks on active layer</span>'; 
+                    return; 
+                }
+                if (state.fill === 'filled') { 
+                    seqContainer.innerHTML = '<span class="seq-info-pill">Solid fill active</span>'; 
+                    return; 
+                }
+                if (state.fill === 'thick') { 
+                    seqContainer.innerHTML = '<span class="seq-info-pill">Thick rim active</span>'; 
+                    return; 
+                }
+                if (state.shape !== 'circle') { 
+                    seqContainer.innerHTML = `<span class="seq-info-pill">Step sequence for circles</span>`; 
+                    return; 
+                }
 
-                <h2>Minecraft Circle Generator With Coordinates</h2>
-                <p>One of the most powerful features of MCCircleGrid is the <strong>minecraft circle generator with coordinates</strong>. Instead of just showing you a visual pattern, the tool calculates the exact world coordinates for every block in the circle. This means you can enter the X and Z coordinates of the center of your circle, and the generator will translate the relative grid positions into absolute in‑game positions.</p>
-                <p>This is especially useful for large projects where you need to place blocks exactly at specific coordinates – for example, when building a circle that spans multiple chunks. The coordinate list can be exported as a text file, so you can take it with you while you build. You can also hover over any cell on the blueprint to see its relative and world coordinates, making it easy to double‑check your placement without leaving the tool.</p>
+                let topY = -1;
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        if (grid[y] && grid[y][x] === 1) { topY = y; break; }
+                    }
+                    if (topY !== -1) break;
+                }
+                if (topY === -1) { 
+                    seqContainer.innerHTML = '<span class="seq-info-pill">Empty</span>'; 
+                    return; 
+                }
 
-                <h2>Even Diameter Minecraft Circle Generator</h2>
-                <p>Many builders ask about the difference between odd and even diameter circles. The <strong>even diameter minecraft circle generator</strong> is designed to handle diameters like 6, 8, 10, 20, and 32. In these cases, the mathematical center of the circle falls exactly on the intersection of four blocks, rather than on a single block.</p>
-                <p>This 2×2 center block arrangement is not a limitation – it is a design choice that many builders prefer. It creates a more balanced and open interior, which is ideal for double doors, wide corridors, and symmetrical interior layouts. The even‑diameter generator calculates the circle using the same Euclidean‑distance method, but with the center shifted so that the four central blocks form a perfect square. This ensures that the circle is just as accurate as its odd‑diameter counterpart, but with a different center configuration.</p>
+                let topFlatWidth = 0;
+                for (let x = 0; x < cols; x++) {
+                    if (grid[topY] && grid[topY][x] === 1) topFlatWidth++;
+                }
 
-                <h2>Minecraft 21×21 Circle Chart</h2>
-                <p>One of the most frequently requested circle patterns is the <strong>minecraft 21x21 circle chart</strong>. A 21×21 circle has a diameter of 21 blocks, which means it is 21 blocks wide and 21 blocks tall. Because 21 is an odd number, it has a single center block (the 11th block in each direction). This size is popular because it is large enough to serve as a foundation for medium‑sized buildings, but small enough that the pattern is easy to follow.</p>
-                <p>Using the generator, you can instantly produce a 21×21 circle chart with a 1×1 center block. The blueprint shows exactly which blocks to place, and you can export the coordinate list or download a PNG image of the pattern. This makes it a perfect reference for building circular fountains, marketplaces, or the base of a domed tower. The 21×21 chart is also a great teaching tool for new builders who want to learn how circle patterns are constructed.</p>
+                const runs = [topFlatWidth];
+                const midY = Math.floor(rows / 2);
+                const centerX = cols / 2;
+                const centerY = rows / 2;
 
-                <h2>Minecraft Pixel Circle Generator on Mobile</h2>
-                <p>Many Minecraft players prefer to plan their builds on the go, using a phone or tablet. That is why MCCircleGrid is built as a <strong>minecraft pixel circle generator mobile</strong> experience from the start. The entire interface is responsive and touch‑friendly, so you can zoom and pan across the blueprint using two‑finger pinch and one‑finger drag. This works on both iOS and Android devices, without needing to install any special apps.</p>
-                <p>With the mobile version, you can generate a circle pattern while you are away from your computer, save the blueprint as a PNG, or copy the coordinate list to share with a friend. The tooltip that shows coordinates works on touch as well – just tap and hold on any cell to see its relative and world coordinates. This makes it easy to build accurately even when you are only using your phone for reference.</p>
+                for (let y = topY + 1; y <= midY; y++) {
+                    let count = 0;
+                    let lastX = -1;
+                    for (let x = 0; x < cols; x++) {
+                        if (grid[y] && grid[y][x] === 1 && (x + 0.5) >= centerX) {
+                            count++;
+                            lastX = x;
+                        }
+                    }
+                    if (count === 0) break;
+                    runs.push(count);
+                    const dx = (lastX + 0.5) - centerX;
+                    const dy = centerY - (y + 0.5);
+                    if (dx > dy) break; 
+                }
 
-                <h2>Using a Minecraft Circle Blueprint</h2>
-                <p>Once you have generated your circle pattern, the next step is to use it to build in your world. The blueprint can be used in several ways:</p>
-                <ul>
-                    <li><strong>Visual reference:</strong> Keep the PNG or the on‑screen grid open while you play, and place blocks one by one according to the highlighted cells.</li>
-                    <li><strong>Coordinate list:</strong> Export a text file with the world coordinates of every block. This is especially useful for large circles where you might want to use a datapack or a building assistant to place blocks automatically.</li>
-                    <li><strong>Printed copy:</strong> Export the PNG and print it out for a physical reference that you can keep beside your keyboard.</li>
-                </ul>
-                <p>With the <strong>minecraft circle blueprint png download</strong> feature, you can get a high‑resolution image that includes grid lines, axes, and center markers. This image is independent of your current zoom level, so it always shows the full pattern clearly. You can also save the coordinate list as a `.txt` file, which is useful for sharing with other players or for later reference.</p>
+                seqContainer.innerHTML = runs.map((run, i) => 
+                    `<span class="seq-pill" title="Step ${i+1}: ${run} blocks">${run}</span>`
+                ).join('<span style="color:var(--text-muted);font-size:.7rem;" aria-hidden="true">→</span>');
+            }
 
-                <h2>What Can You Build With a Minecraft Circle?</h2>
-                <p>Minecraft circles are incredibly versatile. Here are some of the most common structures that start with a circular foundation:</p>
-                <ul>
-                    <li><strong>Round towers:</strong> Classic castle keeps and watchtowers are often built on a circular plan.</li>
-                    <li><strong>Circular houses:</strong> A round house is not only visually striking, but also offers a unique interior layout.</li>
-                    <li><strong>Domes:</strong> Large domes are built by stacking horizontal circle layers of decreasing diameter, creating a spherical shape.</li>
-                    <li><strong>Castles:</strong> Many castle walls and courtyards use circular sections for turrets and central keeps.</li>
-                    <li><strong>Arenas:</strong> PvP arenas and stadiums benefit from a circular shape for even viewing and combat areas.</li>
-                    <li><strong>Wells:</strong> A small circle can be used to build a decorative well or a central fountain.</li>
-                    <li><strong>Circular foundations:</strong> Any large building can start with a circular base, which is then extended upward into a cylindrical or domed structure.</li>
-                    <li><strong>Walls:</strong> Curved walls and fences are more aesthetically pleasing than straight lines and can be used to enclose gardens or animal pens.</li>
-                </ul>
+            function getSymmetryDescription(w, h, shape) {
+                if (shape === 'circle') return (w % 2 !== 0) ? '1×1 (Odd)' : '2×2 (Even)';
+                if (shape === 'ellipse') {
+                    const wType = (w % 2 !== 0) ? '1-Odd' : '2-Even';
+                    const hType = (h % 2 !== 0) ? '1-Odd' : '2-Even';
+                    return `${wType} × ${hType}`;
+                }
+                if (shape === 'polygon') return `${state.sides}-Fold`;
+                if (shape === 'sphere') {
+                    const sliceOdd = (w % 2 !== 0) ? '1×1' : '2×2';
+                    return `${sliceOdd} (Y:${state.layerY})`;
+                }
+                return 'Sym';
+            }
 
-                <h2>How to Use MCCircleGrid</h2>
-                <p>Getting started with MCCircleGrid is simple. Here is a step‑by‑step guide:</p>
-                <ol>
-                    <li><strong>Open the Minecraft Circle Generator:</strong> Go to <a href="/minecraft-circle-generator/">Minecraft Circle Generator</a>.</li>
-                    <li><strong>Choose the desired size/mode:</strong> Switch between <em>Radius</em> and <em>Diameter</em> mode, then enter the number of blocks you want.</li>
-                    <li><strong>Generate the circle:</strong> The tool instantly updates the blueprint canvas with the block pattern.</li>
-                    <li><strong>Review the block pattern:</strong> Use the pan and zoom controls to examine the circle. The tooltip shows coordinates as you hover.</li>
-                    <li><strong>Use coordinates/blueprint information:</strong> Set your world center coordinates for precise placement, and export the PNG or text file if needed.</li>
-                    <li><strong>Reproduce the pattern in Minecraft:</strong> Follow the blueprint block by block, starting from the center and working outward.</li>
-                </ol>
+            function updateStats(count, w, h) {
+                statTotalBlocks.textContent = count.toLocaleString();
+                const stacks = Math.floor(count / 64),
+                    rem = count % 64;
+                statStacks.textContent = `${stacks} Stk + ${rem}`;
+                statSymmetry.textContent = getSymmetryDescription(w, h, state.shape);
+                statBounds.textContent = `${w} × ${h}`;
+            }
 
-                <h2>Tips for Building Better Minecraft Circles</h2>
-                <p>Even with a perfect blueprint, building a circle can be challenging. Here are some practical tips to make the process easier:</p>
-                <ul>
-                    <li><strong>Start from the center:</strong> Always begin by placing the center block (or the four central blocks for even diameters). This gives you a reference point for the rest of the circle.</li>
-                    <li><strong>Check symmetry:</strong> As you build, periodically step back and look at the circle from a distance. It should look symmetrical from all sides.</li>
-                    <li><strong>Mark cardinal directions:</strong> Place temporary blocks at the four main compass points (north, south, east, west) to help orient yourself.</li>
-                    <li><strong>Build one quarter and mirror it:</strong> For large circles, you can build just one quarter of the pattern and then mirror it to the other three quadrants. This saves time and ensures symmetry.</li>
-                    <li><strong>Choose the right diameter:</strong> If you are unsure, start with a smaller circle and build up. It is easier to enlarge a pattern than to fix a circle that is too big and unwieldy.</li>
-                    <li><strong>Use a blueprint before placing large numbers of blocks:</strong> Always generate a blueprint first and review it before you start placing hundreds of blocks. A visual reference can help you catch potential errors early.</li>
-                </ul>
+            function updateProgressHUD() {
+                const placed = state.placedBlocks.size,
+                    total = state.totalBlocks,
+                    pct = total > 0 ? Math.round((placed / total) * 100) : 0;
+                progressPercent.textContent = `${pct}%`;
+                progressBar.style.width = `${pct}%`;
+                progressCount.textContent = `${placed} / ${total} Placed`;
+                btnUndo.disabled = history.undoStack.length === 0;
+                btnRedo.disabled = history.redoStack.length === 0;
+            }
 
-                <h2>Frequently Asked Questions (Article FAQ)</h2>
-                <div class="faq-item">
-                    <details>
-                        <summary>Do I need to install anything to use MCCircleGrid?</summary>
-                        <div class="faq-answer">No. MCCircleGrid is a web‑based tool that runs entirely in your browser. You don't need to download or install any software. Just visit the website and start generating circles.</div>
-                    </details>
-                </div>
-                <div class="faq-item">
-                    <details>
-                        <summary>Can I generate circles for any version of Minecraft?</summary>
-                        <div class="faq-answer">Yes. The block patterns are based on the standard Minecraft grid and work in Java Edition, Bedrock Edition, and all other versions. The coordinates are universal.</div>
-                    </details>
-                </div>
-                <div class="faq-item">
-                    <details>
-                        <summary>What is the largest circle I can generate?</summary>
-                        <div class="faq-answer">In Radius mode, you can enter up to 200, which produces a 401×401 circle. In Diameter mode, the maximum is 200. For anything larger, we recommend exporting the coordinate list and using it with building automation tools.</div>
-                    </details>
-                </div>
+            function clearHistory() {
+                history.undoStack = [];
+                history.redoStack = [];
+                btnUndo.disabled = true;
+                btnRedo.disabled = true;
+            }
+            let renderRequested = false;
 
-                <p style="margin-top:2rem; text-align:center; font-weight:600; color:var(--text-primary);">
-                    Ready to create your next circle? Try the <a href="/minecraft-circle-generator/">Minecraft Circle Generator</a> now.
-                </p>
-            </div>
-        </section>
+            function requestRender() { 
+                if (!renderRequested) { 
+                    renderRequested = true;
+                    requestAnimationFrame(renderNow); 
+                } 
+            }
 
-        <!-- ===== FAQ (existing) ===== -->
-        <section id="faq" class="container" aria-labelledby="faq-title">
-            <h2 class="section-title center" id="faq-title">Frequently Asked Questions</h2>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <details>
-                        <summary>What is MCCircleGrid?</summary>
-                        <div class="faq-answer">
-                            MCCircleGrid is a free online tool that helps Minecraft builders generate precise circle patterns, coordinates, and blueprints for round structures, towers, domes, and more.
-                        </div>
-                    </details>
-                </div>
-                <div class="faq-item">
-                    <details>
-                        <summary>What is a Minecraft Circle Generator?</summary>
-                        <div class="faq-answer">
-                            A Minecraft Circle Generator creates a block‑by‑block grid pattern that shows you exactly where to place each block to form a perfect circle in the game. Our tool is available at <a href="/minecraft-circle-generator/">/minecraft-circle-generator/</a>.
-                        </div>
-                    </details>
-                </div>
-                <div class="faq-item">
-                    <details>
-                        <summary>What can I build with a Minecraft circle?</summary>
-                        <div class="faq-answer">
-                            Circles are the foundation for many structures, including towers, domes, arenas, castles, circular houses, wells, and decorative landscaping features.
-                        </div>
-                    </details>
-                </div>
-                <div class="faq-item">
-                    <details>
-                        <summary>Can I use MCCircleGrid on mobile?</summary>
-                        <div class="faq-answer">
-                            Yes. MCCircleGrid is fully responsive and works on smartphones and tablets, with touch‑friendly controls for panning and zooming.
-                        </div>
-                    </details>
-                </div>
-                <div class="faq-item">
-                    <details>
-                        <summary>Where can I generate a Minecraft circle?</summary>
-                        <div class="faq-answer">
-                            Visit our dedicated tool page: <a href="/minecraft-circle-generator/">Minecraft Circle Generator</a>. It provides interactive controls, coordinate export, PNG download, and more.
-                        </div>
-                    </details>
-                </div>
-            </div>
-        </section>
+            function renderNow() {
+                renderRequested = false;
+                const dpr = window.devicePixelRatio || 1;
+                const w = canvas.width / dpr,
+                    h = canvas.height / dpr;
+                ctx.save();
+                ctx.scale(dpr, dpr);
+                const style = getComputedStyle(document.body);
+                const gridBg = style.getPropertyValue('--grid-bg').trim();
+                const gridLine = style.getPropertyValue('--grid-line').trim();
+                const blockFill = style.getPropertyValue('--block-fill').trim();
+                const blockStroke = style.getPropertyValue('--block-stroke').trim();
+                const blockPlaced = style.getPropertyValue('--block-placed').trim();
+                const blockPlacedStroke = style.getPropertyValue('--block-placed-stroke').trim();
+                const blockGhost = style.getPropertyValue('--block-ghost').trim();
+                const gridCenter = style.getPropertyValue('--grid-center').trim();
+                const textMuted = style.getPropertyValue('--text-muted').trim();
 
-        <!-- ===== FINAL CTA ===== -->
-        <section id="final-cta" class="container" aria-labelledby="final-cta-title">
-            <div class="final-cta">
-                <h2 id="final-cta-title">Ready to Build Your Circle?</h2>
-                <p>Generate a Minecraft circle pattern and start planning your next round build.</p>
-                <a href="/minecraft-circle-generator/" class="btn-primary">Minecraft Circle Generator</a>
-            </div>
-        </section>
+                ctx.fillStyle = gridBg;
+                ctx.fillRect(0, 0, w, h);
+                const zoom = state.zoom,
+                    cols = state.matrixBounds.cols,
+                    rows = state.matrixBounds.rows;
+                const startX = Math.round((w / 2) + state.panX - (cols * zoom) / 2);
+                const startY = Math.round((h / 2) + state.panY - (rows * zoom) / 2);
 
-    </main>
+                if (state.showGrid && zoom >= 6) {
+                    ctx.strokeStyle = gridLine;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    for (let x = 0; x <= cols; x++) { 
+                        const px = startX + x * zoom + 0.5;
+                        ctx.moveTo(px, startY);
+                        ctx.lineTo(px, startY + rows * zoom); 
+                    }
+                    for (let y = 0; y <= rows; y++) { 
+                        const py = startY + y * zoom + 0.5;
+                        ctx.moveTo(startX, py);
+                        ctx.lineTo(startX + cols * zoom, py); 
+                    }
+                    ctx.stroke();
+                }
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <div class="footer-inner">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <span class="logo-icon">■</span>
-                        MCCircleGrid
-                    </div>
-                    <p>Precision circle patterns and building tools for Minecraft architects.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-links-column">
-                        <h4>Navigate</h4>
-                        <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/minecraft-circle-generator/">Minecraft Circle Generator</a></li>
-                            <li><a href="/blog/">Blog</a></li>
-                            <li><a href="/about/">About</a></li>
-                            <li><a href="#faq">FAQ</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-links-column">
-                        <h4>Legal</h4>
-                        <ul>
-                            <li><a href="/privacy-policy/">Privacy Policy</a></li>
-                            <li><a href="/contact/">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                &copy; 2026 MCCircleGrid. All rights reserved.
-            </div>
-        </div>
-    </footer>
+                if (state.shape === 'sphere' && state.showGhost && state.ghostMatrix && state.ghostMatrix.length > 0) {
+                    ctx.fillStyle = blockGhost;
+                    for (let y = 0; y < rows; y++) {
+                        for (let x = 0; x < cols; x++) {
+                            if (state.ghostMatrix[y] && state.ghostMatrix[y][x] === 1 && (!state.matrix[y] || state.matrix[y][x] === 0)) {
+                                ctx.fillRect(startX + x * zoom, startY + y * zoom, zoom, zoom);
+                            }
+                        }
+                    }
+                }
 
-    <!-- ===== Minimal JavaScript ===== -->
-    <script>
-        // Mobile navigation toggle
-        const toggle = document.getElementById('navToggle');
-        const nav = document.getElementById('mainNav');
+                const grid = state.matrix;
+                if (grid && grid.length > 0) {
+                    for (let y = 0; y < rows; y++) {
+                        for (let x = 0; x < cols; x++) {
+                            if (grid[y] && grid[y][x] === 1) {
+                                const bx = startX + x * zoom,
+                                    by = startY + y * zoom;
+                                const isPlaced = state.placedBlocks.has(`${x},${y}`);
+                                ctx.fillStyle = isPlaced ? blockPlaced : blockFill;
+                                ctx.fillRect(bx, by, zoom, zoom);
+                                if (zoom >= 8) {
+                                    ctx.strokeStyle = isPlaced ? blockPlacedStroke : blockStroke;
+                                    ctx.lineWidth = Math.max(1, zoom * 0.08);
+                                    ctx.strokeRect(bx, by, zoom, zoom);
+                                }
+                                if (isPlaced && zoom >= 14) {
+                                    ctx.fillStyle = '#ffffff';
+                                    ctx.font = `bold ${Math.floor(zoom * 0.5)}px sans-serif`;
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'middle';
+                                    ctx.fillText('✓', bx + zoom / 2, by + zoom / 2);
+                                } else if (state.showNumbers && zoom >= 18) {
+                                    ctx.fillStyle = '#ffffff';
+                                    ctx.font = `${Math.floor(zoom * 0.35)}px monospace`;
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'middle';
+                                    ctx.fillText(`${x + 1}`, bx + zoom / 2, by + zoom / 2);
+                                }
+                            }
+                        }
+                    }
+                }
 
-        toggle.addEventListener('click', function() {
-            const isOpen = nav.classList.toggle('open');
-            toggle.setAttribute('aria-expanded', isOpen);
-            toggle.textContent = isOpen ? '✕' : '☰';
-        });
+                if (zoom >= 14) {
+                    ctx.fillStyle = textMuted;
+                    ctx.font = '10px monospace';
+                    ctx.textAlign = 'center';
+                    const step = zoom < 22 ? 5 : 1;
+                    for (let x = 0; x < cols; x += step) {
+                        ctx.fillText(x + 1, startX + x * zoom + zoom / 2, startY - 7);
+                    }
+                    ctx.textAlign = 'right';
+                    for (let y = 0; y < rows; y += step) {
+                        ctx.fillText(y + 1, startX - 7, startY + y * zoom + zoom / 2 + 3);
+                    }
+                }
 
-        // Close nav on link click (mobile)
-        nav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', function() {
-                if (nav.classList.contains('open')) {
-                    nav.classList.remove('open');
-                    toggle.setAttribute('aria-expanded', 'false');
-                    toggle.textContent = '☰';
+                if (state.showCenter) {
+                    ctx.strokeStyle = gridCenter;
+                    ctx.lineWidth = 1.5;
+                    ctx.setLineDash([4, 4]);
+                    ctx.beginPath();
+                    const midY = startY + (rows * zoom) / 2;
+                    ctx.moveTo(startX - 24, midY);
+                    ctx.lineTo(startX + cols * zoom + 24, midY);
+                    const midX = startX + (cols * zoom) / 2;
+                    ctx.moveTo(midX, startY - 24);
+                    ctx.lineTo(midX, startY + rows * zoom + 24);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                if (state.hoverBlock) {
+                    const { hx, hy } = state.hoverBlock;
+                    if (hx >= 0 && hx < cols && hy >= 0 && hy < rows) {
+                        ctx.fillStyle = 'rgba(139,92,246,0.35)';
+                        ctx.fillRect(startX + hx * zoom, startY + hy * zoom, zoom, zoom);
+                    }
+                }
+                ctx.restore();
+            }
+
+            function resetPanZoom() {
+                state.panX = 0;
+                state.panY = 0;
+                const rect = viewport.getBoundingClientRect();
+                const maxDim = Math.max(state.matrixBounds.cols, state.matrixBounds.rows);
+                state.zoom = Math.min(38, Math.max(MIN_ZOOM, (rect.width * 0.72) / maxDim));
+                requestRender();
+            }
+
+            document.querySelectorAll('[data-shape]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    sounds.playClick();
+                    document.querySelectorAll('[data-shape]').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.shape = btn.getAttribute('data-shape');
+                    safeSetStorage('shape', state.shape);
+                    heightGroup.style.display = state.shape === 'ellipse' ? 'flex' : 'none';
+                    sidesGroup.style.display = state.shape === 'polygon' ? 'flex' : 'none';
+                    sphereHud.style.display = state.shape === 'sphere' ? 'flex' : 'none';
+                    ghostToggleRow.style.display = state.shape === 'sphere' ? 'flex' : 'none';
+                    if (state.shape === 'sphere') {
+                        layerSlider.max = Math.max(1, state.width - 1);
+                        if (state.layerY >= state.width) { 
+                            state.layerY = Math.floor(state.width / 2);
+                            safeSetStorage('layerY', state.layerY); 
+                        }
+                        layerSlider.value = state.layerY;
+                        layerBadge.textContent = `Y: ${state.layerY}`;
+                    }
+                    widthLabel.textContent = (state.shape === 'circle' || state.shape === 'sphere') ? 'Diameter (Blocks):' : 'Width (X-Axis):';
+                    computeBlueprint();
+                    resetPanZoom();
+                });
+            });
+
+            document.querySelectorAll('[data-fill]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    sounds.playClick();
+                    document.querySelectorAll('[data-fill]').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.fill = btn.getAttribute('data-fill');
+                    safeSetStorage('fill', state.fill);
+                    thicknessGroup.style.display = state.fill === 'thick' ? 'flex' : 'none';
+                    computeBlueprint();
+                });
+            });
+
+            function syncInputs(slider, number, badge, stateKey, min, max) {
+                slider.addEventListener('input', e => {
+                    const val = Math.max(min, Math.min(max, parseInt(e.target.value, 10) || min));
+                    state[stateKey] = val;
+                    number.value = val;
+                    badge.textContent = val;
+                    safeSetStorage(stateKey, val);
+                    if (stateKey === 'width' && state.shape === 'sphere') {
+                        layerSlider.max = Math.max(1, val - 1);
+                        if (state.layerY > layerSlider.max) {
+                            state.layerY = parseInt(layerSlider.max, 10);
+                            safeSetStorage('layerY', state.layerY);
+                        }
+                        layerSlider.value = state.layerY;
+                        layerBadge.textContent = `Y: ${state.layerY}`;
+                    }
+                    sounds.playTone(450 + val * 2, 0.02);
+                    scheduleComputeBlueprint();
+                });
+                number.addEventListener('change', e => {
+                    const val = Math.max(min, Math.min(max, parseInt(e.target.value, 10) || min));
+                    state[stateKey] = val;
+                    slider.value = val;
+                    number.value = val;
+                    badge.textContent = val;
+                    safeSetStorage(stateKey, val);
+                    if (stateKey === 'width' && state.shape === 'sphere') {
+                        layerSlider.max = Math.max(1, val - 1);
+                        if (state.layerY > layerSlider.max) {
+                            state.layerY = parseInt(layerSlider.max, 10);
+                            safeSetStorage('layerY', state.layerY);
+                        }
+                        layerSlider.value = state.layerY;
+                        layerBadge.textContent = `Y: ${state.layerY}`;
+                    }
+                    computeBlueprint();
+                });
+            }
+            syncInputs(widthSlider, widthNumber, widthBadge, 'width', 3, 256);
+            syncInputs(heightSlider, heightNumber, heightBadge, 'height', 3, 256);
+            syncInputs(sidesSlider, sidesNumber, sidesBadge, 'sides', 3, 16);
+            syncInputs(thicknessSlider, thicknessNumber, thicknessBadge, 'thickness', 1, 8);
+
+            layerSlider.addEventListener('input', e => {
+                const val = parseInt(e.target.value, 10);
+                state.layerY = val;
+                safeSetStorage('layerY', val);
+                layerBadge.textContent = `Y: ${val}`;
+                sounds.playTone(420 + val * 8, 0.02);
+                scheduleComputeBlueprint();
+            });
+
+            document.getElementById('btnLayerUp').addEventListener('click', () => {
+                if (layerSlider.value < parseInt(layerSlider.max, 10)) { 
+                    layerSlider.value = parseInt(layerSlider.value, 10) + 1;
+                    layerSlider.dispatchEvent(new Event('input')); 
                 }
             });
-        });
 
-        // ===== DECORATIVE CIRCLE GRID =====
-        (function drawCircleGrid() {
-            const container = document.getElementById('circleGrid');
-            if (!container) return;
+            document.getElementById('btnLayerDown').addEventListener('click', () => {
+                if (layerSlider.value > 0) { 
+                    layerSlider.value = parseInt(layerSlider.value, 10) - 1;
+                    layerSlider.dispatchEvent(new Event('input')); 
+                }
+            });
 
-            const style = getComputedStyle(container);
-            const cols = style.gridTemplateColumns.split(' ').length;
-            const rows = style.gridTemplateRows.split(' ').length;
-            const size = (cols && rows) ? Math.min(cols, rows) : 11;
-            const center = Math.floor(size / 2);
-            const radius = center * 0.6;
+            function bindToggle(id, stateKey) {
+                document.getElementById(id).addEventListener('change', e => {
+                    state[stateKey] = e.target.checked;
+                    safeSetStorage(stateKey, state[stateKey]);
+                    sounds.playClick();
+                    requestRender();
+                });
+            }
+            bindToggle('toggleGrid', 'showGrid');
+            bindToggle('toggleCenter', 'showCenter');
+            bindToggle('toggleGhost', 'showGhost');
+            bindToggle('toggleNumbers', 'showNumbers');
 
-            container.innerHTML = '';
-
-            for (let r = 0; r < size; r++) {
-                for (let c = 0; c < size; c++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    const dx = c - center;
-                    const dy = r - center;
-                    if (dx * dx + dy * dy <= radius * radius) {
-                        cell.classList.add('filled');
+            btnCompleteLayer.addEventListener('click', () => {
+                const prevSet = new Set(state.placedBlocks);
+                const { cols, rows } = state.matrixBounds;
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        if (state.matrix[y] && state.matrix[y][x] === 1) {
+                            state.placedBlocks.add(`${x},${y}`);
+                        }
                     }
-                    container.appendChild(cell);
+                }
+                const nextSet = new Set(state.placedBlocks);
+                history.undoStack.push({ type: 'batch', before: prevSet, after: nextSet });
+                history.redoStack = [];
+                sounds.playCheck();
+                saveProgressToStorage();
+                updateProgressHUD();
+                requestRender();
+                showToast(`Marked ${state.totalBlocks} layer blocks complete!`);
+            });
+
+            btnResetProgress.addEventListener('click', () => {
+                if (state.placedBlocks.size > 0) {
+                    if (!confirm(`Clear all ${state.placedBlocks.size} placed block marks?`)) return;
+                }
+                sounds.playClick();
+                state.placedBlocks.clear();
+                clearHistory();
+                saveProgressToStorage();
+                updateProgressHUD();
+                requestRender();
+            });
+
+            function applyBlockPlacement(hx, hy, isPlaced) {
+                const key = `${hx},${hy}`;
+                if (isPlaced) state.placedBlocks.add(key);
+                else state.placedBlocks.delete(key);
+                saveProgressToStorage();
+                updateProgressHUD();
+                requestRender();
+            }
+
+            btnUndo.addEventListener('click', () => {
+                if (history.undoStack.length === 0) return;
+                const action = history.undoStack.pop();
+                if (action.type === 'batch') {
+                    state.placedBlocks = new Set(action.before);
+                    history.redoStack.push(action);
+                    saveProgressToStorage();
+                    updateProgressHUD();
+                    requestRender();
+                    sounds.playUncheck();
+                } else {
+                    history.redoStack.push(action);
+                    applyBlockPlacement(action.hx, action.hy, !action.wasPlaced);
+                    sounds.playUncheck();
+                }
+            });
+
+            btnRedo.addEventListener('click', () => {
+                if (history.redoStack.length === 0) return;
+                const action = history.redoStack.pop();
+                if (action.type === 'batch') {
+                    state.placedBlocks = new Set(action.after);
+                    history.undoStack.push(action);
+                    saveProgressToStorage();
+                    updateProgressHUD();
+                    requestRender();
+                    sounds.playCheck();
+                } else {
+                    history.undoStack.push(action);
+                    applyBlockPlacement(action.hx, action.hy, action.wasPlaced);
+                    sounds.playCheck();
+                }
+            });
+
+            document.getElementById('btnResetView').addEventListener('click', () => { 
+                sounds.playClick();
+                resetPanZoom(); 
+            });
+
+            document.getElementById('btnZoomIn').addEventListener('click', () => { 
+                sounds.playClick();
+                state.zoom = Math.min(MAX_ZOOM, state.zoom * 1.25);
+                requestRender(); 
+            });
+
+            document.getElementById('btnZoomOut').addEventListener('click', () => { 
+                sounds.playClick();
+                state.zoom = Math.max(MIN_ZOOM, state.zoom / 1.25);
+                requestRender(); 
+            });
+
+            btnExportPng.addEventListener('click', () => {
+                sounds.playClick();
+                const cols = state.matrixBounds.cols,
+                    rows = state.matrixBounds.rows;
+                const maxDim = Math.max(cols, rows);
+                const blockSize = maxDim > 64 ? Math.max(4, Math.floor(2048 / maxDim)) : 32;
+                const exportCanvas = document.createElement('canvas');
+                const eCtx = exportCanvas.getContext('2d');
+                exportCanvas.width = cols * blockSize + 40;
+                exportCanvas.height = rows * blockSize + 90;
+                eCtx.fillStyle = '#080c12';
+                eCtx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+                eCtx.fillStyle = '#8b5cf6';
+                eCtx.font = 'bold 18px monospace';
+                const layerInfo = state.shape === 'sphere' ? ` (Layer Y:${state.layerY})` : '';
+                eCtx.fillText(`MCCircleGrid ${state.shape.toUpperCase()}: ${cols}x${rows}${layerInfo} | ${state.totalBlocks} Blocks`, 20, 36);
+
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        const bx = 20 + x * blockSize,
+                            by = 60 + y * blockSize;
+                        if (state.matrix[y] && state.matrix[y][x] === 1) {
+                            const isPlaced = state.placedBlocks.has(`${x},${y}`);
+                            eCtx.fillStyle = isPlaced ? '#10b981' : '#8b5cf6';
+                            eCtx.fillRect(bx, by, blockSize, blockSize);
+                            eCtx.strokeStyle = isPlaced ? '#059669' : '#7c3aed';
+                            eCtx.strokeRect(bx, by, blockSize, blockSize);
+                            if (isPlaced) {
+                                eCtx.fillStyle = '#ffffff';
+                                eCtx.font = `bold ${Math.floor(blockSize * 0.5)}px sans-serif`;
+                                eCtx.textAlign = 'center';
+                                eCtx.textBaseline = 'middle';
+                                eCtx.fillText('✓', bx + blockSize / 2, by + blockSize / 2);
+                            }
+                        } else if (state.showGrid) {
+                            eCtx.strokeStyle = 'rgba(148,163,184,0.25)';
+                            eCtx.strokeRect(bx, by, blockSize, blockSize);
+                        }
+                    }
+                }
+
+                if (state.showCenter) {
+                    eCtx.strokeStyle = '#fbbf24';
+                    eCtx.lineWidth = 2;
+                    eCtx.setLineDash([6, 4]);
+                    eCtx.beginPath();
+                    const midX = 20 + (cols * blockSize) / 2;
+                    const midY = 60 + (rows * blockSize) / 2;
+                    eCtx.moveTo(0, midY);
+                    eCtx.lineTo(exportCanvas.width, midY);
+                    eCtx.moveTo(midX, 40);
+                    eCtx.lineTo(midX, exportCanvas.height);
+                    eCtx.stroke();
+                    eCtx.setLineDash([]);
+                }
+
+                const link = document.createElement('a');
+                const fileShape = state.shape === 'sphere' ? `sphere-layer-${state.layerY}` : `${state.shape}-${cols}x${rows}`;
+                link.download = `mccirclegrid-${fileShape}.png`;
+                link.href = exportCanvas.toDataURL('image/png');
+                link.click();
+                showToast('PNG blueprint saved with progress!');
+            });
+
+            btnCopyCoords.addEventListener('click', () => {
+                sounds.playClick();
+                const cols = state.matrixBounds.cols;
+                const rows = state.matrixBounds.rows;
+                let coordsText = `MCCircleGrid Coordinates (Total: ${state.totalBlocks})\n`;
+                coordsText += `Shape: ${state.shape.toUpperCase()} | Dimensions: ${cols}x${rows}\n\n`;
+                let count = 0;
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        if (state.matrix[y] && state.matrix[y][x] === 1) {
+                            count++;
+                            const dx = x - Math.floor(cols / 2);
+                            const dz = y - Math.floor(rows / 2);
+                            coordsText += `X: ${dx}, Z: ${dz} (Block #${count})\n`;
+                        }
+                    }
+                }
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(coordsText).then(() => showToast('Coordinates copied!')).catch(() => fallbackCopy(coordsText));
+                } else fallbackCopy(coordsText);
+            });
+
+            btnExportTxt.addEventListener('click', () => {
+                sounds.playClick();
+                const cols = state.matrixBounds.cols;
+                const rows = state.matrixBounds.rows;
+                let txt = `MCCircleGrid Blueprint\n`;
+                txt += `Generated: ${new Date().toISOString()}\n`;
+                txt += `Shape: ${state.shape.toUpperCase()}\n`;
+                txt += `Dimensions: ${cols}x${rows}\n`;
+                txt += `Total Blocks: ${state.totalBlocks}\n`;
+                txt += `Stacks: ${Math.floor(state.totalBlocks/64)} Stk + ${state.totalBlocks%64}\n\n`;
+                txt += `Center: ${getSymmetryDescription(cols, rows, state.shape)}\n\n`;
+                txt += `Quadrant Sequence:\n`;
+                const seq = seqContainer.textContent;
+                txt += seq + '\n\n';
+                txt += `Blueprint Grid:\n`;
+                for (let y = 0; y < rows; y++) {
+                    let rowStr = '';
+                    for (let x = 0; x < cols; x++) {
+                        rowStr += state.matrix[y][x] === 1 ? '██' : '  ';
+                    }
+                    txt += rowStr + '\n';
+                }
+                txt += `\nBlock Coordinates:\n`;
+                let count = 0;
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        if (state.matrix[y] && state.matrix[y][x] === 1) {
+                            count++;
+                            const dx = x - Math.floor(cols / 2);
+                            const dz = y - Math.floor(rows / 2);
+                            txt += `X: ${dx}, Z: ${dz} (Block #${count})\n`;
+                        }
+                    }
+                }
+                const blob = new Blob([txt], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.download = `mccirclegrid-${state.shape}-${cols}x${rows}.txt`;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                URL.revokeObjectURL(link.href);
+                showToast('TXT blueprint downloaded!');
+            });
+
+            btnExportSvg.addEventListener('click', () => {
+                sounds.playClick();
+                const cols = state.matrixBounds.cols;
+                const rows = state.matrixBounds.rows;
+                const rectSize = 20;
+                const padding = 40;
+                const headerH = 60;
+                const svgWidth = cols * rectSize + padding * 2;
+                const svgHeight = rows * rectSize + padding * 2 + headerH;
+                
+                let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`;
+                svg += `<rect width="100%" height="100%" fill="#080c12"/>`;
+                const layerInfo = state.shape === 'sphere' ? ` | Layer Y:${state.layerY}` : '';
+                svg += `<text x="${padding}" y="30" fill="#8b5cf6" font-family="monospace" font-size="14" font-weight="bold">MCCircleGrid ${state.shape.toUpperCase()} Blueprint: ${cols}x${rows}${layerInfo} | ${state.totalBlocks} Blocks</text>`;
+                
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        if (state.matrix[y] && state.matrix[y][x] === 1) {
+                            const isPlaced = state.placedBlocks.has(`${x},${y}`);
+                            const fill = isPlaced ? '#10b981' : '#8b5cf6';
+                            const stroke = isPlaced ? '#059669' : '#7c3aed';
+                            svg += `<rect x="${padding + x * rectSize}" y="${padding + headerH + y * rectSize}" width="${rectSize}" height="${rectSize}" fill="${fill}" stroke="${stroke}" stroke-width="1"/>`;
+                            if (isPlaced) {
+                                svg += `<text x="${padding + x * rectSize + rectSize/2}" y="${padding + headerH + y * rectSize + rectSize/2}" fill="#fff" font-size="12" text-anchor="middle" dominant-baseline="central">✓</text>`;
+                            }
+                        } else if (state.showGrid) {
+                            svg += `<rect x="${padding + x * rectSize}" y="${padding + headerH + y * rectSize}" width="${rectSize}" height="${rectSize}" fill="none" stroke="rgba(148,163,184,0.15)" stroke-width="0.5"/>`;
+                        }
+                    }
+                }
+                
+                if (state.showCenter) {
+                    const centerX = padding + (cols * rectSize) / 2;
+                    const centerY = padding + headerH + (rows * rectSize) / 2;
+                    svg += `<line x1="0" y1="${centerY}" x2="${svgWidth}" y2="${centerY}" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,4"/>`;
+                    svg += `<line x1="${centerX}" y1="0" x2="${centerX}" y2="${svgHeight}" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,4"/>`;
+                }
+                
+                svg += '</svg>';
+                
+                const blob = new Blob([svg], { type: 'image/svg+xml' });
+                const link = document.createElement('a');
+                link.download = `mccirclegrid-${state.shape}-${cols}x${rows}.svg`;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                URL.revokeObjectURL(link.href);
+                showToast('SVG blueprint downloaded!');
+            });
+
+            btnCopyFill.addEventListener('click', () => {
+                sounds.playClick();
+                const cols = state.matrixBounds.cols;
+                const rows = state.matrixBounds.rows;
+                let fillCommands = `// Minecraft /fill Commands for ${state.shape.toUpperCase()} Blueprint\n`;
+                fillCommands += `Dimensions: ${cols}x${rows} | Blocks: ${state.totalBlocks}\n\n`;
+                
+                for (let y = 0; y < rows; y++) {
+                    let x = 0;
+                    while (x < cols) {
+                        if (state.matrix[y] && state.matrix[y][x] === 1) {
+                            const startX = x;
+                            while (x < cols && state.matrix[y] && state.matrix[y][x] === 1) {
+                                x++;
+                            }
+                            const endX = x - 1;
+                            const dx1 = startX - Math.floor(cols / 2);
+                            const dz = y - Math.floor(rows / 2);
+                            const dx2 = endX - Math.floor(cols / 2);
+                            
+                            if (startX === endX) {
+                                fillCommands += `/setblock ~${dx1} ~0 ~${dz} minecraft:stone\n`;
+                            } else {
+                                fillCommands += `/fill ~${dx1} ~0 ~${dz} ~${dx2} ~0 ~${dz} minecraft:stone\n`;
+                            }
+                        } else {
+                            x++;
+                        }
+                    }
+                }
+                
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(fillCommands).then(() => showToast('/fill commands copied!')).catch(() => fallbackCopy(fillCommands));
+                } else fallbackCopy(fillCommands);
+            });
+
+            btnCopyAscii.addEventListener('click', () => {
+                sounds.playClick();
+                const cols = state.matrixBounds.cols;
+                const rows = state.matrixBounds.rows;
+                let ascii = `MCCircleGrid ${state.shape.toUpperCase()} Blueprint: ${cols}x${rows}\n`;
+                ascii += `Total Blocks: ${state.totalBlocks}\n\n`;
+                for (let y = 0; y < rows; y++) {
+                    let rowStr = '';
+                    for (let x = 0; x < cols; x++) {
+                        rowStr += state.matrix[y][x] === 1 ? '██' : '  ';
+                    }
+                    ascii += rowStr + '\n';
+                }
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(ascii).then(() => showToast('ASCII blueprint copied!')).catch(() => fallbackCopy(ascii));
+                } else fallbackCopy(ascii);
+            });
+
+            function fallbackCopy(text) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { 
+                    document.execCommand('copy');
+                    showToast('Copied to clipboard!'); 
+                } catch (e) { 
+                    alert('Could not copy to clipboard.'); 
+                }
+                document.body.removeChild(ta);
+            }
+
+            // Print
+            const printMetadataText = document.getElementById('printMetadataText');
+            btnPrint.addEventListener('click', () => {
+                sounds.playClick();
+                const cols = state.matrixBounds.cols;
+                const rows = state.matrixBounds.rows;
+                if (printMetadataText) printMetadataText.textContent = `Shape: ${state.shape.toUpperCase()} | Dimensions: ${cols}x${rows} | Total Blocks: ${state.totalBlocks} (${Math.floor(state.totalBlocks / 64)} Stk + ${state.totalBlocks % 64}) | Octant Sequence: ${seqContainer.textContent}`;
+
+                const prevPanX = state.panX, prevPanY = state.panY, prevZoom = state.zoom;
+                resetPanZoom();
+
+                setTimeout(() => {
+                    window.print();
+                    state.panX = prevPanX;
+                    state.panY = prevPanY;
+                    state.zoom = prevZoom;
+                    requestRender();
+                }, 150);
+            });
+
+            function getGridCoordinates(clientX, clientY) {
+                const rect = viewport.getBoundingClientRect();
+                const mouseX = clientX - rect.left,
+                    mouseY = clientY - rect.top;
+                const cols = state.matrixBounds.cols,
+                    rows = state.matrixBounds.rows;
+                const startX = (rect.width / 2) + state.panX - (cols * state.zoom) / 2;
+                const startY = (rect.height / 2) + state.panY - (rows * state.zoom) / 2;
+                const hx = Math.floor((mouseX - startX) / state.zoom);
+                const hy = Math.floor((mouseY - startY) / state.zoom);
+                return { hx, hy, cols, rows };
+            }
+
+            function toggleBlockPlacement(hx, hy) {
+                if (state.matrix[hy] && state.matrix[hy][hx] === 1) {
+                    const key = `${hx},${hy}`;
+                    const isCurrentlyPlaced = state.placedBlocks.has(key);
+                    const willPlace = !isCurrentlyPlaced;
+                    if (willPlace) { 
+                        state.placedBlocks.add(key);
+                        sounds.playCheck(); 
+                    } else { 
+                        state.placedBlocks.delete(key);
+                        sounds.playUncheck(); 
+                    }
+                    history.undoStack.push({ hx, hy, wasPlaced: willPlace });
+                    history.redoStack = [];
+                    saveProgressToStorage();
+                    updateProgressHUD();
+                    requestRender();
                 }
             }
-        })();
 
-        // ===== THEME TOGGLE =====
-        function toggleTheme() {
-            const body = document.body;
-            const isLight = body.classList.toggle('light-theme');
-            const btn = document.getElementById('themeToggleBtn');
-            if (btn) {
-                btn.innerHTML = isLight ? '☀️' : '🌙';
-            }
-            localStorage.setItem('mcCircleTheme', isLight ? 'light' : 'dark');
-        }
+            const activePointers = new Map();
+            let dragStartPan = { x: 0, y: 0 };
+            let dragStartPointer = { x: 0, y: 0 };
+            let hasDragged = false;
+            let initialPinchDistance = 0;
+            let initialPinchZoom = state.zoom;
+            let pinchCenter = { x: 0, y: 0 };
 
-        // Ensure the theme toggle button displays the correct icon on load
-        (function syncThemeIcon() {
-            const btn = document.getElementById('themeToggleBtn');
-            if (btn) {
-                const isLight = document.body.classList.contains('light-theme');
-                btn.innerHTML = isLight ? '☀️' : '🌙';
+            viewport.addEventListener('pointerdown', e => {
+                if (e.target !== viewport && e.target !== canvas) return;
+                viewport.setPointerCapture(e.pointerId);
+                activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+                if (activePointers.size === 1) {
+                    hasDragged = false;
+                    dragStartPointer = { x: e.clientX, y: e.clientY };
+                    dragStartPan = { x: state.panX, y: state.panY };
+                } else if (activePointers.size === 2) {
+                    hasDragged = true;
+                    const pts = Array.from(activePointers.values());
+                    initialPinchDistance = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+                    initialPinchZoom = state.zoom;
+                    pinchCenter = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
+                }
+            });
+
+            viewport.addEventListener('pointermove', e => {
+                if (!activePointers.has(e.pointerId)) {
+                    const { hx, hy, cols, rows } = getGridCoordinates(e.clientX, e.clientY);
+                    if (state.hoverBlock && state.hoverBlock.hx === hx && state.hoverBlock.hy === hy) {
+                        return;
+                    }
+                    if (hx >= 0 && hx < cols && hy >= 0 && hy < rows) {
+                        state.hoverBlock = { hx, hy };
+                        const isBlock = state.matrix[hy] && state.matrix[hy][hx] === 1;
+                        const isPlaced = state.placedBlocks.has(`${hx},${hy}`);
+                        hudCoords.textContent = `X: ${hx + 1} | Y: ${hy + 1} ${isBlock ? (isPlaced ? '✓ (Placed)' : '■ (Block)') : '□ (Air)'}`;
+                        requestRender();
+                    } else if (state.hoverBlock !== null) {
+                        state.hoverBlock = null;
+                        hudCoords.textContent = 'Cursor Outside Grid';
+                        requestRender();
+                    }
+                    return;
+                }
+                activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+                if (activePointers.size === 1) {
+                    const dx = e.clientX - dragStartPointer.x,
+                        dy = e.clientY - dragStartPointer.y;
+                    if (Math.hypot(dx, dy) > 4) hasDragged = true;
+                    state.panX = dragStartPan.x + dx;
+                    state.panY = dragStartPan.y + dy;
+                    requestRender();
+                } else if (activePointers.size === 2) {
+                    const pts = Array.from(activePointers.values());
+                    const currentDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+                    if (initialPinchDistance > 0) {
+                        const factor = currentDist / initialPinchDistance;
+                        const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, initialPinchZoom * factor));
+                        const rect = viewport.getBoundingClientRect();
+                        const px = pinchCenter.x - rect.left - rect.width / 2;
+                        const py = pinchCenter.y - rect.top - rect.height / 2;
+                        state.panX = px - ((px - state.panX) / state.zoom) * newZoom;
+                        state.panY = py - ((py - state.panY) / state.zoom) * newZoom;
+                        state.zoom = newZoom;
+                        requestRender();
+                    }
+                }
+            });
+
+            function handlePointerEnd(e) {
+                if (activePointers.has(e.pointerId)) {
+                    if (!hasDragged && activePointers.size === 1) {
+                        const { hx, hy, cols, rows } = getGridCoordinates(e.clientX, e.clientY);
+                        if (hx >= 0 && hx < cols && hy >= 0 && hy < rows) toggleBlockPlacement(hx, hy);
+                    }
+                    activePointers.delete(e.pointerId);
+                    try { viewport.releasePointerCapture(e.pointerId); } catch (err) {}
+                }
             }
+            viewport.addEventListener('pointerup', handlePointerEnd);
+            viewport.addEventListener('pointercancel', handlePointerEnd);
+
+            viewport.addEventListener('wheel', e => {
+                e.preventDefault();
+                const rect = viewport.getBoundingClientRect();
+                const cursorX = e.clientX - rect.left - rect.width / 2;
+                const cursorY = e.clientY - rect.top - rect.height / 2;
+                const factor = e.deltaY < 0 ? 1.15 : 0.87;
+                const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, state.zoom * factor));
+                if (newZoom !== state.zoom) {
+                    state.panX = cursorX - ((cursorX - state.panX) / state.zoom) * newZoom;
+                    state.panY = cursorY - ((cursorY - state.panY) / state.zoom) * newZoom;
+                    state.zoom = newZoom;
+                    requestRender();
+                }
+            }, { passive: false });
+
+            sphereHud.addEventListener('pointerdown', e => e.stopPropagation());
+
+            // Sound toggle
+            audioToggleBtn.addEventListener('click', () => {
+                sounds.enabled = !sounds.enabled;
+                safeSetStorage('sound', String(sounds.enabled));
+                audioIcon.textContent = sounds.enabled ? '🔊' : '🔇';
+                if (sounds.enabled) sounds.playTone(850, 0.05);
+            });
+
+            // Keyboard shortcuts
+            window.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+                    e.preventDefault();
+                    btnUndo.click();
+                } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+                    e.preventDefault();
+                    btnRedo.click();
+                } else if (e.key === '0') {
+                    e.preventDefault();
+                    resetPanZoom();
+                } else if (e.key === '+' || e.key === '=') {
+                    e.preventDefault();
+                    state.zoom = Math.min(MAX_ZOOM, state.zoom * 1.25);
+                    requestRender();
+                } else if (e.key === '-') {
+                    e.preventDefault();
+                    state.zoom = Math.max(MIN_ZOOM, state.zoom / 1.25);
+                    requestRender();
+                }
+            });
+
+            // Init
+            const savedTheme = safeGetStorage('theme', 'dark');
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            themeToggleBtn.childNodes[themeToggleBtn.childNodes.length - 1].textContent = ` ${savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode'}`;
+
+            document.querySelectorAll('[data-shape]').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-shape') === state.shape);
+            });
+            document.querySelectorAll('[data-fill]').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-fill') === state.fill);
+            });
+
+            widthSlider.value = state.width;
+            widthNumber.value = state.width;
+            widthBadge.textContent = state.width;
+            heightSlider.value = state.height;
+            heightNumber.value = state.height;
+            heightBadge.textContent = state.height;
+            sidesSlider.value = state.sides;
+            sidesNumber.value = state.sides;
+            sidesBadge.textContent = state.sides;
+            thicknessSlider.value = state.thickness;
+            thicknessNumber.value = state.thickness;
+            thicknessBadge.textContent = state.thickness;
+
+            layerSlider.max = Math.max(1, state.width - 1);
+            state.layerY = Math.min(parseInt(layerSlider.max, 10), Math.max(0, state.layerY));
+            layerSlider.value = state.layerY;
+            layerBadge.textContent = `Y: ${state.layerY}`;
+
+            document.getElementById('toggleGrid').checked = state.showGrid;
+            document.getElementById('toggleCenter').checked = state.showCenter;
+            document.getElementById('toggleGhost').checked = state.showGhost;
+            document.getElementById('toggleNumbers').checked = state.showNumbers;
+
+            heightGroup.style.display = state.shape === 'ellipse' ? 'flex' : 'none';
+            sidesGroup.style.display = state.shape === 'polygon' ? 'flex' : 'none';
+            sphereHud.style.display = state.shape === 'sphere' ? 'flex' : 'none';
+            ghostToggleRow.style.display = state.shape === 'sphere' ? 'flex' : 'none';
+            thicknessGroup.style.display = state.fill === 'thick' ? 'flex' : 'none';
+
+            resizeCanvas();
+            computeBlueprint();
+            resetPanZoom();
         })();
     </script>
 </body>
