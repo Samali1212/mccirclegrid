@@ -1,1 +1,93 @@
 
+<!-- contact/index.html -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact MCCircleGrid | Support & Feedback</title>
+    <meta name="description" content="Have feedback, structural calculation questions, or feature suggestions for MCCircleGrid? Send us a direct inquiry using our contact form." />
+    <link rel="canonical" href="https://mccirclegrid.com/contact/" />
+    <meta property="og:title" content="Contact MCCircleGrid" />
+    <meta property="og:description" content="Have feedback, structural calculation questions, or feature suggestions for MCCircleGrid? Send us a direct inquiry." />
+    <meta property="og:url" content="https://mccirclegrid.com/contact/" />
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <div class="ambient-glow"></div>
+    <div class="container">
+        <header>
+            <a href="/" class="brand-group" aria-label="MCCircleGrid Home">
+                <div class="brand-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
+                <div class="brand-text"><h1>MCCircleGrid</h1><p>Precision Minecraft Voxel Blueprints</p></div>
+            </a>
+            <nav class="site-nav">
+                <a href="/">Generator</a>
+                <a href="/circle-chart/">Circle Chart</a>
+                <a href="/sphere-guide/">Sphere Guide</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+            </nav>
+            <button class="theme-toggle-btn" id="themeToggleBtn"><span id="themeIcon">☀️</span> Light Mode</button>
+        </header>
+
+        <main class="page-section">
+            <h1>Contact Us</h1>
+            <p>Have feedback, structural calculation questions, or feature suggestions for MCCircleGrid? Send us a direct inquiry using the form below.</p>
+            <form class="contact-form" id="contactForm" action="mailto:support@mccirclegrid.com" method="post" enctype="text/plain">
+                <div class="form-row">
+                    <label for="contactName">Name <span style="color:var(--accent);">*</span></label>
+                    <input type="text" id="contactName" name="Name" placeholder="Your in-game or real name" required />
+                </div>
+                <div class="form-row">
+                    <label for="contactEmail">Email ID <span style="color:var(--accent);">*</span></label>
+                    <input type="email" id="contactEmail" name="Email" placeholder="yourname@example.com" required />
+                </div>
+                <div class="form-row">
+                    <label for="contactSubject">Subject Line (Optional)</label>
+                    <input type="text" id="contactSubject" name="Subject" placeholder="e.g. Feature Suggestion or Bug Report" />
+                </div>
+                <div class="form-row">
+                    <label for="contactMessage">Message (Optional)</label>
+                    <textarea id="contactMessage" name="Message" rows="5" placeholder="Write your message or inquiry here..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send to Support</button>
+            </form>
+        </main>
+
+        <footer>
+            <nav class="footer-nav">
+                <a href="/">Home</a>
+                <a href="/circle-chart/">Circle Chart</a>
+                <a href="/sphere-guide/">Sphere Guide</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+                <a href="/privacy-policy/">Privacy Policy</a>
+                <a href="/terms-of-service/">Terms of Service</a>
+            </nav>
+            <p>&copy; 2026 MCCircleGrid. All rights reserved.</p>
+            <p style="margin-top:.45rem;font-size:.76rem;color:var(--text-muted);">Disclaimer: MCCircleGrid is an independent architectural planning utility. Not an official Minecraft product. Not approved by or associated with Mojang Studios or Microsoft Corporation.</p>
+        </footer>
+    </div>
+    <script src="/assets/js/shared.js"></script>
+    <script>
+        // Mobile-resilient contact form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const subject = encodeURIComponent(document.getElementById('contactSubject').value.trim() || 'MCCircleGrid Architectural Feedback');
+            const messageText = document.getElementById('contactMessage').value.trim();
+            const body = encodeURIComponent(`From: ${name} (${email})\n\nMessage:\n${messageText}`);
+            window.location.href = `mailto:support@mccirclegrid.com?subject=${subject}&body=${body}`;
+            // Show toast
+            const toast = document.getElementById('toast');
+            if (toast) {
+                toast.textContent = 'Opening email client with prefilled details...';
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2500);
+            }
+        });
+    </script>
+</body>
+</html>
