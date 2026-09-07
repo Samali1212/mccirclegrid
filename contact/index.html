@@ -72,22 +72,32 @@
     <script src="/assets/js/shared.js"></script>
     <script>
         // Mobile-resilient contact form
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('contactName').value.trim();
-            const email = document.getElementById('contactEmail').value.trim();
-            const subject = encodeURIComponent(document.getElementById('contactSubject').value.trim() || 'MCCircleGrid Architectural Feedback');
-            const messageText = document.getElementById('contactMessage').value.trim();
-            const body = encodeURIComponent(`From: ${name} (${email})\n\nMessage:\n${messageText}`);
-            window.location.href = `mailto:support@mccirclegrid.com?subject=${subject}&body=${body}`;
-            // Show toast
-            const toast = document.getElementById('toast');
-            if (toast) {
-                toast.textContent = 'Opening email client with prefilled details...';
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 2500);
-            }
-        });
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('contactName').value.trim();
+    const email = document.getElementById('contactEmail').value.trim();
+    const subject = encodeURIComponent(document.getElementById('contactSubject').value.trim() || 'MCCircleGrid Architectural Feedback');
+    const messageText = document.getElementById('contactMessage').value.trim();
+    const body = encodeURIComponent(`From: ${name} (${email})\n\nMessage:\n${messageText}`);
+
+    // NEW: Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
+    // YEH LINE MISSING THI (Email bhejne ke liye)
+    window.location.href = `mailto:support@mccirclegrid.com?subject=${subject}&body=${body}`;
+
+    // Toast notification
+    const toast = document.getElementById('toast');
+    if (toast) {
+        toast.textContent = 'Opening email client with prefilled details...';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+});
     </script>
 </body>
 </html>
