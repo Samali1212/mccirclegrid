@@ -1,1 +1,87 @@
 
+<!-- sphere-guide/index.html -->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Sphere & Dome Construction Guide | MCCircleGrid</title>
+    <meta name="description" content="Learn how to build perfect spheres and domes in Minecraft. Layer-by-layer slicing mathematics, ghost layer scaffolding, and survival construction workflow." />
+    <link rel="canonical" href="https://mccirclegrid.com/sphere-guide/" />
+    <meta property="og:title" content="3D Sphere & Dome Construction Guide | MCCircleGrid" />
+    <meta property="og:description" content="Learn how to build perfect spheres and domes in Minecraft. Layer-by-layer slicing mathematics, ghost layer scaffolding, and survival construction workflow." />
+    <meta property="og:url" content="https://mccirclegrid.com/sphere-guide/" />
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <div class="ambient-glow"></div>
+    <div class="container">
+        <header>
+            <a href="/" class="brand-group" aria-label="MCCircleGrid Home">
+                <div class="brand-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
+                <div class="brand-text"><h1>MCCircleGrid</h1><p>Precision Minecraft Voxel Blueprints</p></div>
+            </a>
+            <nav class="site-nav">
+                <a href="/">Generator</a>
+                <a href="/circle-chart/">Circle Chart</a>
+                <a href="/sphere-guide/">Sphere Guide</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+            </nav>
+            <button class="theme-toggle-btn" id="themeToggleBtn"><span id="themeIcon">☀️</span> Light Mode</button>
+        </header>
+
+        <main class="page-section">
+            <h1>3D Sphere & Dome Construction Guide</h1>
+            <p>Building a voxel sphere requires stacking horizontal circular slices. Each slice is a 2D circle whose radius depends on its vertical offset from the equator.</p>
+
+            <h2>Sphere Radius Mathematics</h2>
+            <p>For a sphere of radius R, the radius of the horizontal slice at vertical offset Y is:</p>
+            <p style="text-align:center;font-family:var(--font-mono);font-size:1.2rem;color:var(--accent);margin:1.25rem 0;">r(Y) = √(R² - Y²)</p>
+            <p>Use this formula to determine the diameter of each layer when building manually.</p>
+
+            <h2>Layer-by-Layer Construction</h2>
+            <ol>
+                <li><strong>Select sphere mode</strong> in the generator.</li>
+                <li><strong>Set the diameter</strong> (equal to 2R).</li>
+                <li><strong>Navigate layers</strong> using the layer slider.</li>
+                <li><strong>Enable Ghost Layer (Y−1)</strong> to see the layer below for scaffolding reference.</li>
+                <li>Build each layer from bottom to top, following the displayed perimeter.</li>
+            </ol>
+
+            <h2>Overhang & Scaffolding</h2>
+            <p>When a block on the current layer extends beyond the ghost layer below, it forms an overhang. Place temporary scaffolding underneath to build outward without falling.</p>
+
+            <h2>Survival Construction Workflow</h2>
+            <ul>
+                <li>Start from the bottom layer (Y=0) and work upward.</li>
+                <li>Always place scaffolding for overhanging blocks.</li>
+                <li>Use the ghost layer to verify where you can safely stand.</li>
+            </ul>
+
+            <h2>Useful Commands</h2>
+            <p>WorldEdit commands for quick sphere creation:</p>
+            <ul>
+                <li><code>//sphere &lt;block&gt; &lt;radius&gt;</code> — solid sphere</li>
+                <li><code>//hsphere &lt;block&gt; &lt;radius&gt;</code> — hollow shell</li>
+                <li><code>//hcyl &lt;block&gt; &lt;radius&gt; &lt;height&gt;</code> — hollow cylinder (for domes)</li>
+            </ul>
+        </main>
+
+        <footer>
+            <nav class="footer-nav">
+                <a href="/">Home</a>
+                <a href="/circle-chart/">Circle Chart</a>
+                <a href="/sphere-guide/">Sphere Guide</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+                <a href="/privacy-policy/">Privacy Policy</a>
+                <a href="/terms-of-service/">Terms of Service</a>
+            </nav>
+            <p>&copy; 2026 MCCircleGrid. All rights reserved.</p>
+            <p style="margin-top:.45rem;font-size:.76rem;color:var(--text-muted);">Disclaimer: MCCircleGrid is an independent architectural planning utility. Not an official Minecraft product. Not approved by or associated with Mojang Studios or Microsoft Corporation.</p>
+        </footer>
+    </div>
+    <script src="/assets/js/shared.js"></script>
+</body>
+</html>
