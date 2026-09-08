@@ -81,278 +81,140 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- External stylesheet – we will override its critical parts with inline !important -->
     <link rel="stylesheet" href="/assets/css/styles.css">
 
-    <!-- Mobile Menu & Premium Styles + High‑Specificity Theme Variables -->
+    <!-- SELF-CONTAINED OVERRIDE STYLES (with !important to beat external CSS) -->
     <style>
-        /* ===== HIGH SPECIFICITY THEME VARIABLES ===== */
-        /* These will always override external styles.css */
+        /* ===== THEME VARIABLES WITH !important ===== */
         html[data-theme="dark"] {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-card: #1e242c;
-            --bg-card-secondary: #252d38;
-            --text-primary: #e2e8f0;
-            --text-secondary: #a0aec0;
-            --text-muted: #718096;
-            --grid-bg: #0d1117;
-            --grid-line: rgba(255,255,255,0.1);
-            --block-fill: #8b5cf6;
-            --block-stroke: #7c3aed;
-            --block-placed: #10b981;
-            --block-placed-stroke: #059669;
-            --block-ghost: rgba(139,92,246,0.2);
-            --grid-center: rgba(251,191,36,0.8);
-            --accent: #8b5cf6;
-            --bg-card-border: rgba(255,255,255,0.1);
+            --bg-primary: #0d1117 !important;
+            --bg-secondary: #161b22 !important;
+            --bg-card: #1e242c !important;
+            --bg-card-secondary: #252d38 !important;
+            --text-primary: #e2e8f0 !important;
+            --text-secondary: #a0aec0 !important;
+            --text-muted: #718096 !important;
+            --grid-bg: #0d1117 !important;
+            --grid-line: rgba(255,255,255,0.1) !important;
+            --block-fill: #8b5cf6 !important;
+            --block-stroke: #7c3aed !important;
+            --block-placed: #10b981 !important;
+            --block-placed-stroke: #059669 !important;
+            --block-ghost: rgba(139,92,246,0.2) !important;
+            --grid-center: rgba(251,191,36,0.8) !important;
+            --accent: #8b5cf6 !important;
+            --bg-card-border: rgba(255,255,255,0.1) !important;
         }
         html[data-theme="light"] {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f1f5f9;
-            --bg-card: #ffffff;
-            --bg-card-secondary: #f1f5f9;
-            --text-primary: #1e293b;
-            --text-secondary: #475569;
-            --text-muted: #64748b;
-            --grid-bg: #f8fafc;
-            --grid-line: rgba(0,0,0,0.1);
-            --block-fill: #7c3aed;
-            --block-stroke: #6d28d9;
-            --block-placed: #059669;
-            --block-placed-stroke: #047857;
-            --block-ghost: rgba(124,58,237,0.15);
-            --grid-center: rgba(180,83,9,0.8);
-            --accent: #6d28d9;
-            --bg-card-border: rgba(0,0,0,0.1);
+            --bg-primary: #ffffff !important;
+            --bg-secondary: #f1f5f9 !important;
+            --bg-card: #ffffff !important;
+            --bg-card-secondary: #f1f5f9 !important;
+            --text-primary: #1e293b !important;
+            --text-secondary: #475569 !important;
+            --text-muted: #64748b !important;
+            --grid-bg: #f8fafc !important;
+            --grid-line: rgba(0,0,0,0.1) !important;
+            --block-fill: #7c3aed !important;
+            --block-stroke: #6d28d9 !important;
+            --block-placed: #059669 !important;
+            --block-placed-stroke: #047857 !important;
+            --block-ghost: rgba(124,58,237,0.15) !important;
+            --grid-center: rgba(180,83,9,0.8) !important;
+            --accent: #6d28d9 !important;
+            --bg-card-border: rgba(0,0,0,0.1) !important;
         }
 
-        /* Mobile menu also uses these variables, so they adapt automatically */
-        .mobile-menu-toggle {
-            display: none;
-            background: linear-gradient(135deg, var(--bg-card), var(--bg-card-secondary));
-            border: 1px solid var(--bg-card-border);
-            border-radius: 12px;
-            width: 44px;
-            height: 44px;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1001;
-            transition: all .3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, .2);
+        /* Force the body and major containers to use the variables */
+        body, .container, header, main, aside, section, footer, .control-panel, .canvas-stage, .viewport-wrapper, .stats-card, .guide-article, .page-section, .faq-item, .faq-content, .faq-header {
+            background-color: var(--bg-primary) !important;
+            color: var(--text-primary) !important;
         }
-        .mobile-menu-toggle:hover {
-            border-color: var(--accent);
-            box-shadow: 0 4px 20px rgba(139, 92, 246, .3);
-            transform: translateY(-1px);
-        }
-        .hamburger-line {
-            display: block;
-            width: 18px;
-            height: 2px;
-            background: var(--text-primary);
-            margin: 3px auto;
-            border-radius: 4px;
-            transition: all .3s cubic-bezier(.68, -.55, .265, 1.55);
-        }
-        .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
-            transform: translateY(5px) rotate(45deg);
-        }
-        .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(.5);
-        }
-        .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
-            transform: translateY(-5px) rotate(-45deg);
-        }
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, .6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity .3s ease, visibility .3s ease;
-        }
-        .mobile-menu-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
+
+        /* Mobile menu specific overrides */
         .mobile-menu-panel {
-            position: fixed;
-            top: 0;
-            right: -360px;
-            width: 320px;
-            height: 100dvh;
-            background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
-            border-left: 1px solid var(--bg-card-border);
-            box-shadow: -10px 0 50px rgba(0, 0, 0, .6);
-            transition: right .4s cubic-bezier(.16, 1, .3, 1);
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            overflow-y: auto;
-            z-index: 1001;
-        }
-        .mobile-menu-overlay.open .mobile-menu-panel {
-            right: 0;
-        }
-        .mobile-menu-close {
-            background: rgba(255, 255, 255, .05);
-            border: 1px solid var(--bg-card-border);
-            border-radius: 10px;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-secondary);
-            transition: all .3s ease;
-            align-self: flex-end;
-            margin-bottom: 10px;
-        }
-        .mobile-menu-close:hover {
-            color: var(--text-primary);
-            border-color: var(--accent);
-            background: rgba(139, 92, 246, .1);
-            transform: rotate(90deg);
-        }
-        .mobile-menu-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--bg-card-border);
-            margin-bottom: 20px;
-        }
-        .mobile-menu-brand .brand-icon-small {
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, .4);
-        }
-        .mobile-menu-brand .brand-icon-small svg {
-            width: 24px;
-            height: 24px;
-        }
-        .mobile-menu-brand span {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: -.5px;
-        }
-        .mobile-menu-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 20px;
-            flex: 1;
+            background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary)) !important;
+            border-left: 1px solid var(--bg-card-border) !important;
         }
         .mobile-menu-nav a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            border-radius: 14px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: .95rem;
-            font-weight: 500;
-            transition: all .25s ease;
-            border: 1px solid transparent;
-            background: rgba(255, 255, 255, .02);
+            color: var(--text-secondary) !important;
+            background: rgba(255,255,255,0.02) !important;
         }
         .mobile-menu-nav a:hover {
-            background: rgba(139, 92, 246, .12);
-            color: var(--text-primary);
-            border-color: var(--accent);
-            transform: translateX(4px);
-        }
-        .mobile-menu-nav .menu-icon {
-            font-size: 20px;
-            width: 24px;
-            text-align: center;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .3));
-        }
-        .mobile-menu-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding: 15px;
-            border-top: 1px solid var(--bg-card-border);
-            margin-top: auto;
-            background: rgba(255, 255, 255, .02);
-            border-radius: 14px;
+            background: rgba(139,92,246,0.12) !important;
+            color: var(--text-primary) !important;
+            border-color: var(--accent) !important;
         }
         .mobile-menu-actions .audio-toggle-btn,
         .mobile-menu-actions .theme-toggle-btn {
-            width: 100%;
-            justify-content: center;
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid var(--bg-card-border);
-            background: rgba(255, 255, 255, .05);
-            color: var(--text-primary);
-            font-size: .85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all .2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            border: 1px solid var(--bg-card-border) !important;
+            background: rgba(255,255,255,0.05) !important;
+            color: var(--text-primary) !important;
         }
         .mobile-menu-actions .audio-toggle-btn:hover,
         .mobile-menu-actions .theme-toggle-btn:hover {
-            border-color: var(--accent);
-            background: rgba(139, 92, 246, .15);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(139, 92, 246, .2);
+            border-color: var(--accent) !important;
+            background: rgba(139,92,246,0.15) !important;
         }
-        .mobile-menu-footer {
-            text-align: center;
-            padding: 15px 0 5px;
-            font-size: .72rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--bg-card-border);
-            margin-top: 10px;
+
+        /* Buttons and inputs */
+        .pill-btn, .tool-btn, .audio-toggle-btn, .theme-toggle-btn, .mobile-menu-toggle {
+            background-color: var(--bg-card) !important;
+            color: var(--text-primary) !important;
+            border: 1px solid var(--bg-card-border) !important;
         }
-        @media (max-width:768px) {
-            .mobile-menu-toggle {
-                display: flex;
-            }
-            .site-nav {
-                display: none;
-            }
-            .nav-actions {
-                gap: 6px;
-            }
-            .nav-actions .audio-toggle-btn,
-            .nav-actions .theme-toggle-btn {
-                padding: 8px 10px;
-                font-size: .75rem;
-                border-radius: 10px;
-            }
+        .pill-btn.active {
+            background: var(--accent) !important;
+            color: #fff !important;
+            border-color: var(--accent) !important;
         }
-        @media (min-width:769px) {
-            .mobile-menu-toggle {
-                display: none;
-            }
-            .mobile-menu-overlay {
-                display: none;
-            }
+        .tool-btn:hover, .pill-btn:hover {
+            border-color: var(--accent) !important;
+        }
+
+        /* Toggle switches and progress bar */
+        .switch-row label {
+            color: var(--text-secondary) !important;
+        }
+        .progress-bar-bg {
+            background: var(--bg-secondary) !important;
+        }
+        .progress-bar-fill {
+            background: var(--accent) !important;
+        }
+        .stat-value, .value-badge, #progressPercent {
+            color: var(--text-secondary) !important;
+        }
+        .seq-pill {
+            background: var(--bg-card) !important;
+            color: var(--text-secondary) !important;
+            border: 1px solid var(--bg-card-border) !important;
+        }
+
+        /* Canvas grid – we set the color directly in JS, but also override CSS variables */
+        #blueprintCanvas {
+            background-color: var(--grid-bg) !important;
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            background: var(--bg-card) !important;
+            border: 1px solid var(--bg-card-border) !important;
+        }
+        .hamburger-line {
+            background: var(--text-primary) !important;
+        }
+
+        /* FAQ active states */
+        .faq-header {
+            color: var(--text-primary) !important;
+        }
+        .faq-content {
+            color: var(--text-secondary) !important;
         }
     </style>
+
 </head>
 <body>
     <div class="ambient-glow"></div>
@@ -745,9 +607,10 @@
         </div>
     </div>
 
-    <!-- Shared JS -->
+    <!-- Shared JS (may not be used for critical functionality, but keep it) -->
     <script src="/assets/js/shared.js"></script>
-    <!-- Generator Script (with theme fix and requestRender) -->
+
+    <!-- MAIN GENERATOR SCRIPT (fully self-contained) -->
     <script>
         (function() {
             'use strict';
@@ -810,10 +673,11 @@
             }
             const sounds = new SoundEngine();
 
-            // Declare theme elements correctly
+            // Theme elements
             const themeToggleBtn = document.getElementById('themeToggleBtn');
             const themeIcon = document.getElementById('themeIcon');
 
+            // State
             const initialWidth = parseInt(safeGetStorage('width', '25'), 10);
             const defaultLayerY = Math.floor(initialWidth / 2);
             const state = {
@@ -1937,16 +1801,28 @@
                 if (sounds.enabled) sounds.playTone(850, 0.05);
             });
 
-            // Theme toggle with requestRender for immediate visual update
+            // THEME TOGGLE WITH DIRECT STYLE FALLBACK
             themeToggleBtn.addEventListener('click', () => {
                 const currentTheme = document.documentElement.getAttribute('data-theme');
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                 document.documentElement.setAttribute('data-theme', newTheme);
                 safeSetStorage('theme', newTheme);
+
+                // Update button icon and label
                 themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
                 themeToggleBtn.childNodes[themeToggleBtn.childNodes.length - 1].textContent = ` ${newTheme === 'dark' ? 'Light Mode' : 'Dark Mode'}`;
+
+                // Force body background and text color directly (fallback if CSS variables not applied)
+                const computedBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-primary').trim();
+                if (computedBg) {
+                    document.body.style.backgroundColor = computedBg;
+                } else {
+                    document.body.style.backgroundColor = newTheme === 'dark' ? '#0d1117' : '#ffffff';
+                }
+                document.body.style.color = newTheme === 'dark' ? '#e2e8f0' : '#1e293b';
+
                 sounds.playClick();
-                requestRender(); // Force canvas to redraw with new colors
+                requestRender(); // Redraw canvas with new colors
             });
 
             // Keyboard shortcuts
@@ -1972,11 +1848,16 @@
                 }
             });
 
-            // Init
+            // INIT
             const savedTheme = safeGetStorage('theme', 'dark');
             document.documentElement.setAttribute('data-theme', savedTheme);
             themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
             themeToggleBtn.childNodes[themeToggleBtn.childNodes.length - 1].textContent = ` ${savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode'}`;
+
+            // Apply initial body background/color directly
+            const initialBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-primary').trim() || (savedTheme === 'dark' ? '#0d1117' : '#ffffff');
+            document.body.style.backgroundColor = initialBg;
+            document.body.style.color = savedTheme === 'dark' ? '#e2e8f0' : '#1e293b';
 
             document.querySelectorAll('[data-shape]').forEach(b => {
                 b.classList.toggle('active', b.getAttribute('data-shape') === state.shape);
@@ -2020,13 +1901,12 @@
         })();
     </script>
 
+    <!-- Mobile menu script (synced) -->
     <script>
-        // Mobile menu toggle & sync
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.getElementById('menuToggle');
             const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
             const mobileMenuClose = document.getElementById('mobileMenuClose');
-            const siteNav = document.querySelector('.site-nav');
             const audioToggleBtn = document.getElementById('audioToggleBtn');
             const themeToggleBtn = document.getElementById('themeToggleBtn');
             const mobileAudioToggle = document.getElementById('mobileAudioToggle');
@@ -2065,18 +1945,7 @@
                 });
             }
 
-            if (siteNav) {
-                siteNav.querySelectorAll('a').forEach(function(link) {
-                    link.addEventListener('click', function() {
-                        siteNav.classList.remove('open');
-                        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-                        if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('open');
-                        if (menuToggle) menuToggle.classList.remove('active');
-                        document.body.style.overflow = '';
-                    });
-                });
-            }
-
+            // Sync mobile audio toggle
             if (mobileAudioToggle && audioToggleBtn) {
                 mobileAudioToggle.addEventListener('click', function() {
                     audioToggleBtn.click();
@@ -2088,6 +1957,7 @@
                 });
             }
 
+            // Sync mobile theme toggle
             if (mobileThemeToggle && themeToggleBtn) {
                 mobileThemeToggle.addEventListener('click', function() {
                     themeToggleBtn.click();
@@ -2104,7 +1974,7 @@
                 });
             }
 
-            // Initialize mobile buttons with current state
+            // Initialize mobile buttons based on current theme
             const savedTheme = localStorage.getItem('mc_circle_gen_v4_theme') || 'dark';
             const isDark = savedTheme === 'dark';
             const mobileThemeIcon = mobileThemeToggle ? mobileThemeToggle.querySelector('span:first-child') : null;
