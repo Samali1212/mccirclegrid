@@ -1,5 +1,4 @@
 <!-- assets/css/styles.css -->
-<style>
     /* Base styles copied from original, adjusted for multi-page */
     *, *::before, *::after {
         box-sizing: border-box;
@@ -948,4 +947,3 @@
         }
         .sphere-layer-hud { display: none !important; }
     }
-</style>
