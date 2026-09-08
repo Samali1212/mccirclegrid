@@ -948,8 +948,7 @@
         .sphere-layer-hud { display: none !important; }
     }
 
-<style>
-  /* Mobile navigation styles */
+ /* Mobile navigation styles */
   .menu-toggle {
     display: none;
     background: none;
@@ -994,4 +993,3 @@
       position: relative;
     }
   }
-</style>
