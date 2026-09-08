@@ -1665,5 +1665,22 @@
             resetPanZoom();
         })();
     </script>
+   <script>
+// FAQ accordion toggle
+        document.querySelectorAll('.faq-header').forEach(function(header) {
+            header.addEventListener('click', function() {
+                const item = header.parentElement;
+                const isOpen = item.classList.contains('open');
+                item.classList.toggle('open');
+                header.setAttribute('aria-expanded', !isOpen);
+                const symbol = header.querySelector('span:last-child');
+                if (symbol) {
+                    symbol.textContent = !isOpen ? '−' : '+';
+                }
+            });
+        });
+    });
+</script>
+       
 </body>
 </html>
