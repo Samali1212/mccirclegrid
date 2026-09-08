@@ -83,8 +83,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/styles.css">
 
-    <!-- Mobile Menu & Premium Styles -->
+    <!-- Mobile Menu & Premium Styles + Theme Variable Overrides -->
     <style>
+        /* Fallback theme variables (in case styles.css lacks light mode) */
+        :root,
+        [data-theme="dark"] {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #1e242c;
+            --bg-card-secondary: #252d38;
+            --text-primary: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --text-muted: #718096;
+            --grid-bg: #0d1117;
+            --grid-line: rgba(255,255,255,0.1);
+            --block-fill: #8b5cf6;
+            --block-stroke: #7c3aed;
+            --block-placed: #10b981;
+            --block-placed-stroke: #059669;
+            --block-ghost: rgba(139,92,246,0.2);
+            --grid-center: rgba(251,191,36,0.8);
+            --accent: #8b5cf6;
+            --bg-card-border: rgba(255,255,255,0.1);
+            --mobile-menu-bg: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+            --mobile-menu-border: rgba(139,92,246,0.3);
+            --mobile-menu-text: #e2e8f0;
+            --mobile-menu-hover: rgba(139,92,246,0.1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-card-secondary: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --grid-bg: #f8fafc;
+            --grid-line: rgba(0,0,0,0.1);
+            --block-fill: #7c3aed;
+            --block-stroke: #6d28d9;
+            --block-placed: #059669;
+            --block-placed-stroke: #047857;
+            --block-ghost: rgba(124,58,237,0.15);
+            --grid-center: rgba(180,83,9,0.8);
+            --accent: #6d28d9;
+            --bg-card-border: rgba(0,0,0,0.1);
+            --mobile-menu-bg: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            --mobile-menu-border: rgba(139,92,246,0.2);
+            --mobile-menu-text: #1e293b;
+            --mobile-menu-hover: rgba(139,92,246,0.15);
+        }
+
         .mobile-menu-toggle {
             display: none;
             background: linear-gradient(135deg, var(--bg-card), var(--bg-card-secondary));
@@ -147,8 +197,8 @@
             right: -360px;
             width: 320px;
             height: 100dvh;
-            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
-            border-left: 1px solid rgba(139, 92, 246, .3);
+            background: var(--mobile-menu-bg);
+            border-left: 1px solid var(--mobile-menu-border);
             box-shadow: -10px 0 50px rgba(0, 0, 0, .6);
             transition: right .4s cubic-bezier(.16, 1, .3, 1);
             display: flex;
@@ -178,7 +228,7 @@
         .mobile-menu-close:hover {
             color: var(--text-primary);
             border-color: var(--accent);
-            background: rgba(139, 92, 246, .15);
+            background: var(--mobile-menu-hover);
             transform: rotate(90deg);
         }
         .mobile-menu-brand {
@@ -186,7 +236,7 @@
             align-items: center;
             gap: 12px;
             padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            border-bottom: 1px solid var(--bg-card-border);
             margin-bottom: 20px;
         }
         .mobile-menu-brand .brand-icon-small {
@@ -232,9 +282,9 @@
             background: rgba(255, 255, 255, .02);
         }
         .mobile-menu-nav a:hover {
-            background: rgba(139, 92, 246, .1);
+            background: var(--mobile-menu-hover);
             color: var(--text-primary);
-            border-color: rgba(139, 92, 246, .2);
+            border-color: var(--accent);
             transform: translateX(4px);
         }
         .mobile-menu-nav .menu-icon {
@@ -248,7 +298,7 @@
             flex-direction: column;
             gap: 8px;
             padding: 15px;
-            border-top: 1px solid rgba(255, 255, 255, .08);
+            border-top: 1px solid var(--bg-card-border);
             margin-top: auto;
             background: rgba(255, 255, 255, .02);
             border-radius: 14px;
@@ -259,7 +309,7 @@
             justify-content: center;
             padding: 12px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, .1);
+            border: 1px solid var(--bg-card-border);
             background: rgba(255, 255, 255, .05);
             color: var(--text-primary);
             font-size: .85rem;
@@ -273,7 +323,7 @@
         .mobile-menu-actions .audio-toggle-btn:hover,
         .mobile-menu-actions .theme-toggle-btn:hover {
             border-color: var(--accent);
-            background: rgba(139, 92, 246, .15);
+            background: var(--mobile-menu-hover);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(139, 92, 246, .2);
         }
@@ -282,7 +332,7 @@
             padding: 15px 0 5px;
             font-size: .72rem;
             color: var(--text-muted);
-            border-top: 1px solid rgba(255, 255, 255, .05);
+            border-top: 1px solid var(--bg-card-border);
             margin-top: 10px;
         }
         @media (max-width:768px) {
@@ -768,7 +818,7 @@
             }
             const sounds = new SoundEngine();
 
-            // ██████  FIX: Declare theme elements correctly ██████
+            // FIX: Declare theme elements correctly
             const themeToggleBtn = document.getElementById('themeToggleBtn');
             const themeIcon = document.getElementById('themeIcon');
 
@@ -1895,7 +1945,7 @@
                 if (sounds.enabled) sounds.playTone(850, 0.05);
             });
 
-            // ██████  FIX: Theme toggle event listener ██████
+            // FIX: Theme toggle event listener
             themeToggleBtn.addEventListener('click', () => {
                 const currentTheme = document.documentElement.getAttribute('data-theme');
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
