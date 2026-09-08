@@ -1,19 +1,18 @@
-
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
 
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0HENKGXQMJ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HENKGXQMJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'G-0HENKGXQMJ');
-</script>
-    
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-0HENKGXQMJ');
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     <title>MCCircleGrid | Precision Minecraft Circle Generator & 3D Sphere Builder</title>
@@ -31,11 +30,14 @@
     <meta name="twitter:title" content="MCCircleGrid | Precision Minecraft Circle Generator" />
     <meta name="twitter:description" content="Generate mathematically verified circles, spheres, and polygons for Minecraft builds with block counts and construction sequences." />
     <meta name="twitter:image" content="https://mccirclegrid.com/og-preview.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='12' fill='%23080c12'/%3E%3Ccircle cx='24' cy='24' r='13' fill='none' stroke='url(%23g)' stroke-width='2.5'/%3E%3Ccircle cx='24' cy='24' r='7' fill='none' stroke='%23a78bfa' stroke-width='1.5' stroke-dasharray='3,3'/%3E%3Ccircle cx='24' cy='24' r='3' fill='%23fff'/%3E%3Cpath d='M24 10v3M24 35v3M10 24h3M35 24h3' stroke='%238b5cf6' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" />
+
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
+        {
+            "@context": "https://schema.org",
+            "@graph": [{
                 "@type": "SoftwareApplication",
                 "name": "MCCircleGrid",
                 "operatingSystem": "All",
@@ -43,8 +45,7 @@
                 "offers": { "@type": "Offer", "price": "0.00", "priceCurrency": "USD" },
                 "url": "https://mccirclegrid.com/",
                 "description": "Deterministic Euclidean voxel blueprint generator for Minecraft circles, ellipses, regular polygons, and sliced 3D sphere layers."
-            },
-            {
+            }, {
                 "@type": "HowTo",
                 "name": "How to Build a Perfect Circle in Minecraft",
                 "description": "Step-by-step architectural guide to construct symmetrical circles in Minecraft using voxel rasterization blueprints.",
@@ -54,8 +55,7 @@
                     { "@type": "HowToStep", "name": "Follow the Quadrant Sequence", "text": "Starting from the cardinal apex, follow the consecutive block step sequence." },
                     { "@type": "HowToStep", "name": "Mirror Across Remaining Quadrants", "text": "Replicate the verified quadrant sequence across the remaining quadrants." }
                 ]
-            },
-            {
+            }, {
                 "@type": "FAQPage",
                 "mainEntity": [
                     { "@type": "Question", "name": "How does MCCircleGrid generate perfect circles?", "acceptedAnswer": { "@type": "Answer", "text": "It rasterizes Euclidean circles onto a voxel grid using cell-center distance evaluations and 4-way orthogonal edge detection." } },
@@ -75,14 +75,242 @@
                     { "@type": "Question", "name": "Can I export blueprints as images?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, click Save PNG to download." } },
                     { "@type": "Question", "name": "Is MCCircleGrid free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, 100% free and client-side." } }
                 ]
-            }
-        ]
-    }
+            }]
     </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/styles.css">
+
+    <!-- Mobile Menu & Premium Styles -->
+    <style>
+        .mobile-menu-toggle {
+            display: none;
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-card-secondary));
+            border: 1px solid var(--bg-card-border);
+            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all .3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, .2);
+        }
+        .mobile-menu-toggle:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, .3);
+            transform: translateY(-1px);
+        }
+        .hamburger-line {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 3px auto;
+            border-radius: 4px;
+            transition: all .3s cubic-bezier(.68, -.55, .265, 1.55);
+        }
+        .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+            transform: translateY(5px) rotate(45deg);
+        }
+        .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(.5);
+        }
+        .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+            transform: translateY(-5px) rotate(-45deg);
+        }
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s ease, visibility .3s ease;
+        }
+        .mobile-menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .mobile-menu-panel {
+            position: fixed;
+            top: 0;
+            right: -360px;
+            width: 320px;
+            height: 100dvh;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+            border-left: 1px solid rgba(139, 92, 246, .3);
+            box-shadow: -10px 0 50px rgba(0, 0, 0, .6);
+            transition: right .4s cubic-bezier(.16, 1, .3, 1);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1001;
+        }
+        .mobile-menu-overlay.open .mobile-menu-panel {
+            right: 0;
+        }
+        .mobile-menu-close {
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 10px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all .3s ease;
+            align-self: flex-end;
+            margin-bottom: 10px;
+        }
+        .mobile-menu-close:hover {
+            color: var(--text-primary);
+            border-color: var(--accent);
+            background: rgba(139, 92, 246, .15);
+            transform: rotate(90deg);
+        }
+        .mobile-menu-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            margin-bottom: 20px;
+        }
+        .mobile-menu-brand .brand-icon-small {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, .4);
+        }
+        .mobile-menu-brand .brand-icon-small svg {
+            width: 24px;
+            height: 24px;
+        }
+        .mobile-menu-brand span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -.5px;
+        }
+        .mobile-menu-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .mobile-menu-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: .95rem;
+            font-weight: 500;
+            transition: all .25s ease;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, .02);
+        }
+        .mobile-menu-nav a:hover {
+            background: rgba(139, 92, 246, .1);
+            color: var(--text-primary);
+            border-color: rgba(139, 92, 246, .2);
+            transform: translateX(4px);
+        }
+        .mobile-menu-nav .menu-icon {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .3));
+        }
+        .mobile-menu-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 15px;
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            margin-top: auto;
+            background: rgba(255, 255, 255, .02);
+            border-radius: 14px;
+        }
+        .mobile-menu-actions .audio-toggle-btn,
+        .mobile-menu-actions .theme-toggle-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, .1);
+            background: rgba(255, 255, 255, .05);
+            color: var(--text-primary);
+            font-size: .85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .mobile-menu-actions .audio-toggle-btn:hover,
+        .mobile-menu-actions .theme-toggle-btn:hover {
+            border-color: var(--accent);
+            background: rgba(139, 92, 246, .15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, .2);
+        }
+        .mobile-menu-footer {
+            text-align: center;
+            padding: 15px 0 5px;
+            font-size: .72rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, .05);
+            margin-top: 10px;
+        }
+        @media (max-width:768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            .site-nav {
+                display: none;
+            }
+            .nav-actions {
+                gap: 6px;
+            }
+            .nav-actions .audio-toggle-btn,
+            .nav-actions .theme-toggle-btn {
+                padding: 8px 10px;
+                font-size: .75rem;
+                border-radius: 10px;
+            }
+        }
+        @media (min-width:769px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+            .mobile-menu-overlay {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="ambient-glow"></div>
@@ -91,7 +319,20 @@
         <header id="top">
             <a href="/" class="brand-group" aria-label="MCCircleGrid Home">
                 <div class="brand-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#8b5cf6"/>
+                                <stop offset="100%" stop-color="#6d28d9"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="48" height="48" rx="12" fill="url(#brandGrad)"/>
+                        <circle cx="24" cy="24" r="13" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+                        <circle cx="24" cy="24" r="7" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                        <circle cx="24" cy="24" r="3" fill="#fff"/>
+                        <path d="M24 10v3M24 35v3M10 24h3M35 24h3" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="24" cy="24" r="13" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
+                    </svg>
                 </div>
                 <div class="brand-text">
                     <h1>MCCircleGrid</h1>
@@ -99,13 +340,21 @@
                 </div>
             </a>
 
-                <nav class="site-nav" aria-label="Main Navigation">
+            <nav class="site-nav" aria-label="Main Navigation">
                 <a href="/">Generator</a>
                 <a href="/circle-chart/">Circle Chart</a>
                 <a href="/sphere-guide/">Sphere Guide</a>
                 <a href="/about/">About</a>
                 <a href="/contact/">Contact</a>
             </nav>
+
+            <!-- Mobile Hamburger -->
+            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Open Menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
             <div class="nav-actions">
                 <button class="audio-toggle-btn" id="audioToggleBtn" aria-label="Toggle Sound Effects">
                     <span id="audioIcon" aria-hidden="true">🔇</span> Sound
@@ -225,7 +474,7 @@
                         <button class="tool-btn" id="btnExportSvg">📐 Export SVG</button>
                     </div>
                 </div>
-                <div class="viewport-wrapper" id="viewportWrapper">
+                <div class="viewport-wrapper" id="viewportWrapper" style="touch-action:none; -webkit-user-select:none; user-select:none;">
                     <canvas id="blueprintCanvas" aria-label="Minecraft Block Grid"></canvas>
                     <div class="hud-inspector" id="hudCoords" aria-live="off">X: 0 | Y: 0 (Air)</div>
                     <div class="hud-zoom-hint" aria-hidden="true">Scroll / Pinch to Zoom • Tap Block to Place</div>
@@ -407,9 +656,56 @@
         </footer>
     </div>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-panel">
+            <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close Menu">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <path d="M6 6l12 12M18 6L6 18"/>
+                </svg>
+            </button>
+            <div class="mobile-menu-brand">
+                <div class="brand-icon-small">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="brandGrad2" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#8b5cf6"/>
+                                <stop offset="100%" stop-color="#6d28d9"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="48" height="48" rx="12" fill="url(#brandGrad2)"/>
+                        <circle cx="24" cy="24" r="13" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+                        <circle cx="24" cy="24" r="7" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                        <circle cx="24" cy="24" r="3" fill="#fff"/>
+                        <path d="M24 10v3M24 35v3M10 24h3M35 24h3" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span>MCCircleGrid</span>
+            </div>
+            <nav class="mobile-menu-nav">
+                <a href="/"><span class="menu-icon">🏠</span> Generator</a>
+                <a href="/circle-chart/"><span class="menu-icon">⭕</span> Circle Chart</a>
+                <a href="/sphere-guide/"><span class="menu-icon">🌐</span> Sphere Guide</a>
+                <a href="/about/"><span class="menu-icon">ℹ️</span> About</a>
+                <a href="/contact/"><span class="menu-icon">📧</span> Contact</a>
+            </nav>
+            <div class="mobile-menu-actions">
+                <button class="audio-toggle-btn" id="mobileAudioToggle">
+                    <span>🔇</span> Sound
+                </button>
+                <button class="theme-toggle-btn" id="mobileThemeToggle">
+                    <span>☀️</span> Light Mode
+                </button>
+            </div>
+            <div class="mobile-menu-footer">
+                <p>&copy; 2026 MCCircleGrid</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Shared JS -->
     <script src="/assets/js/shared.js"></script>
-    <!-- Generator Script (from original, with minor adjustments) -->
+    <!-- Generator Script (with all fixes) -->
     <script>
         (function() {
             'use strict';
@@ -437,15 +733,15 @@
             }
 
             class SoundEngine {
-                constructor() { 
+                constructor() {
                     this.ctx = null;
-                    this.enabled = safeGetStorage('sound', 'false') === 'true'; 
+                    this.enabled = safeGetStorage('sound', 'false') === 'true';
                 }
-                init() { 
-                    if (!this.ctx) { 
-                        const AC = window.AudioContext || window.webkitAudioContext; 
-                        if (AC) this.ctx = new AC(); 
-                    } 
+                init() {
+                    if (!this.ctx) {
+                        const AC = window.AudioContext || window.webkitAudioContext;
+                        if (AC) this.ctx = new AC();
+                    }
                 }
                 playTone(freq = 600, duration = 0.04, type = 'sine') {
                     if (!this.enabled) return;
@@ -471,6 +767,10 @@
                 playUncheck() { this.playTone(450, 0.04); }
             }
             const sounds = new SoundEngine();
+
+            // ██████  FIX: Declare theme elements correctly ██████
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const themeIcon = document.getElementById('themeIcon');
 
             const initialWidth = parseInt(safeGetStorage('width', '25'), 10);
             const defaultLayerY = Math.floor(initialWidth / 2);
@@ -671,9 +971,9 @@
                 if (shape === 'sphere') {
                     const sphereR = w / 2;
                     const distFromEquator = Math.abs((state.layerY + 0.5) - sphereR);
-                    if (distFromEquator >= sphereR) { 
+                    if (distFromEquator >= sphereR) {
                         radiusX = 0;
-                        radiusY = 0; 
+                        radiusY = 0;
                     } else {
                         radiusX = Math.sqrt(Math.max(0, sphereR * sphereR - distFromEquator * distFromEquator));
                         radiusY = radiusX;
@@ -695,7 +995,7 @@
                 }
                 state.matrix = finalGrid;
                 state.totalBlocks = count;
-                
+
                 if (shape === 'sphere' && state.layerY > 0) {
                     const sphereR = w / 2;
                     const prevDist = Math.abs(((state.layerY - 1) + 0.5) - sphereR);
@@ -723,9 +1023,9 @@
             function scheduleComputeBlueprint() {
                 if (!computeScheduled) {
                     computeScheduled = true;
-                    requestAnimationFrame(() => { 
+                    requestAnimationFrame(() => {
                         computeScheduled = false;
-                        computeBlueprint(); 
+                        computeBlueprint();
                     });
                 }
             }
@@ -733,21 +1033,21 @@
             function calculateQuadrantSequence() {
                 const { cols, rows } = state.matrixBounds;
                 const grid = state.matrix;
-                if (!grid || state.totalBlocks === 0) { 
-                    seqContainer.innerHTML = '<span class="seq-info-pill">No blocks on active layer</span>'; 
-                    return; 
+                if (!grid || state.totalBlocks === 0) {
+                    seqContainer.innerHTML = '<span class="seq-info-pill">No blocks on active layer</span>';
+                    return;
                 }
-                if (state.fill === 'filled') { 
-                    seqContainer.innerHTML = '<span class="seq-info-pill">Solid fill active</span>'; 
-                    return; 
+                if (state.fill === 'filled') {
+                    seqContainer.innerHTML = '<span class="seq-info-pill">Solid fill active</span>';
+                    return;
                 }
-                if (state.fill === 'thick') { 
-                    seqContainer.innerHTML = '<span class="seq-info-pill">Thick rim active</span>'; 
-                    return; 
+                if (state.fill === 'thick') {
+                    seqContainer.innerHTML = '<span class="seq-info-pill">Thick rim active</span>';
+                    return;
                 }
-                if (state.shape !== 'circle') { 
-                    seqContainer.innerHTML = `<span class="seq-info-pill">Step sequence for circles</span>`; 
-                    return; 
+                if (state.shape !== 'circle') {
+                    seqContainer.innerHTML = `<span class="seq-info-pill">Step sequence for circles</span>`;
+                    return;
                 }
 
                 let topY = -1;
@@ -757,9 +1057,9 @@
                     }
                     if (topY !== -1) break;
                 }
-                if (topY === -1) { 
-                    seqContainer.innerHTML = '<span class="seq-info-pill">Empty</span>'; 
-                    return; 
+                if (topY === -1) {
+                    seqContainer.innerHTML = '<span class="seq-info-pill">Empty</span>';
+                    return;
                 }
 
                 let topFlatWidth = 0;
@@ -785,10 +1085,10 @@
                     runs.push(count);
                     const dx = (lastX + 0.5) - centerX;
                     const dy = centerY - (y + 0.5);
-                    if (dx > dy) break; 
+                    if (dx > dy) break;
                 }
 
-                seqContainer.innerHTML = runs.map((run, i) => 
+                seqContainer.innerHTML = runs.map((run, i) =>
                     `<span class="seq-pill" title="Step ${i+1}: ${run} blocks">${run}</span>`
                 ).join('<span style="color:var(--text-muted);font-size:.7rem;" aria-hidden="true">→</span>');
             }
@@ -836,11 +1136,11 @@
             }
             let renderRequested = false;
 
-            function requestRender() { 
-                if (!renderRequested) { 
+            function requestRender() {
+                if (!renderRequested) {
                     renderRequested = true;
-                    requestAnimationFrame(renderNow); 
-                } 
+                    requestAnimationFrame(renderNow);
+                }
             }
 
             function renderNow() {
@@ -873,15 +1173,15 @@
                     ctx.strokeStyle = gridLine;
                     ctx.lineWidth = 1;
                     ctx.beginPath();
-                    for (let x = 0; x <= cols; x++) { 
+                    for (let x = 0; x <= cols; x++) {
                         const px = startX + x * zoom + 0.5;
                         ctx.moveTo(px, startY);
-                        ctx.lineTo(px, startY + rows * zoom); 
+                        ctx.lineTo(px, startY + rows * zoom);
                     }
-                    for (let y = 0; y <= rows; y++) { 
+                    for (let y = 0; y <= rows; y++) {
                         const py = startY + y * zoom + 0.5;
                         ctx.moveTo(startX, py);
-                        ctx.lineTo(startX + cols * zoom, py); 
+                        ctx.lineTo(startX + cols * zoom, py);
                     }
                     ctx.stroke();
                 }
@@ -991,9 +1291,9 @@
                     ghostToggleRow.style.display = state.shape === 'sphere' ? 'flex' : 'none';
                     if (state.shape === 'sphere') {
                         layerSlider.max = Math.max(1, state.width - 1);
-                        if (state.layerY >= state.width) { 
+                        if (state.layerY >= state.width) {
                             state.layerY = Math.floor(state.width / 2);
-                            safeSetStorage('layerY', state.layerY); 
+                            safeSetStorage('layerY', state.layerY);
                         }
                         layerSlider.value = state.layerY;
                         layerBadge.textContent = `Y: ${state.layerY}`;
@@ -1069,16 +1369,16 @@
             });
 
             document.getElementById('btnLayerUp').addEventListener('click', () => {
-                if (layerSlider.value < parseInt(layerSlider.max, 10)) { 
+                if (layerSlider.value < parseInt(layerSlider.max, 10)) {
                     layerSlider.value = parseInt(layerSlider.value, 10) + 1;
-                    layerSlider.dispatchEvent(new Event('input')); 
+                    layerSlider.dispatchEvent(new Event('input'));
                 }
             });
 
             document.getElementById('btnLayerDown').addEventListener('click', () => {
-                if (layerSlider.value > 0) { 
+                if (layerSlider.value > 0) {
                     layerSlider.value = parseInt(layerSlider.value, 10) - 1;
-                    layerSlider.dispatchEvent(new Event('input')); 
+                    layerSlider.dispatchEvent(new Event('input'));
                 }
             });
 
@@ -1170,21 +1470,21 @@
                 }
             });
 
-            document.getElementById('btnResetView').addEventListener('click', () => { 
+            document.getElementById('btnResetView').addEventListener('click', () => {
                 sounds.playClick();
-                resetPanZoom(); 
+                resetPanZoom();
             });
 
-            document.getElementById('btnZoomIn').addEventListener('click', () => { 
+            document.getElementById('btnZoomIn').addEventListener('click', () => {
                 sounds.playClick();
                 state.zoom = Math.min(MAX_ZOOM, state.zoom * 1.25);
-                requestRender(); 
+                requestRender();
             });
 
-            document.getElementById('btnZoomOut').addEventListener('click', () => { 
+            document.getElementById('btnZoomOut').addEventListener('click', () => {
                 sounds.playClick();
                 state.zoom = Math.max(MIN_ZOOM, state.zoom / 1.25);
-                requestRender(); 
+                requestRender();
             });
 
             btnExportPng.addEventListener('click', () => {
@@ -1325,12 +1625,12 @@
                 const headerH = 60;
                 const svgWidth = cols * rectSize + padding * 2;
                 const svgHeight = rows * rectSize + padding * 2 + headerH;
-                
+
                 let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}">`;
                 svg += `<rect width="100%" height="100%" fill="#080c12"/>`;
                 const layerInfo = state.shape === 'sphere' ? ` | Layer Y:${state.layerY}` : '';
                 svg += `<text x="${padding}" y="30" fill="#8b5cf6" font-family="monospace" font-size="14" font-weight="bold">MCCircleGrid ${state.shape.toUpperCase()} Blueprint: ${cols}x${rows}${layerInfo} | ${state.totalBlocks} Blocks</text>`;
-                
+
                 for (let y = 0; y < rows; y++) {
                     for (let x = 0; x < cols; x++) {
                         if (state.matrix[y] && state.matrix[y][x] === 1) {
@@ -1346,16 +1646,16 @@
                         }
                     }
                 }
-                
+
                 if (state.showCenter) {
                     const centerX = padding + (cols * rectSize) / 2;
                     const centerY = padding + headerH + (rows * rectSize) / 2;
                     svg += `<line x1="0" y1="${centerY}" x2="${svgWidth}" y2="${centerY}" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,4"/>`;
                     svg += `<line x1="${centerX}" y1="0" x2="${centerX}" y2="${svgHeight}" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,4"/>`;
                 }
-                
+
                 svg += '</svg>';
-                
+
                 const blob = new Blob([svg], { type: 'image/svg+xml' });
                 const link = document.createElement('a');
                 link.download = `mccirclegrid-${state.shape}-${cols}x${rows}.svg`;
@@ -1371,7 +1671,7 @@
                 const rows = state.matrixBounds.rows;
                 let fillCommands = `// Minecraft /fill Commands for ${state.shape.toUpperCase()} Blueprint\n`;
                 fillCommands += `Dimensions: ${cols}x${rows} | Blocks: ${state.totalBlocks}\n\n`;
-                
+
                 for (let y = 0; y < rows; y++) {
                     let x = 0;
                     while (x < cols) {
@@ -1384,7 +1684,7 @@
                             const dx1 = startX - Math.floor(cols / 2);
                             const dz = y - Math.floor(rows / 2);
                             const dx2 = endX - Math.floor(cols / 2);
-                            
+
                             if (startX === endX) {
                                 fillCommands += `/setblock ~${dx1} ~0 ~${dz} minecraft:stone\n`;
                             } else {
@@ -1395,7 +1695,7 @@
                         }
                     }
                 }
-                
+
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(fillCommands).then(() => showToast('/fill commands copied!')).catch(() => fallbackCopy(fillCommands));
                 } else fallbackCopy(fillCommands);
@@ -1426,24 +1726,24 @@
                 ta.style.opacity = '0';
                 document.body.appendChild(ta);
                 ta.select();
-                try { 
+                try {
                     document.execCommand('copy');
-                    showToast('Copied to clipboard!'); 
-                } catch (e) { 
-                    alert('Could not copy to clipboard.'); 
+                    showToast('Copied to clipboard!');
+                } catch (e) {
+                    alert('Could not copy to clipboard.');
                 }
                 document.body.removeChild(ta);
             }
 
             // Print
-            const printMetadataText = document.getElementById('printMetadataText');
             btnPrint.addEventListener('click', () => {
                 sounds.playClick();
                 const cols = state.matrixBounds.cols;
                 const rows = state.matrixBounds.rows;
-                if (printMetadataText) printMetadataText.textContent = `Shape: ${state.shape.toUpperCase()} | Dimensions: ${cols}x${rows} | Total Blocks: ${state.totalBlocks} (${Math.floor(state.totalBlocks / 64)} Stk + ${state.totalBlocks % 64}) | Octant Sequence: ${seqContainer.textContent}`;
 
-                const prevPanX = state.panX, prevPanY = state.panY, prevZoom = state.zoom;
+                const prevPanX = state.panX,
+                    prevPanY = state.panY,
+                    prevZoom = state.zoom;
                 resetPanZoom();
 
                 setTimeout(() => {
@@ -1473,12 +1773,12 @@
                     const key = `${hx},${hy}`;
                     const isCurrentlyPlaced = state.placedBlocks.has(key);
                     const willPlace = !isCurrentlyPlaced;
-                    if (willPlace) { 
+                    if (willPlace) {
                         state.placedBlocks.add(key);
-                        sounds.playCheck(); 
-                    } else { 
+                        sounds.playCheck();
+                    } else {
                         state.placedBlocks.delete(key);
-                        sounds.playUncheck(); 
+                        sounds.playUncheck();
                     }
                     history.undoStack.push({ hx, hy, wasPlaced: willPlace });
                     history.redoStack = [];
@@ -1595,6 +1895,17 @@
                 if (sounds.enabled) sounds.playTone(850, 0.05);
             });
 
+            // ██████  FIX: Theme toggle event listener ██████
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                safeSetStorage('theme', newTheme);
+                themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+                themeToggleBtn.childNodes[themeToggleBtn.childNodes.length - 1].textContent = ` ${newTheme === 'dark' ? 'Light Mode' : 'Dark Mode'}`;
+                sounds.playClick();
+            });
+
             // Keyboard shortcuts
             window.addEventListener('keydown', (e) => {
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
@@ -1665,45 +1976,117 @@
             resetPanZoom();
         })();
     </script>
-    
-   <script>
-    // Mobile menu toggle
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuToggle = document.getElementById('menuToggle');
-        const siteNav = document.querySelector('.site-nav');
 
-        if (menuToggle && siteNav) {
-            menuToggle.addEventListener('click', function() {
-                const isOpen = siteNav.classList.toggle('open');
-                menuToggle.setAttribute('aria-expanded', isOpen);
-            });
-        }
+    <script>
+        // Mobile menu toggle & sync
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            const siteNav = document.querySelector('.site-nav');
+            const audioToggleBtn = document.getElementById('audioToggleBtn');
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const mobileAudioToggle = document.getElementById('mobileAudioToggle');
+            const mobileThemeToggle = document.getElementById('mobileThemeToggle');
 
-        // Close menu when clicking a link
-        if (siteNav) {
-            siteNav.querySelectorAll('a').forEach(function(link) {
-                link.addEventListener('click', function() {
-                    siteNav.classList.remove('open');
-                    menuToggle.setAttribute('aria-expanded', 'false');
+            if (menuToggle && mobileMenuOverlay) {
+                menuToggle.addEventListener('click', function() {
+                    const isOpen = mobileMenuOverlay.classList.toggle('open');
+                    menuToggle.classList.toggle('active', isOpen);
+                    menuToggle.setAttribute('aria-expanded', isOpen);
+                    document.body.style.overflow = isOpen ? 'hidden' : '';
+                });
+            }
+
+            if (mobileMenuClose && mobileMenuOverlay) {
+                mobileMenuClose.addEventListener('click', function() {
+                    mobileMenuOverlay.classList.remove('open');
+                    if (menuToggle) {
+                        menuToggle.classList.remove('active');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                    document.body.style.overflow = '';
+                });
+            }
+
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.addEventListener('click', function(e) {
+                    if (e.target === mobileMenuOverlay) {
+                        mobileMenuOverlay.classList.remove('open');
+                        if (menuToggle) {
+                            menuToggle.classList.remove('active');
+                            menuToggle.setAttribute('aria-expanded', 'false');
+                        }
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+
+            if (siteNav) {
+                siteNav.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        siteNav.classList.remove('open');
+                        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+                        if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('open');
+                        if (menuToggle) menuToggle.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
+
+            if (mobileAudioToggle && audioToggleBtn) {
+                mobileAudioToggle.addEventListener('click', function() {
+                    audioToggleBtn.click();
+                    const mainIcon = document.getElementById('audioIcon');
+                    const mobileIcon = mobileAudioToggle.querySelector('span:first-child');
+                    if (mobileIcon && mainIcon) {
+                        mobileIcon.textContent = mainIcon.textContent;
+                    }
+                });
+            }
+
+            if (mobileThemeToggle && themeToggleBtn) {
+                mobileThemeToggle.addEventListener('click', function() {
+                    themeToggleBtn.click();
+                    const mainIcon = document.getElementById('themeIcon');
+                    const mobileIcon = mobileThemeToggle.querySelector('span:first-child');
+                    if (mobileIcon && mainIcon) {
+                        mobileIcon.textContent = mainIcon.textContent;
+                    }
+                    const mainLabel = themeToggleBtn.childNodes[themeToggleBtn.childNodes.length - 1];
+                    const mobileLabel = mobileThemeToggle.childNodes[mobileThemeToggle.childNodes.length - 1];
+                    if (mainLabel && mobileLabel) {
+                        mobileLabel.textContent = mainLabel.textContent;
+                    }
+                });
+            }
+
+            // Initialize mobile buttons with current state
+            const savedTheme = localStorage.getItem('mc_circle_gen_v4_theme') || 'dark';
+            const isDark = savedTheme === 'dark';
+            const mobileThemeIcon = mobileThemeToggle ? mobileThemeToggle.querySelector('span:first-child') : null;
+            const mobileThemeLabel = mobileThemeToggle ? mobileThemeToggle.childNodes[mobileThemeToggle.childNodes.length - 1] : null;
+            if (mobileThemeIcon) mobileThemeIcon.textContent = isDark ? '☀️' : '🌙';
+            if (mobileThemeLabel) mobileThemeLabel.textContent = isDark ? ' Light Mode' : ' Dark Mode';
+
+            const isSoundEnabled = localStorage.getItem('mc_circle_gen_v4_sound') === 'true';
+            const mobileAudioIcon = mobileAudioToggle ? mobileAudioToggle.querySelector('span:first-child') : null;
+            if (mobileAudioIcon) mobileAudioIcon.textContent = isSoundEnabled ? '🔊' : '🔇';
+
+            // FAQ accordion
+            document.querySelectorAll('.faq-header').forEach(function(header) {
+                header.addEventListener('click', function() {
+                    const item = header.parentElement;
+                    const isOpen = item.classList.contains('open');
+                    item.classList.toggle('open');
+                    header.setAttribute('aria-expanded', !isOpen);
+                    const symbol = header.querySelector('span:last-child');
+                    if (symbol) {
+                        symbol.textContent = !isOpen ? '−' : '+';
+                    }
                 });
             });
-        }
-
-        // FAQ accordion toggle
-        document.querySelectorAll('.faq-header').forEach(function(header) {
-            header.addEventListener('click', function() {
-                const item = header.parentElement;
-                const isOpen = item.classList.contains('open');
-                item.classList.toggle('open');
-                header.setAttribute('aria-expanded', !isOpen);
-                const symbol = header.querySelector('span:last-child');
-                if (symbol) {
-                    symbol.textContent = !isOpen ? '−' : '+';
-                }
-            });
         });
-    });
-</script>
-       
+    </script>
 </body>
 </html>
